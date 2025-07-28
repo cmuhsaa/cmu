@@ -1,9 +1,9 @@
 // app/api/gallery/[id]/route.js
-import cloudinaryfrom '@/config/cloudinary';
-import connectDB from '@/config/db';
-import { localTime } from '@/config/localTime';
-import Gallery from '@/models/galleryModel';
-import { NextResponse } from 'next/server';
+import cloudinary from "@/config/cloudinary";
+import connectDB from "@/config/db";
+import { localTime } from "@/config/localTime";
+import Gallery from "@/models/galleryModel";
+import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
@@ -11,30 +11,26 @@ export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const formData = await request.formData();
-    const title = formData.get('title');
-    const youtubeLink = formData.get('youtubeLink');
-    const files = formData.getAll('images');
+    const title = formData.get("title");
+    const youtubeLink = formData.get("youtubeLink");
+    const files = formData.getAll("images");
 
     const exists = await Gallery.findById(id);
     if (!exists) {
-      return NextResponse.json(
-        { error: "Gallery not found" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Gallery not found" }, { status: 400 });
     }
 
     const images = [];
     for (const file of files) {
       if (file.size > 0) {
-        const buffer = await file.arrayBuffer();
+        const buffer = Buffer.from(await file.arrayBuffer());
         const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader.upload_stream(
-            { folder: "gallery" },
-            (error, result) => {
+          cloudinary.uploader
+            .upload_stream({ folder: "gallery" }, (error, result) => {
               if (error) reject(error);
               else resolve(result);
-            }
-          ).end(Buffer.from(buffer));
+            })
+            .end(Buffer.from(buffer));
         });
         images.push({
           public_id: result.public_id,
@@ -59,10 +55,7 @@ export async function PUT(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
@@ -71,20 +64,14 @@ export async function GET(request, { params }) {
 
   try {
     const { id } = await params;
-    const gallery = await Gallery.findById(id)
+    const gallery = await Gallery.findById(id);
 
     if (!gallery) {
-      return NextResponse.json(
-        { error: "Gallery not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Gallery not found" }, { status: 404 });
     }
 
     return NextResponse.json({ gallery });
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

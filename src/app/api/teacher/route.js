@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import Teacher from "@/models/teacherModel";
 import { localTime } from "@/config/localTime";
 import connectDB from "@/config/db";
+import cloudinary from "@/config/cloudinary";
 
 export async function POST(request) {
   await connectDB();
@@ -15,14 +16,18 @@ export async function POST(request) {
     const about = formData.get("about");
     const title = formData.get("title");
     const address = formData.get("address");
-    const avatarFile = formData.get("avatar");
+    const avatarFile = formData.get("image");
+
+    if (!avatarFile) {
+      NextResponse.json({ error: "Image is required" }, { status: 500 });
+    }
 
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
-      const buffer = await avatarFile.arrayBuffer();
+      const buffer = Buffer.from(await avatarFile.arrayBuffer());
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
-          .upload_stream({ folder: "teacher" }, (error, result) => {
+          .upload_stream({ folder: "student" }, (error, result) => {
             if (error) reject(error);
             else resolve(result);
           })

@@ -21,9 +21,13 @@ export async function POST(request) {
     const type = formData.get("type");
     const avatarFile = formData.get("image");
 
+    if (!avatarFile) {
+      NextResponse.json({ error: "Image is required" }, { status: 500 });
+    }
+
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
-      const buffer = await avatarFile.arrayBuffer();
+      const buffer = Buffer.from(await avatarFile.arrayBuffer());
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
           .upload_stream({ folder: "student" }, (error, result) => {

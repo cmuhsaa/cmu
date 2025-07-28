@@ -1,9 +1,9 @@
 // app/api/admin/forgot-password/route.js
-import { NextResponse } from 'next/server';
-import Admin from '@/models/adminModel';
-import { sendEmailWithNode } from '@/config/nodemailer';
-import connectDB from '@/config/db';
-import { localTime } from '@/config/localTime';
+import { NextResponse } from "next/server";
+import Admin from "@/models/adminModel";
+import sendEmailWithNode from "@/config/nodemailler";
+import connectDB from "@/config/db";
+import { localTime } from "@/config/localTime";
 
 export async function POST(request) {
   await connectDB();
@@ -19,10 +19,7 @@ export async function POST(request) {
 
     const admin = await Admin.findOne({ email });
     if (!admin) {
-      return NextResponse.json(
-        { error: "Admin not found." },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Admin not found." }, { status: 404 });
     }
 
     const token = createJsonWebToken(
@@ -69,9 +66,6 @@ export async function POST(request) {
       message: `An email has been sent to ${admin.email}. Please check your inbox to reset your password.`,
     });
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

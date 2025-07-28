@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import Admin from '@/models/adminModel';
 import connectDB from '@/config/db';
 import { localTime } from '@/config/localTime';
-import cloudinaryfrom '@/config/cloudinary';
+import cloudinary from '@/config/cloudinary';
 
 export async function PUT(request) {
   await connectDB();

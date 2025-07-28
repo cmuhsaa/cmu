@@ -42,9 +42,9 @@ export default async function TeacherPage({ searchParams }) {
           <option value="asc">Ascending</option>
         </select>
         <button type="submit">Apply</button>
-        <a href="/teacher">
+        <Link href="/teacher">
           <button type="button">Reset</button>
-        </a>
+        </Link>
       </form>
 
       {teachers.length === 0 ? (
@@ -97,7 +97,7 @@ export default async function TeacherPage({ searchParams }) {
           {/* ⏮ Pagination */}
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {page > 1 && (
-              <a
+              <Link
                 href={`?${buildQuery({
                   search,
                   sortBy,
@@ -106,13 +106,13 @@ export default async function TeacherPage({ searchParams }) {
                 })}`}
               >
                 <button>Previous</button>
-              </a>
+              </Link>
             )}
             <span>
               Page {page} of {totalPages}
             </span>
             {page < totalPages && (
-              <a
+              <Link
                 href={`?${buildQuery({
                   search,
                   sortBy,
@@ -121,7 +121,7 @@ export default async function TeacherPage({ searchParams }) {
                 })}`}
               >
                 <button>Next</button>
-              </a>
+              </Link>
             )}
           </div>
         </>

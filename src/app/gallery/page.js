@@ -1,5 +1,6 @@
 import { getPaginatedGalleries } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
+import Link from "next/link";
 
 export default async function GalleryPage({ searchParams }) {
   const params = await searchParams;
@@ -68,15 +69,15 @@ export default async function GalleryPage({ searchParams }) {
 
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {page > 1 && (
-              <a href={`?page=${page - 1}`}>
+              <Link href={`?page=${page - 1}`}>
                 <button>Previous</button>
-              </a>
+              </Link>
             )}
             <span>Page {page} of {totalPages}</span>
             {page < totalPages && (
-              <a href={`?page=${page + 1}`}>
+              <Link href={`?page=${page + 1}`}>
                 <button>Next</button>
-              </a>
+              </Link>
             )}
           </div>
         </>

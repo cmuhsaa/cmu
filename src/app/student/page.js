@@ -55,7 +55,7 @@ export default async function StudentPage({ searchParams }) {
           <option value="asc">Ascending</option>
         </select>
         <button type="submit">Apply</button>
-        <a href="/student"><button type="button">Reset</button></a>
+        <Link href="/student"><button type="button">Reset</button></Link>
       </form>
 
       {students.length === 0 ? (
@@ -97,15 +97,15 @@ export default async function StudentPage({ searchParams }) {
 
           <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {page > 1 && (
-              <a href={`?${buildQuery({ search, type, batch, sortBy, sortOrder, page: page - 1 })}`}>
+              <Link href={`?${buildQuery({ search, type, batch, sortBy, sortOrder, page: page - 1 })}`}>
                 <button>Previous</button>
-              </a>
+              </Link>
             )}
             <span>Page {page} of {totalPages}</span>
             {page < totalPages && (
-              <a href={`?${buildQuery({ search, type, batch, sortBy, sortOrder, page: page + 1 })}`}>
+              <Link href={`?${buildQuery({ search, type, batch, sortBy, sortOrder, page: page + 1 })}`}>
                 <button>Next</button>
-              </a>
+              </Link>
             )}
           </div>
         </>

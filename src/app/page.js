@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getPaginatedEvents } from "../lib/getDatas";
 import { getPaginatedGalleries } from "../lib/getDatas";
 import { getPaginatedNotices } from "../lib/getDatas";
@@ -161,7 +162,7 @@ function Section({ title, href, children }) {
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-          <a
+          <Link
             href={href}
             className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-900 hover:bg-indigo-200 transition-colors"
           >
@@ -180,7 +181,7 @@ function Section({ title, href, children }) {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="p-6">

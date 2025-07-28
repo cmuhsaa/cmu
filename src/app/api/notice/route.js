@@ -4,6 +4,7 @@ import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import Notice from "@/models/noticeModel";
 import { NextResponse } from "next/server";
+import cloudinary from "@/config/cloudinary";
 
 export async function POST(request) {
   await connectDB();
@@ -19,7 +20,7 @@ export async function POST(request) {
     const images = [];
     for (const file of files) {
       if (file.size > 0) {
-        const buffer = await file.arrayBuffer();
+        const buffer = Buffer.from(await file.arrayBuffer());
         const result = await new Promise((resolve, reject) => {
           cloudinary.uploader
             .upload_stream({ folder: "notice" }, (error, result) => {

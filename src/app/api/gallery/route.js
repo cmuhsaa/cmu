@@ -1,6 +1,6 @@
 // app/api/gallery/route.js
 import { getPaginatedGalleries } from "@/lib/getDatas";
-import cloudinaryfrom "@/config/cloudinary";
+import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import Gallery from "@/models/galleryModel";
@@ -18,7 +18,7 @@ export async function POST(request) {
     const images = [];
     for (const file of files) {
       if (file.size > 0) {
-        const buffer = await file.arrayBuffer();
+        const buffer = Buffer.from(await file.arrayBuffer());
         const result = await new Promise((resolve, reject) => {
           cloudinary.uploader
             .upload_stream({ folder: "gallery" }, (error, result) => {

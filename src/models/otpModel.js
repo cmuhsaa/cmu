@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose")
+const { Schema, mongoose } = require("mongoose")
 const validator = require("validator")
 
 const otpSchema = new Schema({

@@ -4,7 +4,7 @@ import connectDB from '@/config/db';
 import Admin from '@/models/adminModel';
 import { localTime } from '@/config/localTime';
 import Otp from '@/models/otpModel';
-import cloudinaryfrom '@/config/cloudinary';
+import cloudinary from '@/config/cloudinary';
 
 export async function POST(request) {
   await connectDB();

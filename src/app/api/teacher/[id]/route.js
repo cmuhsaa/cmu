@@ -1,4 +1,5 @@
 // app/api/teachers/[id]/route.js
+import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import Teacher from "@/models/teacherModel";
@@ -16,19 +17,23 @@ export async function PUT(request, { params }) {
     const title = formData.get("title");
     const about = formData.get("about");
     const address = formData.get("address");
-    const avatarFile = formData.get("avatar");
+    const avatarFile = formData.get("image");
 
     const exists = await Teacher.findById(id);
     if (!exists) {
       return NextResponse.json({ error: "Teacher not found" }, { status: 400 });
     }
 
+    if (!avatarFile) {
+      NextResponse.json({ error: "Image is required" }, { status: 500 });
+    }
+
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
-      const buffer = await avatarFile.arrayBuffer();
+      const buffer = Buffer.from(await avatarFile.arrayBuffer());
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
-          .upload_stream({ folder: "teacher" }, (error, result) => {
+          .upload_stream({ folder: "student" }, (error, result) => {
             if (error) reject(error);
             else resolve(result);
           })
