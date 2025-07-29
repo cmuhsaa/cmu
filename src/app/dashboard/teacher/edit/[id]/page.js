@@ -103,7 +103,7 @@ export default function TeacherUpdate() {
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-2xl font-bold text-gray-800">Update Teacher Profile</h2>
-            <p className="mt-1 text-sm text-gray-600">Edit the details below to update this teacher's information</p>
+            <p className="mt-1 text-sm text-gray-600">Edit the details below to update this teacher&apos;s information</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-4">

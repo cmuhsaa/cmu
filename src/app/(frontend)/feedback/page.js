@@ -107,7 +107,7 @@ const FeedbackPage = () => {
             Share Your Feedback
           </h2>
           <p className="mt-3 text-xl text-gray-500">
-            We'd love to hear about your experience
+            We&apos;d love to hear about your experience
           </p>
         </div>
 
