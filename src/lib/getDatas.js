@@ -1,3 +1,4 @@
+"use server";
 import connectDB from "@/config/db";
 import Batch from "@/models/batchModel";
 import Notice from "@/models/noticeModel";
@@ -76,6 +77,7 @@ export async function getPaginatedNotices({ page = 1, limit = 10 }) {
 }
 
 export async function getPaginatedPosts({ page = 1, limit = 10 }) {
+  "use server";
   await connectDB();
 
   const skip = (page - 1) * limit;
@@ -140,7 +142,6 @@ export async function getPaginatedStudents({
     limit,
   };
 }
-
 
 export async function getPaginatedTeachers({
   search,

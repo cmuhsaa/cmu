@@ -98,7 +98,6 @@ export const registerAdmin = (data) => async (dispatch) => {
 };
 
 export const login = (data) => async (dispatch) => {
-  console.log(data);
   dispatch({
     type: LOADING_START,
   });

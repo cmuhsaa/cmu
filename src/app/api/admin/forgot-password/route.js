@@ -4,6 +4,7 @@ import Admin from "@/models/adminModel";
 import sendEmailWithNode from "@/config/nodemailler";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
+import { createJsonWebToken } from "@/utils/createToken";
 
 export async function POST(request) {
   await connectDB();
@@ -36,13 +37,13 @@ export async function POST(request) {
       html: `
         <div style="background-color: rgba(175, 175, 175, 0.455); width: 100%; min-width: 350px; padding: 1rem; box-sizing: border-box;">
           <p style="font-size: 25px; font-weight: 500; text-align: center; color: tomato;">Library Management System</p>
-          <h2 style="font-size: 30px; font-weight: 700; text-align: center; color: green;">Hello ${admin.name}</h2>
+          <h2 style="font-size: 30px; font-weight: 700; text-align: center; color: green;">Hello</h2>
           <p style="margin: 0 auto; font-size: 22px; font-weight: 500; text-align: center; color: black;">
             This is a confirmation Email for reset password. We received a request from your email address to reset your password.
             <br /> If you did not make this request, please ignore this email.
           </p>
           <p style="text-align: center;">
-            <a style="margin: 0 auto; text-align: center; background-color: #34eb34; font-size: 25px; box-shadow: 0 0 5px black; color: black; font-weight: 700; padding: 5px 10px; text-decoration: none;" href="${process.env.CLIENT_URL}/reset-password/${token}" target="_blank">Click Here</a>
+            <a style="margin: 0 auto; text-align: center; background-color: #34eb34; font-size: 25px; box-shadow: 0 0 5px black; color: black; font-weight: 700; padding: 5px 10px; text-decoration: none;" href="${process.env.CLIENT_URL}/auth/reset-password/${token}" target="_blank">Click Here</a>
           </p>
           <p style="text-align: center; font-size: 18px; color: black;">to reset your password.</p>
           <p style="text-align: center;">

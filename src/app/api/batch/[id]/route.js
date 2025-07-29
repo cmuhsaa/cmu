@@ -1,11 +1,13 @@
 // app/api/batches/[id]/route.js
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
+import { AuthCheck } from "@/lib/auth";
 import Batch from "@/models/batchModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const { id } = await params;

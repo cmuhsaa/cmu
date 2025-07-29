@@ -3,9 +3,11 @@ import { NextResponse } from "next/server";
 import Admin from "@/models/adminModel";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
+import jwt from "jsonwebtoken";
 
 export async function PUT(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const token = request.cookies.get("access_token")?.value;

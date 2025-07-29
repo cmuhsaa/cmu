@@ -4,13 +4,6 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const adminSchema = new Schema({
-  name: {
-    type: String,
-    required: [true, "Please enter Your name."],
-    trim: true,
-    minlength: [3, "Admin Name must be atleast 3 charecter."],
-    maxlength: [50, "Admin Name allowed max 50 charecter."],
-  },
   email: {
     type: String,
     required: [true, "Please enter email."],
@@ -18,42 +11,11 @@ const adminSchema = new Schema({
     unique: true,
     validate: [validator.isEmail, "Please Enter a valid Email"],
   },
-  phone: {
-    type: String,
-    required: [true, "Please enter phone."],
-    trim: true,
-    unique: true,
-    minlength: [11, "Phone number must be atleast 11 charecter."],
-  },
-  nId: {
-    type: Number,
-    unique: true,
-  },
   password: {
     type: String,
     required: [true, "Please Enter Your Password"],
     minLength: [6, "Password should be greater than 6 characters"],
     select: false,
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  isApproved: {
-    type: Boolean,
-    default: false,
-  },
-  createDate: {
-    type: Object,
-  },
-  updateDate: {
-    type: Object,
   },
 });
 

@@ -4,10 +4,11 @@ import { localTime } from "@/config/localTime";
 import Post from "@/models/postModel";
 import { NextResponse } from "next/server";
 import cloudinary from "@/config/cloudinary";
-
+import { AuthCheck } from "@/lib/auth";
 
 export async function PUT(request, { params }) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const { id } = await params;

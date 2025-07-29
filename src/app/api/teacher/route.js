@@ -4,9 +4,11 @@ import Teacher from "@/models/teacherModel";
 import { localTime } from "@/config/localTime";
 import connectDB from "@/config/db";
 import cloudinary from "@/config/cloudinary";
+import { AuthCheck } from "@/lib/auth";
 
 export async function POST(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const formData = await request.formData();

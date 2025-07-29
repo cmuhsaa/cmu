@@ -1,11 +1,13 @@
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
+import { AuthCheck } from "@/lib/auth";
 import { getAllBatch } from "@/lib/getDatas";
 import Batch from "@/models/batchModel";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const { name } = await request.json();
@@ -27,8 +29,7 @@ export async function POST(request) {
   }
 }
 
-
-export async function GET() {
+export async function GET(request) {
   try {
     const batches = await getAllBatch();
     return NextResponse.json({ batches });

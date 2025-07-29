@@ -17,8 +17,8 @@ const Edit = ({ model, id }) => {
     <>
       {authenticated ? (
         <>
-          {model == "feedback" ? (
-            <Link href={`${id}`}>Feedback</Link>
+          {model == "dashboard" ? (
+            <Link href={`${id}`}>Dashboard</Link>
           ) : (
             <Link href={`/dashboard/${model}/edit/${id}`}>Update {model}</Link>
           )}

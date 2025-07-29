@@ -2,9 +2,11 @@ import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import { NextResponse } from "next/server";
 import Event from "@/models/eventsModel";
+import { AuthCheck } from "@/lib/auth";
 
 export async function PUT(request, { params }) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const { id } = await params;
@@ -58,7 +60,7 @@ export async function GET(request, { params }) {
 
   try {
     const { id } = await params;
-    const event = await Event.findById(id)
+    const event = await Event.findById(id);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });

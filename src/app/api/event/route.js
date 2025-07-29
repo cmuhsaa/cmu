@@ -4,9 +4,11 @@ import { localTime } from "@/config/localTime";
 import { NextResponse } from "next/server";
 import Event from "@/models/eventsModel";
 import { getPaginatedEvents } from "@/lib/getDatas";
+import { AuthCheck } from "@/lib/auth";
 
 export async function POST(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const {

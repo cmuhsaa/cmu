@@ -1,12 +1,13 @@
 // app/api/feedback/route.js
-import connectDB from '@/config/db';
-import { localTime } from '@/config/localTime';
-import FeedBack from '@/models/feedbackModel';
-import { NextResponse } from 'next/server';
+import connectDB from "@/config/db";
+import { localTime } from "@/config/localTime";
+import { AuthCheck } from "@/lib/auth";
+import FeedBack from "@/models/feedbackModel";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
   await connectDB();
-  
+
   try {
     const { name, email, phone, batch, message } = await request.json();
 
@@ -21,27 +22,24 @@ export async function POST(request) {
     });
 
     await newFeedback.save();
-    
+
     return NextResponse.json(
       { message: "Feedback submitted", feedback: newFeedback },
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-
 export async function GET(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page')) || 1;
-    const limit = parseInt(searchParams.get('limit')) || 10;
+    const page = parseInt(searchParams.get("page")) || 1;
+    const limit = parseInt(searchParams.get("limit")) || 10;
     const skip = (page - 1) * limit;
 
     const feedbacks = await FeedBack.find()
@@ -60,9 +58,6 @@ export async function GET(request) {
       limit,
     });
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

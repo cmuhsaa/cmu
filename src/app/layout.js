@@ -26,25 +26,98 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <StoreProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
         >
           <Toast />
           <Loading />
-          <aside style={{ margin: "30px 10px" }}>
-            <Link href="/">Home</Link>
-            <Link href="/post">Post</Link>
-            <Link href="/notice">Notice</Link>
-            <Link href="/gallery">Gallery</Link>
-            <Link href="/batch">Batch</Link>
-            <Link href="/student">Student</Link>
-            <Link href="/teacher">Teacher</Link>
-            <Link href="/event">Event</Link>
-            <Link href="/feedback">Give a feedback</Link>
-            <Edit model={"feedback"} id={`/dashboard/feedback`} />
-          </aside>
-          {children}
+
+          {/* Top Navigation Bar */}
+          <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-between h-16">
+                {/* Logo/Brand */}
+                <div className="flex-shrink-0">
+                  <Link href="/" className="text-xl font-bold text-gray-900">
+                    YourLogo
+                  </Link>
+                </div>
+
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex space-x-8">
+                  <NavLink href="/post">Posts</NavLink>
+                  <NavLink href="/notice">Notices</NavLink>
+                  <NavLink href="/gallery">Gallery</NavLink>
+                  <NavLink href="/batch">Batches</NavLink>
+                  <NavLink href="/student">Students</NavLink>
+                  <NavLink href="/teacher">Teachers</NavLink>
+                  <NavLink href="/event">Events</NavLink>
+                  <Edit model={"dashboard"} id={`/dashboard`} />
+                </nav>
+
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                  <button className="text-gray-500 hover:text-gray-900 focus:outline-none">
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Navigation (Dropdown) */}
+            <div className="md:hidden bg-white border-t border-gray-200 hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <MobileNavLink href="/post">Posts</MobileNavLink>
+                <MobileNavLink href="/notice">Notices</MobileNavLink>
+                <MobileNavLink href="/gallery">Gallery</MobileNavLink>
+                <MobileNavLink href="/batch">Batches</MobileNavLink>
+                <MobileNavLink href="/student">Students</MobileNavLink>
+                <MobileNavLink href="/teacher">Teachers</MobileNavLink>
+                <MobileNavLink href="/event">Events</MobileNavLink>
+                <MobileNavLink href="/feedback">Feedback</MobileNavLink>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Content */}
+          <main className="container mx-auto px-4 py-6">{children}</main>
         </body>
       </StoreProvider>
     </html>
+  );
+}
+
+// Custom NavLink component for desktop
+function NavLink({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+    >
+      {children}
+    </Link>
+  );
+}
+
+// Custom MobileNavLink component
+function MobileNavLink({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+    >
+      {children}
+    </Link>
   );
 }

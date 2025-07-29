@@ -5,9 +5,11 @@ import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import Gallery from "@/models/galleryModel";
 import { NextResponse } from "next/server";
+import { AuthCheck } from "@/lib/auth";
 
 export async function POST(request) {
   await connectDB();
+  await AuthCheck(request);
 
   try {
     const formData = await request.formData();
