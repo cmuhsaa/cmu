@@ -114,7 +114,6 @@ export const login = (data) => async (dispatch) => {
     });
 
     const result = await response.json();
-    console.log(result);
 
     if (result.success) {
       dispatch({

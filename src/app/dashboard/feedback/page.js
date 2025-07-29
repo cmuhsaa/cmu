@@ -23,13 +23,13 @@ const Feedback = () => {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Customer Feedback</h2>
 
-      {feedbacksData.length === 0 ? (
+      {feedbacksData?.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
           <p className="text-gray-600">No feedback submissions yet.</p>
         </div>
       ) : (
         <div className="space-y-6">
-          {feedbacksData.map((feedback) => (
+          {feedbacksData?.map((feedback) => (
             <div 
               key={feedback._id} 
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
