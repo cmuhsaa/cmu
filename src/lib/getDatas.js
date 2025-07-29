@@ -7,6 +7,7 @@ import Gallery from "@/models/galleryModel";
 import Post from "@/models/postModel";
 import Student from "@/models/studentModel";
 import Teacher from "@/models/teacherModel";
+import OrganizationInfo from "@/models/linksandcontent";
 
 export async function getAllBatch() {
   await connectDB();
@@ -181,4 +182,12 @@ export async function getPaginatedTeachers({
     page,
     limit,
   };
+}
+
+export async function getLinksContent() {
+  await connectDB();
+
+  const newOrgInfo = await OrganizationInfo.find();
+
+  return { data: newOrgInfo[0] };
 }

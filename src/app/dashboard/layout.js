@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
           <NavLink href="/dashboard/event/create">Create Event</NavLink>
           <NavLink href="/dashboard/feedback">Feedback</NavLink>
           <NavLink href="/dashboard/update-password">Update Password</NavLink>
+          <NavLink href="/dashboard/update-content">Update Content</NavLink>
           <LogoutButton />
         </nav>
       </aside>
