@@ -1,4 +1,4 @@
-import { AUTHENTICATED, LOADING_END, LOADING_START, MESSAGE } from "./constant";
+import { LOADING_END, LOADING_START, MESSAGE } from "./constant";
 
 export const otpSend = (email) => async (dispatch) => {
   dispatch({
@@ -142,35 +142,6 @@ export const login = (data) => async (dispatch) => {
         status: "error",
         path: "",
       },
-    });
-  } finally {
-    dispatch({
-      type: LOADING_END,
-    });
-  }
-};
-
-export const authentication = () => async (dispatch) => {
-  dispatch({
-    type: LOADING_START,
-  });
-
-  try {
-    const response = await fetch(`/api/admin/authentication`, {
-      method: "GET",
-      credentials: "include",
-    });
-
-    const result = await response.json();
-
-    dispatch({
-      type: AUTHENTICATED,
-      payload: result.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: AUTHENTICATED,
-      payload: false,
     });
   } finally {
     dispatch({

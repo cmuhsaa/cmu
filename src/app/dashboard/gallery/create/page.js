@@ -1,11 +1,13 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
-import React from "react";
+import { MESSAGE } from "@/store/constant";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathGallery } from "../actions";
+import Loading from "@/components/Loading";
 
 export default function GalleryAdd() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,7 +16,7 @@ export default function GalleryAdd() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("title", data.title);
@@ -44,11 +46,12 @@ export default function GalleryAdd() {
       },
     });
 
-    dispatch({ type: LOADING_END });
+    setLoading(false);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Header */}

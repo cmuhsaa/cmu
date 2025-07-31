@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
+import Loading from "@/components/Loading";
 
 export default function ForgotPassword() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -16,7 +18,7 @@ export default function ForgotPassword() {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     try {
       const response = await fetch("/api/admin/forgot-password", {
@@ -46,12 +48,13 @@ export default function ForgotPassword() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">

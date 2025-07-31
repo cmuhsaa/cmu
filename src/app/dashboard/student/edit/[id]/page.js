@@ -1,13 +1,15 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathStudent } from "../../actions";
 import { committee } from "@/lib/committee";
+import Loading from "@/components/Loading";
 
 export default function MemberUpdate() {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -37,7 +39,7 @@ export default function MemberUpdate() {
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        dispatch({ type: LOADING_START });
+        setLoading(true);
         const res = await fetch(`/api/student/${id}`);
         const data = await res.json();
         if (data?.student) {
@@ -61,14 +63,14 @@ export default function MemberUpdate() {
       } catch (err) {
         console.error("Failed to fetch student", err);
       } finally {
-        dispatch({ type: LOADING_END });
+        setLoading(false);
       }
     };
     if (id) fetchMember();
   }, [id, setValue]);
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -112,12 +114,13 @@ export default function MemberUpdate() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">

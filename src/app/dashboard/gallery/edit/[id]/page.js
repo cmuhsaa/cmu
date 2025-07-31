@@ -1,12 +1,14 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathGallery } from "../../actions";
+import Loading from "@/components/Loading";
 
 export default function GalleryUpdate() {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm();
@@ -14,7 +16,7 @@ export default function GalleryUpdate() {
   // Fetch existing gallery data
   useEffect(() => {
     const fetchGallery = async () => {
-      dispatch({ type: LOADING_START });
+      setLoading(true);
       try {
         const res = await fetch(`/api/gallery/${id}`);
         const data = await res.json();
@@ -25,14 +27,14 @@ export default function GalleryUpdate() {
       } catch (err) {
         console.error("Failed to fetch gallery", err);
       }
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     };
 
     if (id) fetchGallery();
   }, [id, setValue]);
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("title", data.title);
@@ -62,11 +64,12 @@ export default function GalleryUpdate() {
       },
     });
 
-    dispatch({ type: LOADING_END });
+    setLoading(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div className="p-8">
           <div className="text-center mb-8">

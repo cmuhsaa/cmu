@@ -1,11 +1,13 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
-import React from "react";
+import { MESSAGE } from "@/store/constant";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathEvent } from "../actions";
+import Loading from "@/components/Loading";
 
 export default function EventAdd() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,7 +16,7 @@ export default function EventAdd() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     try {
       const response = await fetch(`/api/event/`, {
@@ -58,12 +60,13 @@ export default function EventAdd() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-3xl mx-auto">
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">

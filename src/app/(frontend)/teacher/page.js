@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { LOADING_END, LOADING_START } from "@/store/constant";
 import { useDispatch } from "react-redux";
 import Loading from "@/components/Loading";
 
 export default function TeacherPage() {
+  const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams();
   const router = useRouter();
   const [teachers, setTeachers] = useState([]);
@@ -23,7 +23,7 @@ export default function TeacherPage() {
 
   useEffect(() => {
     const fetchTeachers = async () => {
-      dispatch({ type: LOADING_START });
+      setLoading(true)
       try {
         const queryParams = new URLSearchParams({
           page: page.toString(),
@@ -41,7 +41,7 @@ export default function TeacherPage() {
       } catch (error) {
         console.error("Error fetching teachers:", error);
       } finally {
-        dispatch({ type: LOADING_END });
+        setLoading(false)
       }
     };
 
@@ -59,7 +59,7 @@ export default function TeacherPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <Loading />
+      {loading && <Loading />}
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         Faculty Directory
       </h1>

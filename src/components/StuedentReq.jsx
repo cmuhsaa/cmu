@@ -1,11 +1,13 @@
 "use client";
 import { revalidatePathStudent } from "@/app/dashboard/student/actions";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import Loading from "./Loading";
 
 export default function StudentReq() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -32,7 +34,7 @@ export default function StudentReq() {
   }, []);
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -77,16 +79,19 @@ export default function StudentReq() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Request to join as a student</h2>
+            <h2 className="text-3xl font-bold text-gray-800">
+              Request to join as a student
+            </h2>
             <p className="mt-2 text-gray-600">
               Fill in the member details below
             </p>

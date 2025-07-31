@@ -1,5 +1,6 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import Loading from "@/components/Loading";
+import { MESSAGE } from "@/store/constant";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 export default function ResetPassword() {
   const { token } = useParams();
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -19,7 +20,7 @@ export default function ResetPassword() {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     try {
       const response = await fetch(`/api/admin/reset-password/${token}`, {
@@ -52,12 +53,13 @@ export default function ResetPassword() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">

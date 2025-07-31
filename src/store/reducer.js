@@ -1,5 +1,4 @@
 import {
-  AUTHENTICATED,
   CLEAR_MESSAGE,
   CLEAR_PATH,
   LOADING_END,
@@ -8,12 +7,11 @@ import {
 } from "./constant";
 
 const initialState = {
-  isLoading: false,
   message: {},
   path: "",
   role: "",
   authenticated: false,
-  auth_loaded: false,
+  isLoading: false,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -46,12 +44,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         message: {},
-      };
-    case AUTHENTICATED:
-      return {
-        ...state,
-        authenticated: action.payload,
-        auth_loaded: true,
       };
     default:
       return state;

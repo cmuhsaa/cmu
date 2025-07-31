@@ -1,11 +1,12 @@
 "use client";
 
 import Loading from "@/components/Loading";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const FeedbackPage = () => {
+  const [loading, setLoading] = useState(false);
   const [batches, setBatches] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -47,7 +48,7 @@ const FeedbackPage = () => {
     };
 
     try {
-      dispatch({ type: LOADING_START });
+      setLoading(true);
       const res = await fetch(`/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -75,12 +76,12 @@ const FeedbackPage = () => {
         },
       });
     }
-    dispatch({ type: LOADING_END });
+    setLoading(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Loading />
+      {loading && <Loading />}
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">

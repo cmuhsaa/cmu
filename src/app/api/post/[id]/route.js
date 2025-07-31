@@ -5,10 +5,8 @@ import Post from "@/models/postModel";
 import { NextResponse } from "next/server";
 import cloudinary from "@/config/cloudinary";
 
-
 export async function PUT(request, { params }) {
   await connectDB();
-  
 
   try {
     const { id } = await params;
@@ -88,7 +86,6 @@ export async function GET(request, { params }) {
   }
 }
 
-
 export async function DELETE(request, { params }) {
   await connectDB();
 
@@ -112,11 +109,10 @@ export async function DELETE(request, { params }) {
     // Delete the post document
     const deletedPost = await Post.findByIdAndDelete(id);
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       message: "Post and all associated images deleted successfully",
-      deletedPost 
+      deletedPost,
     });
-
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

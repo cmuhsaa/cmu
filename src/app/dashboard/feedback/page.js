@@ -1,29 +1,30 @@
 "use client";
-import { LOADING_END, LOADING_START } from "@/store/constant";
+
+import Loading from "@/components/Loading";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 const Feedback = () => {
+  const [loading, setLoading] = useState(false);
   const [feedbacksData, setFeedbacksData] = useState([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        dispatch({ type: LOADING_START });
+        setLoading(true);
         const data = await feedbacks();
         setFeedbacksData(data.feedbacks);
       } catch (error) {
         console.error("Error fetching feedbacks:", error);
       }
 
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     };
     fetchFeedbacks();
   }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
+      {loading && <Loading />}
       <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
         Customer Feedback
       </h2>

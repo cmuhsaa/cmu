@@ -6,10 +6,11 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import ApproveStudent from "@/components/ApproveStudent";
 import DeleteStudent from "@/components/DeleteStudent";
-import { LOADING_END, LOADING_START } from "@/store/constant";
 import { useDispatch } from "react-redux";
+import Loading from "@/components/Loading";
 
 export default function StudentPage() {
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   const [students, setStudents] = useState([]);
@@ -26,7 +27,7 @@ export default function StudentPage() {
   const sortOrder = searchParams.get("sortOrder") || "desc";
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: LOADING_START });
+      setLoading(true);
       try {
         // Build query string for the API endpoint
         const queryParams = new URLSearchParams({
@@ -59,7 +60,7 @@ export default function StudentPage() {
         console.error("Failed to fetch data:", error);
         // Optionally set error state here
       } finally {
-        dispatch({ type: LOADING_END });
+        setLoading(false);
       }
     };
 
@@ -78,6 +79,7 @@ export default function StudentPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
+      {loading && <Loading />}
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Student Directory
       </h2>

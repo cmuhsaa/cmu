@@ -1,13 +1,11 @@
 "use client";
-import { authentication } from "@/store/Action";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 export default function LogoutButton({ className = "" }) {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -29,7 +27,6 @@ export default function LogoutButton({ className = "" }) {
       console.error("Logout error:", error);
     } finally {
       setIsLoggingOut(false);
-      dispatch(authentication());
     }
   };
 

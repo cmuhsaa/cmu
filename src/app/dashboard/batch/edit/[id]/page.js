@@ -1,11 +1,13 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import Loading from "@/components/Loading";
+import { MESSAGE } from "@/store/constant";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 export default function BatchUpdate() {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -20,7 +22,7 @@ export default function BatchUpdate() {
     const fetchBatch = async () => {
       if (id) {
         try {
-          dispatch({ type: LOADING_START });
+          setLoading(true);
           const res = await fetch(`/api/batch/${id}`);
           const data = await res.json();
           if (data?.batch) {
@@ -30,7 +32,7 @@ export default function BatchUpdate() {
         } catch (err) {
           console.error("Failed to fetch batch", err);
         } finally {
-          dispatch({ type: LOADING_END });
+          setLoading(false);
         }
       }
     };
@@ -38,7 +40,7 @@ export default function BatchUpdate() {
   }, [id, setValue]);
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     try {
       const response = await fetch(`/api/batch/${id}`, {
@@ -70,12 +72,13 @@ export default function BatchUpdate() {
         },
       });
     } finally {
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-lg w-full">
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">

@@ -1,12 +1,14 @@
 "use client";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathNotice } from "../../actions";
+import Loading from "@/components/Loading";
 
 export default function NoticeUpdate() {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -19,7 +21,7 @@ export default function NoticeUpdate() {
   useEffect(() => {
     const fetchNotice = async () => {
       try {
-        dispatch({ type: LOADING_START });
+        setLoading(true);
         const res = await fetch(`/api/notice/${id}`);
         const data = await res.json();
         if (data?.notice) {
@@ -36,7 +38,7 @@ export default function NoticeUpdate() {
           },
         });
       } finally {
-        dispatch({ type: LOADING_END });
+        setLoading(false);
       }
     };
 
@@ -44,7 +46,7 @@ export default function NoticeUpdate() {
   }, [id, setValue, dispatch]);
 
   const onSubmit = async (data) => {
-    dispatch({ type: LOADING_START });
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("title", data.title);
@@ -76,11 +78,12 @@ export default function NoticeUpdate() {
       },
     });
 
-    dispatch({ type: LOADING_END });
+    setLoading(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4">
           <h2 className="text-2xl font-bold text-white">Update Notice</h2>

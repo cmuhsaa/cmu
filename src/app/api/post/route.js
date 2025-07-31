@@ -6,10 +6,8 @@ import Post from "@/models/postModel";
 import { NextResponse } from "next/server";
 import cloudinary from "@/config/cloudinary";
 
-
 export async function POST(request) {
   await connectDB();
-  
 
   try {
     const formData = await request.formData();

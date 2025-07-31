@@ -1,11 +1,13 @@
 "use client";
 
 import { revalidatePathContent } from "@/app/dashboard/update-content/action";
-import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import Loading from "./Loading";
 
 export default function UpdateForm({ content }) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(content);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ export default function UpdateForm({ content }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch({ type: LOADING_START });
+    setLoading(true);
     setIsSubmitting(true);
 
     try {
@@ -57,7 +59,7 @@ export default function UpdateForm({ content }) {
       });
     } finally {
       setIsSubmitting(false);
-      dispatch({ type: LOADING_END });
+      setLoading(false);
     }
   };
 
@@ -80,6 +82,7 @@ export default function UpdateForm({ content }) {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
+      {loading && <Loading />}
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Update Content</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
