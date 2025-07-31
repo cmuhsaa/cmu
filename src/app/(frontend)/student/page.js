@@ -1,6 +1,6 @@
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { getAllBatch, getPaginatedStudents } from "@/lib/getDatas";
+import { getPaginatedStudents } from "@/lib/getDatas";
 import { StudentFilters } from "@/components/StudentFilter";
 
 export default async function StudentPage({ searchParams }) {
@@ -14,23 +14,19 @@ export default async function StudentPage({ searchParams }) {
   const sortOrder = params.sortOrder || "desc";
 
   // Fetch data in parallel
-  const [studentsData, batchesData] = await Promise.all([
-    getPaginatedStudents({
-      page,
-      limit,
-      search,
-      type,
-      batch,
-      sortBy,
-      sortOrder,
-      isActive: true,
-    }),
-    getAllBatch(),
-  ]);
+  const studentsData = await getPaginatedStudents({
+    page,
+    limit,
+    search,
+    type,
+    batch,
+    sortBy,
+    sortOrder,
+    isActive: true,
+  });
 
   const students = studentsData.students;
   const total = studentsData.total;
-  const batches = batchesData;
   const totalPages = Math.ceil(total / limit);
 
   // Utility to rebuild query string
@@ -49,7 +45,7 @@ export default async function StudentPage({ searchParams }) {
 
       {/* Filters Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <StudentFilters batches={JSON.parse(JSON.stringify(batches))} />
+        <StudentFilters />
       </div>
 
       {students.length === 0 ? (

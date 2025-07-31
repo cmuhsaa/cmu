@@ -4,7 +4,8 @@ import { committee } from "@/lib/committee";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function StudentFilters({ batches }) {
+export function StudentFilters() {
+  const [batches, setBatches] = useState([]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [formValues, setFormValues] = useState({
@@ -53,6 +54,15 @@ export function StudentFilters({ batches }) {
     router.push("/student");
   };
 
+  useEffect(() => {
+    const getBatches = async () => {
+      let response = await fetch("/api/batch");
+      let result = await response.json();
+      setBatches(result.batches);
+    };
+    getBatches();
+  }, []);
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -90,6 +100,7 @@ export function StudentFilters({ batches }) {
         onChange={(e) =>
           setFormValues({ ...formValues, batch: e.target.value })
         }
+        disabled={batches.length == 0}
         className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="">All Batches</option>
