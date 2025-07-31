@@ -3,6 +3,9 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
+export const dynamic = "force-static"; // Optional: forces static + ISR
+export const revalidate = 0;
+
 // This remains a Server Component
 export default async function PostPage({ searchParams }) {
   const params = await searchParams;

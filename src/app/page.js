@@ -100,7 +100,7 @@ function EventSection({ events }) {
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <FiMapPin className="mr-2" />
-                      {event.location}
+                      {event?.location}
                     </div>
                     <div className="text-sm text-gray-600">
                       Registration: {event.registrationStartDate} to{" "}

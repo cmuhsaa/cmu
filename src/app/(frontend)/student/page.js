@@ -2,6 +2,9 @@ import { getAllBatch, getPaginatedStudents } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
 import Link from "next/link";
 
+export const dynamic = "force-static"; // Optional: forces static + ISR
+export const revalidate = 0;
+
 export default async function StudentPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params?.page) || 1;

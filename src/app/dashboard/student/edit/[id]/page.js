@@ -8,7 +8,12 @@ import { useDispatch } from "react-redux";
 export default function MemberUpdate() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const [batches, setBatches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(null);
@@ -123,9 +128,14 @@ export default function MemberUpdate() {
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">Update Member</h2>
+              <h2 className="text-2xl font-bold text-gray-800">
+                Update Member
+              </h2>
               <p className="text-sm text-gray-500 mt-1">
-                Member ID: <span className="font-mono bg-gray-100 px-2 py-1 rounded">{id}</span>
+                Member ID:{" "}
+                <span className="font-mono bg-gray-100 px-2 py-1 rounded">
+                  {id}
+                </span>
               </p>
             </div>
           </div>
@@ -134,67 +144,99 @@ export default function MemberUpdate() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="name"
                   type="text"
                   {...register("name", { required: "Name is required" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.name ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="email"
                   type="email"
-                  {...register("email", { 
+                  {...register("email", {
                     required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address"
-                    }
+                      message: "Invalid email address",
+                    },
                   })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.email ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Phone */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Phone <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="phone"
                   type="tel"
-                  {...register("phone", { 
+                  {...register("phone", {
                     required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
-                      message: "Please enter a valid phone number"
-                    }
+                      message: "Please enter a valid phone number",
+                    },
                   })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.phone ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.phone ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
 
               {/* Batch */}
               <div>
-                <label htmlFor="batch" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="batch"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Batch <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="batch"
                   {...register("batch", { required: "Please select a batch" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.batch ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.batch ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 >
                   <option value="">Select Batch</option>
                   {batches.map((batch) => (
@@ -203,79 +245,128 @@ export default function MemberUpdate() {
                     </option>
                   ))}
                 </select>
-                {errors.batch && <p className="mt-1 text-sm text-red-600">{errors.batch.message}</p>}
+                {errors.batch && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.batch.message}
+                  </p>
+                )}
               </div>
 
               {/* Profession */}
               <div>
-                <label htmlFor="profession" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="profession"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Profession <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="profession"
                   type="text"
-                  {...register("profession", { required: "Profession is required" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.profession ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  {...register("profession", {
+                    required: "Profession is required",
+                  })}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.profession ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.profession && <p className="mt-1 text-sm text-red-600">{errors.profession.message}</p>}
+                {errors.profession && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.profession.message}
+                  </p>
+                )}
               </div>
 
               {/* Type */}
               <div>
-                <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="type"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Member Type <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="type"
-                  {...register("type", { required: "Please select member type" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.type ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  {...register("type", {
+                    required: "Please select member type",
+                  })}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.type ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 >
                   <option value="">Select Type</option>
                   <option value="student">Student</option>
                   <option value="alumni">Alumni</option>
                 </select>
-                {errors.type && <p className="mt-1 text-sm text-red-600">{errors.type.message}</p>}
+                {errors.type && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.type.message}
+                  </p>
+                )}
               </div>
 
               {/* Address */}
               <div className="sm:col-span-2">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="address"
                   type="text"
                   {...register("address", { required: "Address is required" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.address ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.address ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>}
+                {errors.address && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.address.message}
+                  </p>
+                )}
               </div>
 
               {/* About */}
               <div className="sm:col-span-2">
-                <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="about"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   About <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", { required: "About information is required" })}
-                  className={`mt-1 block w-full px-3 py-2 border ${errors.about ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  {...register("about", {
+                    required: "About information is required",
+                  })}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.about ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.about && <p className="mt-1 text-sm text-red-600">{errors.about.message}</p>}
+                {errors.about && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.about.message}
+                  </p>
+                )}
               </div>
 
               {/* Profile Image */}
               <div className="sm:col-span-2">
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Profile Image
                 </label>
                 {currentImage && (
                   <div className="mb-4">
                     <p className="text-sm text-gray-500 mb-2">Current Image:</p>
-                    <img 
-                      src={currentImage} 
-                      alt="Current profile" 
+                    <img
+                      src={currentImage}
+                      alt="Current profile"
                       className="h-24 w-24 rounded-full object-cover"
                     />
                   </div>
@@ -312,7 +403,9 @@ export default function MemberUpdate() {
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                    <p className="text-xs text-gray-500">
+                      PNG, JPG, GIF up to 10MB
+                    </p>
                   </div>
                 </div>
               </div>

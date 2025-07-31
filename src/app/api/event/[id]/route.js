@@ -35,7 +35,7 @@ export async function PUT(request, { params }) {
         registrationStartDate:
           registrationStartDate || exists.registrationStartDate,
         registrationEndDate: registrationEndDate || exists.registrationEndDate,
-        location: location || exists.location,
+        location: location || exists?.location,
         updateDate: localTime(),
       },
       { new: true }

@@ -132,9 +132,9 @@ export default function EventAdd() {
                   type="text"
                   id="location"
                   {...register("location", { required: "Location is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.location ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors?.location ? 'border-red-500' : 'border'}`}
                 />
-                {errors.location && <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>}
+                {errors?.location && <p className="mt-1 text-sm text-red-600">{errors?.location.message}</p>}
               </div>
 
               {/* Registration Start Date */}
