@@ -20,6 +20,8 @@ import { getPaginatedPosts } from "../lib/getDatas";
 import { getPaginatedStudents } from "../lib/getDatas";
 import MediaCarousel from "@/components/MediaCarousel";
 
+export const dynamic = "force-static"; // Optional: forces static + ISR
+
 export default async function Home() {
   const [{ events }, { galleries }, { notices }, { posts }, { students }] =
     await Promise.all([

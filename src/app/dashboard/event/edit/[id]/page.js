@@ -69,7 +69,7 @@ export default function EventUpdate() {
       });
 
       const result = await response.json();
-      revalidatePathEvent(id);
+      revalidatePathEvent();
 
       dispatch({
         type: MESSAGE,

@@ -2,8 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-export async function revalidatePathGallery(id = "") {
+export async function revalidatePathGallery() {
   revalidatePath("/gallery");
   revalidatePath("/");
-  if (id) revalidatePath(`/gallery/${id}`);
 }
