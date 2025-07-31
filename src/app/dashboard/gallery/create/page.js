@@ -3,9 +3,14 @@ import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathGallery } from "../actions";
 
 export default function GalleryAdd() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
@@ -28,6 +33,7 @@ export default function GalleryAdd() {
     });
 
     const result = await response.json();
+    revalidatePathGallery();
 
     dispatch({
       type: MESSAGE,
@@ -47,8 +53,12 @@ export default function GalleryAdd() {
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-8 text-center">
-            <h2 className="text-3xl font-bold text-white">Add New Gallery Item</h2>
-            <p className="mt-2 text-purple-100">Share your visual content with the community</p>
+            <h2 className="text-3xl font-bold text-white">
+              Add New Gallery Item
+            </h2>
+            <p className="mt-2 text-purple-100">
+              Share your visual content with the community
+            </p>
           </div>
 
           {/* Form */}
@@ -56,7 +66,10 @@ export default function GalleryAdd() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Title Field */}
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Title <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1">
@@ -64,18 +77,27 @@ export default function GalleryAdd() {
                     id="title"
                     type="text"
                     {...register("title", { required: "Title is required" })}
-                    className={`block w-full rounded-lg border ${errors.title ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-purple-500 focus:border-purple-500'} shadow-sm sm:text-sm p-3`}
+                    className={`block w-full rounded-lg border ${
+                      errors.title
+                        ? "border-red-300 focus:ring-red-500 focus:border-red-500"
+                        : "border-gray-300 focus:ring-purple-500 focus:border-purple-500"
+                    } shadow-sm sm:text-sm p-3`}
                     placeholder="Enter a descriptive title"
                   />
                   {errors.title && (
-                    <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.title.message}
+                    </p>
                   )}
                 </div>
               </div>
 
               {/* YouTube Link Field */}
               <div>
-                <label htmlFor="youtubeLink" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="youtubeLink"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   YouTube Link
                 </label>
                 <div className="mt-1">
@@ -86,13 +108,18 @@ export default function GalleryAdd() {
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm p-3"
                     placeholder="https://www.youtube.com/watch?v=..."
                   />
-                  <p className="mt-1 text-xs text-gray-500">Optional YouTube video link</p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    Optional YouTube video link
+                  </p>
                 </div>
               </div>
 
               {/* Image Upload */}
               <div>
-                <label htmlFor="images" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="images"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Images <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1">
@@ -121,18 +148,24 @@ export default function GalleryAdd() {
                           <input
                             id="images"
                             type="file"
-                            {...register("images", { required: "At least one image is required" })}
+                            {...register("images", {
+                              required: "At least one image is required",
+                            })}
                             multiple
                             className="sr-only"
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                      <p className="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
                     </div>
                   </div>
                   {errors.images && (
-                    <p className="mt-1 text-sm text-red-600">{errors.images.message}</p>
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.images.message}
+                    </p>
                   )}
                 </div>
               </div>

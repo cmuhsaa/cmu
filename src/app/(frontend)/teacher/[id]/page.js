@@ -2,7 +2,7 @@ import { getTeacherById } from "@/lib/getData";
 import React from "react";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
-export const revalidate = 0;
+
 
 const Page = async ({ params }) => {
   const { id } = await params;

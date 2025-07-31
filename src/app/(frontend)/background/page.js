@@ -2,7 +2,7 @@ import { getLinksContent } from "@/lib/getDatas";
 import React from "react";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
-export const revalidate = 0;
+
 
 export default async function page() {
   const { data } = await getLinksContent();

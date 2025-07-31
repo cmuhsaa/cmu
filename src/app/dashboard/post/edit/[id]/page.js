@@ -4,11 +4,17 @@ import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathPost } from "../../actions";
 
 export default function PostUpdate() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -58,6 +64,7 @@ export default function PostUpdate() {
     });
 
     const result = await response.json();
+    revalidatePathPost(id);
 
     dispatch({
       type: MESSAGE,
@@ -76,13 +83,20 @@ export default function PostUpdate() {
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div className="p-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-extrabold text-gray-900">Update Post</h2>
-            <p className="mt-2 text-sm text-gray-600">Edit your post content below</p>
+            <h2 className="text-3xl font-extrabold text-gray-900">
+              Update Post
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Edit your post content below
+            </p>
           </div>
-          
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Title
               </label>
               <div className="mt-1">
@@ -90,16 +104,23 @@ export default function PostUpdate() {
                   id="title"
                   type="text"
                   {...register("title", { required: "Title is required" })}
-                  className={`appearance-none block w-full px-3 py-2 border ${errors.title ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.title ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
                 {errors.title && (
-                  <p className="mt-2 text-sm text-red-600">{errors.title.message}</p>
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.title.message}
+                  </p>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="content"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Content
               </label>
               <div className="mt-1">
@@ -107,16 +128,23 @@ export default function PostUpdate() {
                   id="content"
                   rows={6}
                   {...register("content", { required: "Content is required" })}
-                  className={`appearance-none block w-full px-3 py-2 border ${errors.content ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.content ? "border-red-300" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
                 {errors.content && (
-                  <p className="mt-2 text-sm text-red-600">{errors.content.message}</p>
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.content.message}
+                  </p>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="youtubeLink" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="youtubeLink"
+                className="block text-sm font-medium text-gray-700"
+              >
                 YouTube Link
               </label>
               <div className="mt-1">
@@ -131,7 +159,10 @@ export default function PostUpdate() {
             </div>
 
             <div>
-              <label htmlFor="images" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="images"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Update Images (optional)
               </label>
               <div className="mt-2 text-sm text-gray-500 mb-2">

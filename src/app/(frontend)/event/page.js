@@ -3,7 +3,7 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
-export const revalidate = 0;
+
 
 export default async function EventPage({ searchParams }) {
   const params = await searchParams;

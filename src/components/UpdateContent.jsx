@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidatePathContent } from "@/app/dashboard/update-content/action";
 import { MESSAGE } from "@/store/constant";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -37,6 +38,7 @@ export default function UpdateForm({ content }) {
       });
 
       const data = await res.json();
+      revalidatePathContent();
       if (res.ok) {
         dispatch({
           type: MESSAGE,

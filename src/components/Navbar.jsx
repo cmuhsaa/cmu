@@ -45,7 +45,6 @@ export default function Navbar() {
     { href: "/post", label: "Posts" },
     { href: "/notice", label: "Notices" },
     { href: "/gallery", label: "Gallery" },
-    { href: "/batch", label: "Batches" },
     { href: "/student", label: "Students" },
     { href: "/teacher", label: "Teachers" },
     { href: "/event", label: "Events" },

@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathGallery } from "../../actions";
 
 export default function GalleryUpdate() {
   const { id } = useParams();
@@ -48,6 +49,7 @@ export default function GalleryUpdate() {
     });
 
     const result = await response.json();
+    revalidatePathGallery(id);
 
     dispatch({
       type: MESSAGE,

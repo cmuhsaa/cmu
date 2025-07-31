@@ -1,8 +1,9 @@
 "use client";
 import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathTeacher } from "../actions";
 
 export default function TeacherAdd() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -30,6 +31,7 @@ export default function TeacherAdd() {
     });
 
     const result = await response.json();
+    revalidatePathTeacher()
 
     dispatch({
       type: MESSAGE,

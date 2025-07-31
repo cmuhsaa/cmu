@@ -4,15 +4,16 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathTeacher } from "../../actions";
 
 export default function TeacherUpdate() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   // State for existing image preview
@@ -37,7 +38,7 @@ export default function TeacherUpdate() {
           fields.forEach((field) =>
             setValue(field, data.teacher[field]?._id || data.teacher[field])
           );
-          
+
           // Set existing image if available
           if (data.teacher.image) {
             setExistingImage(data.teacher.image);
@@ -84,6 +85,7 @@ export default function TeacherUpdate() {
     });
 
     const result = await response.json();
+    revalidatePathTeacher(id);
 
     dispatch({
       type: MESSAGE,
@@ -102,123 +104,188 @@ export default function TeacherUpdate() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">Update Teacher Profile</h2>
-            <p className="mt-1 text-sm text-gray-600">Edit the details below to update this teacher&apos;s information</p>
+            <h2 className="text-2xl font-bold text-gray-800">
+              Update Teacher Profile
+            </h2>
+            <p className="mt-1 text-sm text-gray-600">
+              Edit the details below to update this teacher&apos;s information
+            </p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-4">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   {...register("name", { required: "Name is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.name ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.name ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
                   id="email"
-                  {...register("email", { 
+                  {...register("email", {
                     required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address"
-                    }
+                      message: "Invalid email address",
+                    },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.email ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.email ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Phone */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Phone Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   id="phone"
-                  {...register("phone", { 
+                  {...register("phone", {
                     required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
-                      message: "Please enter a valid phone number"
-                    }
+                      message: "Please enter a valid phone number",
+                    },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.phone ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.phone ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
 
               {/* Title */}
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Professional Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="title"
                   {...register("title", { required: "Title is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.title ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.title ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
+                {errors.title && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.title.message}
+                  </p>
+                )}
               </div>
 
               {/* Address */}
               <div className="sm:col-span-2">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="address"
                   {...register("address", { required: "Address is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.address ? 'border-red-500' : 'border'}`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.address ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>}
+                {errors.address && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.address.message}
+                  </p>
+                )}
               </div>
 
               {/* About */}
               <div className="sm:col-span-2">
-                <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="about"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   About <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", { required: "About information is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.about ? 'border-red-500' : 'border'}`}
+                  {...register("about", {
+                    required: "About information is required",
+                  })}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                    errors.about ? "border-red-500" : "border"
+                  }`}
                 />
-                {errors.about && <p className="mt-1 text-sm text-red-600">{errors.about.message}</p>}
+                {errors.about && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.about.message}
+                  </p>
+                )}
               </div>
 
               {/* Profile Image */}
               <div className="sm:col-span-2">
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Profile Image
                 </label>
-                
+
                 {/* Image Preview */}
                 {(existingImage || imagePreview) && (
                   <div className="mt-2">
-                    <img 
-                      src={imagePreview || existingImage} 
-                      alt="Current profile" 
+                    <img
+                      src={imagePreview || existingImage}
+                      alt="Current profile"
                       className="h-32 w-32 rounded-full object-cover border-2 border-gray-200"
                     />
-                    <p className="mt-1 text-xs text-gray-500">Current profile image</p>
+                    <p className="mt-1 text-xs text-gray-500">
+                      Current profile image
+                    </p>
                   </div>
                 )}
 
@@ -238,7 +305,7 @@ export default function TeacherUpdate() {
             <div className="mt-8 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => window.location.href = `/teacher/${id}`}
+                onClick={() => (window.location.href = `/teacher/${id}`)}
                 className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Cancel

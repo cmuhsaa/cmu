@@ -1,9 +1,6 @@
 import Edit from "@/components/Edit";
 import { getAllBatch } from "@/lib/getDatas";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
-export const revalidate = 0;
-
 const Batch = async () => {
   const batchesData = await getAllBatch();
 

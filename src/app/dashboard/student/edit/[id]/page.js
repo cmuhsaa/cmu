@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathStudent } from "../../actions";
 
 export default function MemberUpdate() {
   const { id } = useParams();
@@ -91,6 +92,7 @@ export default function MemberUpdate() {
       });
 
       const result = await response.json();
+      revalidatePathStudent(id);
 
       dispatch({
         type: MESSAGE,

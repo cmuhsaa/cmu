@@ -4,7 +4,7 @@ import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
-export const revalidate = 0;
+
 
 export default async function GalleryPage({ searchParams }) {
   const params = await searchParams;

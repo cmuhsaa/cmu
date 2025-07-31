@@ -4,15 +4,16 @@ import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathNotice } from "../../actions";
 
 export default function NoticeUpdate() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   useEffect(() => {
@@ -31,8 +32,8 @@ export default function NoticeUpdate() {
           type: MESSAGE,
           payload: {
             message: "Failed to load notice data",
-            status: "error"
-          }
+            status: "error",
+          },
         });
       } finally {
         dispatch({ type: LOADING_END });
@@ -64,6 +65,7 @@ export default function NoticeUpdate() {
     });
 
     const result = await response.json();
+    revalidatePathNotice(id);
 
     dispatch({
       type: MESSAGE,
@@ -84,11 +86,14 @@ export default function NoticeUpdate() {
           <h2 className="text-2xl font-bold text-white">Update Notice</h2>
           <p className="mt-1 text-blue-100">Edit the notice details below</p>
         </div>
-        
+
         <div className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Title <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
@@ -96,72 +101,112 @@ export default function NoticeUpdate() {
                   id="title"
                   type="text"
                   {...register("title", { required: "Title is required" })}
-                  className={`block w-full rounded-md shadow-sm ${errors.title ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} sm:text-sm`}
+                  className={`block w-full rounded-md shadow-sm ${
+                    errors.title
+                      ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
+                      : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  } sm:text-sm`}
                 />
                 {errors.title && (
-                  <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.title.message}
+                  </p>
                 )}
               </div>
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Description <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <textarea
                   id="description"
                   rows={5}
-                  {...register("description", { required: "Description is required" })}
-                  className={`block w-full rounded-md shadow-sm ${errors.description ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} sm:text-sm`}
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
+                  className={`block w-full rounded-md shadow-sm ${
+                    errors.description
+                      ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
+                      : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                  } sm:text-sm`}
                 />
                 {errors.description && (
-                  <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.description.message}
+                  </p>
                 )}
               </div>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="type"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Type <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1">
                   <select
                     id="type"
                     {...register("type", { required: "Type is required" })}
-                    className={`block w-full rounded-md shadow-sm ${errors.type ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} sm:text-sm`}
+                    className={`block w-full rounded-md shadow-sm ${
+                      errors.type
+                        ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
+                        : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    } sm:text-sm`}
                   >
                     <option value="">Select Type</option>
                     <option value="general">General</option>
                     <option value="urgent">Urgent</option>
                   </select>
                   {errors.type && (
-                    <p className="mt-1 text-sm text-red-600">{errors.type.message}</p>
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.type.message}
+                    </p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="dateTime" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="dateTime"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Date & Time <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1">
                   <input
                     id="dateTime"
                     type="datetime-local"
-                    {...register("dateTime", { required: "Date & Time is required" })}
-                    className={`block w-full rounded-md shadow-sm ${errors.dateTime ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'} sm:text-sm`}
+                    {...register("dateTime", {
+                      required: "Date & Time is required",
+                    })}
+                    className={`block w-full rounded-md shadow-sm ${
+                      errors.dateTime
+                        ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
+                        : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    } sm:text-sm`}
                   />
                   {errors.dateTime && (
-                    <p className="mt-1 text-sm text-red-600">{errors.dateTime.message}</p>
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.dateTime.message}
+                    </p>
                   )}
                 </div>
               </div>
             </div>
 
             <div>
-              <label htmlFor="images" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="images"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Update Images
               </label>
               <div className="mt-1">

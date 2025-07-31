@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
           <NavLink href="/dashboard/student/create">Create Student</NavLink>
           <NavLink href="/dashboard/teacher/create">Create Teacher</NavLink>
           <NavLink href="/dashboard/event/create">Create Event</NavLink>
+          <NavLink href="/dashboard/batch">Batches</NavLink>
           <NavLink href="/dashboard/feedback">Feedback</NavLink>
           <NavLink href="/dashboard/update-password">Update Password</NavLink>
           <NavLink href="/dashboard/update-content">Update Content</NavLink>
