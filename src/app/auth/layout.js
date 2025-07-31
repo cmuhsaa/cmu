@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/Loading";
 import { authentication } from "@/store/Action";
 import { MESSAGE } from "@/store/constant";
 import { usePathname } from "next/navigation";
@@ -30,5 +31,10 @@ export default function RootLayout({ children }) {
     dispatch(authentication());
   }, [pathname, dispatch]);
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      <Loading />
+      {children}
+    </div>
+  );
 }

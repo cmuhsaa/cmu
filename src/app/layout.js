@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvider";
 import Toast from "@/components/Toast";
-import Loading from "@/components/Loading.jsx";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -29,7 +28,6 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
         >
           <Toast />
-          <Loading />
           <Navbar />
           <main className="container mx-auto px-4 py-6">{children}</main>
           <Footer />

@@ -6,6 +6,7 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { LOADING_END, LOADING_START } from "@/store/constant";
+import Loading from "@/components/Loading";
 
 export default function StudentPage() {
   const searchParams = useSearchParams();
@@ -75,6 +76,7 @@ export default function StudentPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <Loading />
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Student Directory
       </h2>

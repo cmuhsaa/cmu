@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/Loading";
 import LogoutButton from "@/components/Logout";
 import { authentication } from "@/store/Action";
 import { MESSAGE } from "@/store/constant";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      <Loading />
       {/* Sidebar Navigation */}
       <aside className="w-64 bg-white shadow-md h-full">
         <div className="p-4 border-b border-gray-200">
