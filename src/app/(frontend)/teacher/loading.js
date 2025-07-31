@@ -4,7 +4,7 @@ export default function StudentDirectorySkeleton() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Student Directory
+        Teachers Directory
       </h1>
 
       {/* Search and Filters */}

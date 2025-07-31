@@ -1,4 +1,5 @@
 import Edit from "@/components/Edit";
+import { TeacherFilters } from "@/components/TeacherFilter";
 import { getPaginatedTeachers } from "@/lib/getDatas";
 import Link from "next/link";
 
@@ -29,67 +30,12 @@ export default async function TeacherPage({ searchParams }) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Faculty Directory
+        Teachers Directory
       </h1>
 
       {/* Filter Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <form
-          action={`?${buildQuery({
-            search,
-            sortBy,
-            sortOrder,
-            page: 1,
-          })}`}
-          method="get"
-          className="flex flex-col md:flex-row gap-4"
-        >
-          <div className="flex-grow">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search name/email/phone/title"
-              defaultValue={search}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <div className="flex gap-2">
-            <select
-              name="sortBy"
-              defaultValue={sortBy}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="createDate">Created Date</option>
-              <option value="name">Name</option>
-              <option value="title">Title</option>
-            </select>
-
-            <select
-              name="sortOrder"
-              defaultValue={sortOrder}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="desc">Descending</option>
-              <option value="asc">Ascending</option>
-            </select>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Apply
-            </button>
-            <Link
-              href="/teacher"
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors flex items-center"
-            >
-              Reset
-            </Link>
-          </div>
-        </form>
+        <TeacherFilters />
       </div>
 
       {teachers.length === 0 ? (

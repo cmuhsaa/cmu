@@ -1,6 +1,7 @@
 import Edit from "@/components/Edit";
 import Link from "next/link";
 import { getAllBatch, getPaginatedStudents } from "@/lib/getDatas";
+import { StudentFilters } from "@/components/StudentFilter";
 
 export default async function StudentPage({ searchParams }) {
   let params = await searchParams;
@@ -29,7 +30,7 @@ export default async function StudentPage({ searchParams }) {
 
   const students = studentsData.students;
   const total = studentsData.total;
-  const batches = batchesData.batches;
+  const batches = batchesData;
   const totalPages = Math.ceil(total / limit);
 
   // Utility to rebuild query string
@@ -48,86 +49,7 @@ export default async function StudentPage({ searchParams }) {
 
       {/* Filters Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <form
-          action={`?${buildQuery({
-            search,
-            type,
-            batch,
-            sortBy,
-            sortOrder,
-            page: 1,
-          })}`}
-          method="get"
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4"
-        >
-          <div className="col-span-1 md:col-span-3 lg:col-span-2">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search name/email/phone"
-              defaultValue={search}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <select
-            name="type"
-            defaultValue={type}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">All Types</option>
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Alumni">Alumni</option>
-          </select>
-
-          <select
-            name="batch"
-            defaultValue={batch}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">All Batches</option>
-            {batches?.map((b) => (
-              <option key={b._id} value={b._id.toString()}>
-                {b.name}
-              </option>
-            ))}
-          </select>
-
-          <div className="flex gap-2">
-            <select
-              name="sortBy"
-              defaultValue={sortBy}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="createDate">Created Date</option>
-              <option value="name">Name</option>
-            </select>
-            <select
-              name="sortOrder"
-              defaultValue={sortOrder}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="desc">Descending</option>
-              <option value="asc">Ascending</option>
-            </select>
-          </div>
-
-          <div className="flex gap-2 col-span-full md:col-span-1">
-            <button
-              type="submit"
-              className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Apply Filters
-            </button>
-            <Link
-              href="/student"
-              className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-center"
-            >
-              Reset
-            </Link>
-          </div>
-        </form>
+        <StudentFilters batches={JSON.parse(JSON.stringify(batches))} />
       </div>
 
       {students.length === 0 ? (
