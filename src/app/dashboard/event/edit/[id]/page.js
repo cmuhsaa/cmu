@@ -24,6 +24,7 @@ export default function EventUpdate() {
   useEffect(() => {
     const fetchEvent = async () => {
       if (id) {
+        dispatch({ type: LOADING_START });
         try {
           const res = await fetch(`/api/event/${id}`);
           const data = await res.json();
@@ -50,6 +51,7 @@ export default function EventUpdate() {
             },
           });
         }
+        dispatch({ type: LOADING_END });
       }
     };
     fetchEvent();

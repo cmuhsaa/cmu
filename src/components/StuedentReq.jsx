@@ -1,12 +1,11 @@
 "use client";
+import { revalidatePathStudent } from "@/app/dashboard/student/actions";
 import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { revalidatePathStudent } from "../actions";
-import { committee } from "@/lib/committee";
 
-export default function MemberAdd() {
+export default function StudentReq() {
   const {
     register,
     handleSubmit,
@@ -44,7 +43,7 @@ export default function MemberAdd() {
     formData.append("profession", data.profession);
     formData.append("address", data.address);
     formData.append("type", data.type);
-    formData.append("isActive", true);
+    formData.append("isActive", false);
 
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
@@ -65,7 +64,7 @@ export default function MemberAdd() {
         payload: {
           message: result.message || result.error || "Unknown error",
           status: result.message ? "success" : "error",
-          path: result.message ? "/student" : "",
+          path: result.message ? "/" : "/",
         },
       });
     } catch (error) {
@@ -87,7 +86,7 @@ export default function MemberAdd() {
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Add New Member</h2>
+            <h2 className="text-3xl font-bold text-gray-800">Request to join as a student</h2>
             <p className="mt-2 text-gray-600">
               Fill in the member details below
             </p>
@@ -250,11 +249,7 @@ export default function MemberAdd() {
                     errors.type ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 >
-                  {committee.map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.position}
-                    </option>
-                  ))}
+                  <option value="student">Student</option>
                 </select>
                 {errors.type && (
                   <p className="mt-1 text-sm text-red-600">
@@ -370,7 +365,7 @@ export default function MemberAdd() {
                 type="submit"
                 className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Add Member
+                Join
               </button>
             </div>
           </form>

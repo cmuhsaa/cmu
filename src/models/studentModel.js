@@ -33,7 +33,6 @@ const studentSchema = new Schema({
   address: String,
   type: {
     type: String,
-    enum: ["student", "premium-member", "member", "lifetime-member"],
     default: "student",
   },
   isActive: {

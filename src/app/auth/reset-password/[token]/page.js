@@ -1,7 +1,9 @@
 "use client";
+import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -13,11 +15,11 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    setMessage(null);
+    dispatch({ type: LOADING_START });
 
     try {
       const response = await fetch(`/api/admin/reset-password/${token}`, {
@@ -32,29 +34,25 @@ export default function ResetPassword() {
       });
 
       const result = await response.json();
-
-      if (response.ok) {
-        setMessage({
-          text:
-            result.message ||
-            "Password reset successfully! Redirecting to login...",
-          type: "success",
-        });
-        // Redirect to login after 3 seconds
-        setTimeout(() => router.push("/auth/login"), 3000);
-      } else {
-        setMessage({
-          text: result.error || "Failed to reset password. Please try again.",
-          type: "error",
-        });
-      }
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.message,
+          status: "success",
+          path: "/",
+        },
+      });
     } catch (error) {
-      setMessage({
-        text: "Network error. Please try again later.",
-        type: "error",
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error,
+          status: "error",
+          path: "",
+        },
       });
     } finally {
-      setIsSubmitting(false);
+      dispatch({ type: LOADING_END });
     }
   };
 

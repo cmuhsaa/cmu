@@ -1,13 +1,13 @@
 // app/api/batches/[id]/route.js
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
-import { AuthCheck } from "@/lib/auth";
+
 import Batch from "@/models/batchModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -49,6 +49,24 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ batch }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const deletedBatch = await Batch.findByIdAndDelete(id);
+
+    if (!deletedBatch) {
+      return NextResponse.json({ message: "Batch not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ deletedBatch }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

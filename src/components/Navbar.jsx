@@ -48,6 +48,7 @@ export default function Navbar() {
     { href: "/student", label: "Students" },
     { href: "/teacher", label: "Teachers" },
     { href: "/event", label: "Events" },
+    { href: "/feedback", label: "Contact" },
   ];
 
   useEffect(() => {

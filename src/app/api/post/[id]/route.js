@@ -4,11 +4,11 @@ import { localTime } from "@/config/localTime";
 import Post from "@/models/postModel";
 import { NextResponse } from "next/server";
 import cloudinary from "@/config/cloudinary";
-import { AuthCheck } from "@/lib/auth";
+
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -40,6 +40,14 @@ export async function PUT(request, { params }) {
           url: result.secure_url,
         });
       }
+    }
+
+    if (images.length > 0) {
+      await Promise.all(
+        exists.images.map(async (image) => {
+          await cloudinary.uploader.destroy(image.public_id);
+        })
+      );
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
@@ -75,6 +83,40 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ post });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    // Delete images from Cloudinary
+    if (post.images && post.images.length > 0) {
+      await Promise.all(
+        post.images.map(async (image) => {
+          await cloudinary.uploader.destroy(image.public_id);
+        })
+      );
+    }
+
+    // Delete the post document
+    const deletedPost = await Post.findByIdAndDelete(id);
+
+    return NextResponse.json({ 
+      message: "Post and all associated images deleted successfully",
+      deletedPost 
+    });
+
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

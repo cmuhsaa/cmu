@@ -2,11 +2,11 @@ import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import { NextResponse } from "next/server";
 import Event from "@/models/eventsModel";
-import { AuthCheck } from "@/lib/auth";
+
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -67,6 +67,23 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ event }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const deletedEvent = await Event.findByIdAndDelete(id);
+
+    if (!deletedEvent) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ deletedEvent }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

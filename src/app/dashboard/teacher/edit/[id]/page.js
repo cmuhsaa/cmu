@@ -1,67 +1,49 @@
 "use client";
 import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathTeacher } from "../../actions";
 
 export default function TeacherUpdate() {
   const { id } = useParams();
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
-  // State for existing image preview
-  const [existingImage, setExistingImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-
-  // Fetch existing member data
+  // Fetch existing teacher data
   useEffect(() => {
     const fetchTeacher = async () => {
       try {
+        dispatch({ type: LOADING_START });
         const res = await fetch(`/api/teacher/${id}`);
         const data = await res.json();
+        
         if (data?.teacher) {
-          const fields = [
-            "name",
-            "email",
-            "phone",
-            "title",
-            "about",
-            "address",
-          ];
-          fields.forEach((field) =>
-            setValue(field, data.teacher[field]?._id || data.teacher[field])
-          );
-
-          // Set existing image if available
-          if (data.teacher.image) {
-            setExistingImage(data.teacher.image);
-          }
+          reset(data.teacher); // Reset form with fetched data
         }
       } catch (err) {
         console.error("Failed to fetch teacher", err);
+        dispatch({
+          type: MESSAGE,
+          payload: {
+            message: "Failed to load teacher data",
+            status: "error",
+          },
+        });
+      } finally {
+        dispatch({ type: LOADING_END });
       }
     };
-    if (id) fetchTeacher();
-  }, [id, setValue]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-        setExistingImage(null); // Clear existing image when new one is selected
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+    if (id) fetchTeacher();
+  }, [id, reset]);
 
   const onSubmit = async (data) => {
     dispatch({ type: LOADING_START });
@@ -74,29 +56,44 @@ export default function TeacherUpdate() {
     formData.append("about", data.about);
     formData.append("address", data.address);
 
+    // Handle image upload if changed
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
     }
 
-    const response = await fetch(`/api/teacher/${id}`, {
-      method: "PUT",
-      credentials: "include",
-      body: formData,
-    });
+    try {
+      const response = await fetch(`/api/teacher/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+      });
 
-    const result = await response.json();
-    revalidatePathTeacher(id);
+      const result = await response.json();
+      await revalidatePathTeacher(id);
 
-    dispatch({
-      type: MESSAGE,
-      payload: {
-        message: result.message || result.error || "Unknown error",
-        status: result.message ? "success" : "error",
-        path: result.message ? `/teacher/${id}` : "",
-      },
-    });
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.message || "Teacher updated successfully",
+          status: result.message ? "success" : "error",
+          path: `/teacher/${id}`,
+        },
+      });
 
-    dispatch({ type: LOADING_END });
+      if (result.success) {
+        router.push(`/teacher/${id}`);
+      }
+    } catch (error) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: error.message || "Update failed",
+          status: "error",
+        },
+      });
+    } finally {
+      dispatch({ type: LOADING_END });
+    }
   };
 
   return (
@@ -104,197 +101,118 @@ export default function TeacherUpdate() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Update Teacher Profile
-            </h2>
-            <p className="mt-1 text-sm text-gray-600">
-              Edit the details below to update this teacher&apos;s information
-            </p>
+            <h2 className="text-2xl font-bold text-gray-800">Update Teacher</h2>
+            <p className="mt-1 text-sm text-gray-600">Update the teacher details below</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-4">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Name */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   {...register("name", { required: "Name is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.name ? "border-red-500" : "border"
-                  }`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.name ? 'border-red-500' : 'border'}`}
                 />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.name.message}
-                  </p>
-                )}
+                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
               </div>
 
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
                   id="email"
-                  {...register("email", {
+                  {...register("email", { 
                     required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
+                      message: "Invalid email address"
+                    }
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.email ? "border-red-500" : "border"
-                  }`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.email ? 'border-red-500' : 'border'}`}
                 />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.email.message}
-                  </p>
-                )}
+                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
               </div>
 
               {/* Phone */}
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                   Phone Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   id="phone"
-                  {...register("phone", {
+                  {...register("phone", { 
                     required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
-                      message: "Please enter a valid phone number",
-                    },
+                      message: "Please enter a valid phone number"
+                    }
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.phone ? "border-red-500" : "border"
-                  }`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.phone ? 'border-red-500' : 'border'}`}
                 />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.phone.message}
-                  </p>
-                )}
+                {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
               </div>
 
               {/* Title */}
               <div>
-                <label
-                  htmlFor="title"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                   Professional Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="title"
                   {...register("title", { required: "Title is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.title ? "border-red-500" : "border"
-                  }`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.title ? 'border-red-500' : 'border'}`}
                 />
-                {errors.title && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.title.message}
-                  </p>
-                )}
+                {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
               </div>
 
               {/* Address */}
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
                   Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="address"
                   {...register("address", { required: "Address is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.address ? "border-red-500" : "border"
-                  }`}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.address ? 'border-red-500' : 'border'}`}
                 />
-                {errors.address && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.address.message}
-                  </p>
-                )}
+                {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>}
               </div>
 
               {/* About */}
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="about"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                   About <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", {
-                    required: "About information is required",
-                  })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    errors.about ? "border-red-500" : "border"
-                  }`}
+                  {...register("about", { required: "About information is required" })}
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.about ? 'border-red-500' : 'border'}`}
                 />
-                {errors.about && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.about.message}
-                  </p>
-                )}
+                {errors.about && <p className="mt-1 text-sm text-red-600">{errors.about.message}</p>}
               </div>
 
               {/* Profile Image */}
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="image"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
                   Profile Image
                 </label>
-
-                {/* Image Preview */}
-                {(existingImage || imagePreview) && (
-                  <div className="mt-2">
-                    <img
-                      src={imagePreview || existingImage}
-                      alt="Current profile"
-                      className="h-32 w-32 rounded-full object-cover border-2 border-gray-200"
-                    />
-                    <p className="mt-1 text-xs text-gray-500">
-                      Current profile image
-                    </p>
-                  </div>
-                )}
-
-                <div className="mt-4 flex items-center">
+                <div className="mt-1 flex items-center">
                   <input
                     type="file"
                     id="image"
                     {...register("image")}
-                    onChange={handleImageChange}
                     accept="image/*"
                     className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                   />
@@ -305,7 +223,7 @@ export default function TeacherUpdate() {
             <div className="mt-8 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => (window.location.href = `/teacher/${id}`)}
+                onClick={() => router.push(`/teacher/${id}`)}
                 className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Cancel

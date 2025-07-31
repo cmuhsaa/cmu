@@ -1,7 +1,7 @@
 // app/api/feedback/route.js
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
-import { AuthCheck } from "@/lib/auth";
+
 import FeedBack from "@/models/feedbackModel";
 import { NextResponse } from "next/server";
 
@@ -34,7 +34,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { searchParams } = new URL(request.url);

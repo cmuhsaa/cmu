@@ -2,13 +2,13 @@
 import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
-import { AuthCheck } from "@/lib/auth";
+
 import Student from "@/models/studentModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -21,7 +21,6 @@ export async function PUT(request, { params }) {
     const profession = formData.get("profession");
     const address = formData.get("address");
     const type = formData.get("type");
-    const isActive = formData.get("isActive") === "true";
     const avatarFile = formData.get("image");
 
     const exists = await Student.findById(id);
@@ -34,7 +33,7 @@ export async function PUT(request, { params }) {
     }
 
     let avatar = {};
-    if (avatarFile && avatarFile.size > 0) {
+    if (avatarFile.size > 0) {
       const buffer = Buffer.from(await avatarFile.arrayBuffer());
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
@@ -50,6 +49,10 @@ export async function PUT(request, { params }) {
       };
     }
 
+    if (avatar.public_id) {
+      await cloudinary.uploader.destroy(exists.avatar.public_id);
+    }
+
     const updatedStudent = await Student.findByIdAndUpdate(
       id,
       {
@@ -62,7 +65,7 @@ export async function PUT(request, { params }) {
         address: address || exists.address,
         type: type || exists.type,
         avatar: Object.keys(avatar).length ? avatar : exists.avatar,
-        isActive: isActive !== undefined ? isActive : exists.isActive,
+        isActive: true,
         updateDate: localTime(),
       },
       { new: true }
@@ -89,6 +92,35 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ student });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const student = await Student.findById(id);
+
+    if (!student) {
+      return NextResponse.json({ error: "Student not found" }, { status: 404 });
+    }
+
+    // Delete avatar from Cloudinary if exists
+    if (student.avatar?.public_id) {
+      await cloudinary.uploader.destroy(student.avatar.public_id);
+    }
+
+    // Delete the student document
+    const deletedStudent = await Student.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      success: true,
+      message: "Student and avatar deleted successfully",
+      deletedStudent,
+    });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

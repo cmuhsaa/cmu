@@ -1,20 +1,15 @@
 import Edit from "@/components/Edit";
 import MediaCarousel from "@/components/MediaCarousel";
 import { getPostById } from "@/lib/getData";
-
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
+import { getPaginatedPosts } from "@/lib/getDatas";
+import { notFound } from "next/navigation";
 
 const Page = async ({ params }) => {
   const { id } = await params;
   const post = await getPostById(id);
 
   if (!post) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-gray-600">
-        Post not found
-      </div>
-    );
+    notFound();
   }
 
   return (
@@ -58,3 +53,10 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
+
+export async function generateStaticParams() {
+  const posts = await getPaginatedPosts({ page: 1, limit: Infinity });
+  return posts.posts.map((post) => ({
+    id: post._id.toString(),
+  }));
+}

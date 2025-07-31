@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar Navigation */}
-      <aside className="w-64 bg-white shadow-md fixed h-full">
+      <aside className="w-64 bg-white shadow-md h-full">
         <div className="p-4 border-b border-gray-200">
           <h1 className="text-xl font-bold text-gray-800">Dashboard</h1>
         </div>
@@ -47,6 +47,7 @@ export default function RootLayout({ children }) {
           <NavLink href="/dashboard/student/create">Create Student</NavLink>
           <NavLink href="/dashboard/teacher/create">Create Teacher</NavLink>
           <NavLink href="/dashboard/event/create">Create Event</NavLink>
+          <NavLink href="/dashboard/student/request">Student Request</NavLink>
           <NavLink href="/dashboard/batch">Batches</NavLink>
           <NavLink href="/dashboard/feedback">Feedback</NavLink>
           <NavLink href="/dashboard/update-password">Update Password</NavLink>
@@ -56,7 +57,7 @@ export default function RootLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 ml-64 p-6">{children}</div>
+      <div className="flex-1 p-6">{children}</div>
     </div>
   );
 }

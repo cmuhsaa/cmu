@@ -1,20 +1,15 @@
 import Edit from "@/components/Edit";
 import MediaCarousel from "@/components/MediaCarousel";
 import { getNoticeById } from "@/lib/getData";
-
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
+import { getPaginatedNotices } from "@/lib/getDatas";
+import { notFound } from "next/navigation";
 
 const Page = async ({ params }) => {
   const { id } = await params;
   const notice = await getNoticeById(id);
 
   if (!notice) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-gray-600">
-        Notice not found
-      </div>
-    );
+    notFound();
   }
 
   return (
@@ -83,3 +78,11 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
+
+
+export async function generateStaticParams() {
+  const notices = await getPaginatedNotices({ page: 1, limit: Infinity });
+  return notices.notices.map((notice) => ({
+    id: notice._id.toString(),
+  }));
+}

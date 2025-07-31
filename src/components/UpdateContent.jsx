@@ -1,14 +1,13 @@
 "use client";
 
 import { revalidatePathContent } from "@/app/dashboard/update-content/action";
-import { MESSAGE } from "@/store/constant";
+import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function UpdateForm({ content }) {
   const [formData, setFormData] = useState(content);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState({ text: "", type: "" });
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -27,8 +26,8 @@ export default function UpdateForm({ content }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: LOADING_START });
     setIsSubmitting(true);
-    setMessage({ text: "", type: "" });
 
     try {
       const res = await fetch("/api/linksandcontent", {
@@ -39,28 +38,26 @@ export default function UpdateForm({ content }) {
 
       const data = await res.json();
       revalidatePathContent();
-      if (res.ok) {
-        dispatch({
-          type: MESSAGE,
-          payload: {
-            message: "Content Updated",
-            status: "success",
-            path: "/dashboard",
-          },
-        });
-      } else {
-        setMessage({
-          text: data.message || "Update failed",
-          type: "error",
-        });
-      }
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Content Updated",
+          status: "success",
+          path: "/dashboard",
+        },
+      });
     } catch (error) {
-      setMessage({
-        text: "Network error. Please try again.",
-        type: "error",
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: error.message,
+          status: "error",
+          path: "",
+        },
       });
     } finally {
       setIsSubmitting(false);
+      dispatch({ type: LOADING_END });
     }
   };
 
@@ -84,18 +81,6 @@ export default function UpdateForm({ content }) {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Update Content</h2>
-
-      {message.text && (
-        <div
-          className={`mb-6 p-4 rounded-md ${
-            message.type === "success"
-              ? "bg-green-50 text-green-800"
-              : "bg-red-50 text-red-800"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Social Links Section */}

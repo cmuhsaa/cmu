@@ -105,6 +105,7 @@ export async function getPaginatedStudents({
   search,
   sortBy,
   sortOrder,
+  isActive,
   page = 1,
   limit = 10,
 }) {
@@ -121,6 +122,7 @@ export async function getPaginatedStudents({
       { profession: { $regex: search, $options: "i" } },
     ];
   }
+  filter.isActive = isActive;
 
   const sort = {};
   if (sortBy) sort[sortBy] = sortOrder === "desc" ? -1 : 1;

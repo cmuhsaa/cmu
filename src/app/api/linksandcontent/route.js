@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import OrganizationInfo from "@/models/linksandcontent";
 import { localTime } from "@/config/localTime";
 import connectDB from "@/config/db";
-import { AuthCheck } from "@/lib/auth";
+
 
 export async function PUT(request) {
   await connectDB();
-  await AuthCheck(request); // যদি authentication লাগে
+   // যদি authentication লাগে
 
   try {
     const id = "6888cdd92a90d10b44cee678";

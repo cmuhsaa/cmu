@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import ApproveStudent from "@/components/ApproveStudent";
+import DeleteStudent from "@/components/DeleteStudent";
 import { LOADING_END, LOADING_START } from "@/store/constant";
+import { useDispatch } from "react-redux";
 
 export default function StudentPage() {
   const searchParams = useSearchParams();
@@ -35,7 +37,7 @@ export default function StudentPage() {
           ...(batch && { batch }),
           sortBy,
           sortOrder,
-          isActive: "true",
+          isActive: "false",
         }).toString();
 
         // Fetch students data from API endpoint
@@ -48,6 +50,7 @@ export default function StudentPage() {
         // Fetch batches data (assuming you still need this)
         const batchesResponse = await fetch("/api/batch");
         const batchesData = await batchesResponse.json();
+        console.log(studentsData);
 
         setStudents(studentsData.students);
         setTotal(studentsData.total);
@@ -158,7 +161,7 @@ export default function StudentPage() {
               Apply Filters
             </button>
             <Link
-              href="/student"
+              href="/dashboard/student/request"
               className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-center"
             >
               Reset
@@ -251,6 +254,9 @@ export default function StudentPage() {
                         </p>
                       </div>
                     )}
+
+                    <ApproveStudent id={member._id.toString()} />
+                    <DeleteStudent id={member._id.toString()} />
 
                     <div className="flex justify-between mt-4 text-sm text-gray-500">
                       <span>

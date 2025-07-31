@@ -5,7 +5,6 @@ import MediaCarousel from "@/components/MediaCarousel";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
-
 export default async function GalleryPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params?.page) || 1;

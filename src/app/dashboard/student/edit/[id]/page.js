@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathStudent } from "../../actions";
+import { committee } from "@/lib/committee";
 
 export default function MemberUpdate() {
   const { id } = useParams();
@@ -16,7 +17,6 @@ export default function MemberUpdate() {
     formState: { errors },
   } = useForm();
   const [batches, setBatches] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(null);
 
   // Fetch batches
@@ -37,7 +37,7 @@ export default function MemberUpdate() {
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        setIsLoading(true);
+        dispatch({ type: LOADING_START });
         const res = await fetch(`/api/student/${id}`);
         const data = await res.json();
         if (data?.student) {
@@ -61,7 +61,7 @@ export default function MemberUpdate() {
       } catch (err) {
         console.error("Failed to fetch student", err);
       } finally {
-        setIsLoading(false);
+        dispatch({ type: LOADING_END });
       }
     };
     if (id) fetchMember();
@@ -115,14 +115,6 @@ export default function MemberUpdate() {
       dispatch({ type: LOADING_END });
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -296,9 +288,11 @@ export default function MemberUpdate() {
                     errors.type ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 >
-                  <option value="">Select Type</option>
-                  <option value="student">Student</option>
-                  <option value="alumni">Alumni</option>
+                  {committee.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.position}
+                    </option>
+                  ))}
                 </select>
                 {errors.type && (
                   <p className="mt-1 text-sm text-red-600">

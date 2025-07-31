@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
-
 export default async function EventPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params?.page) || 1;

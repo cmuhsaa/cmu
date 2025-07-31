@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 
 export default function ForgotPassword() {
   const {
@@ -10,11 +12,11 @@ export default function ForgotPassword() {
     formState: { errors },
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    setMessage(null);
+    dispatch({ type: LOADING_START });
 
     try {
       const response = await fetch("/api/admin/forgot-password", {
@@ -26,26 +28,25 @@ export default function ForgotPassword() {
       });
 
       const result = await response.json();
-
-      if (response.ok) {
-        setMessage({
-          text:
-            result.message || "Password reset link has been sent to your email",
-          type: "success",
-        });
-      } else {
-        setMessage({
-          text: result.error || "Failed to send reset link. Please try again.",
-          type: "error",
-        });
-      }
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.message,
+          status: "success",
+          path: "/",
+        },
+      });
     } catch (error) {
-      setMessage({
-        text: "Network error. Please try again later.",
-        type: "error",
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: result.error,
+          status: "error",
+          path: "",
+        },
       });
     } finally {
-      setIsSubmitting(false);
+      dispatch({ type: LOADING_END });
     }
   };
 
@@ -57,25 +58,10 @@ export default function ForgotPassword() {
             Forgot your password?
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Enter your email and we&apos;ll send you a link to reset your password
+            Enter your email and we&apos;ll send you a link to reset your
+            password
           </p>
         </div>
-
-        {message && (
-          <div
-            className={`rounded-md p-4 ${
-              message.type === "success" ? "bg-green-50" : "bg-red-50"
-            }`}
-          >
-            <div
-              className={`text-sm ${
-                message.type === "success" ? "text-green-800" : "text-red-800"
-              }`}
-            >
-              {message.text}
-            </div>
-          </div>
-        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm space-y-4">

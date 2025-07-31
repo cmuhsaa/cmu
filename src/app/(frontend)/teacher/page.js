@@ -1,27 +1,60 @@
-import { getPaginatedTeachers } from "@/lib/getDatas";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
+import { LOADING_END, LOADING_START } from "@/store/constant";
+import { useDispatch } from "react-redux";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
+export default function TeacherPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [teachers, setTeachers] = useState([]);
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
 
-
-export default async function TeacherPage({ searchParams }) {
-  const params = await searchParams;
-  const page = parseInt(params?.page) || 1;
+  const page = parseInt(searchParams.get("page")) || 1;
   const limit = 10;
-  const search = params?.search || "";
-  const sortBy = params?.sortBy || "createDate";
-  const sortOrder = params?.sortOrder || "desc";
+  const search = searchParams.get("search") || "";
+  const sortBy = searchParams.get("sortBy") || "createDate";
+  const sortOrder = searchParams.get("sortOrder") || "desc";
 
-  const { teachers, total } = await getPaginatedTeachers({
-    page,
-    limit,
-    search,
-    sortBy,
-    sortOrder,
-  });
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      dispatch({ type: LOADING_START });
+      try {
+        const queryParams = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+          ...(search && { search }),
+          sortBy,
+          sortOrder,
+        }).toString();
+
+        const response = await fetch(`/api/teacher?${queryParams}`);
+        const data = await response.json();
+
+        setTeachers(data.teachers);
+        setTotal(data.total);
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+      } finally {
+        dispatch({ type: LOADING_END });
+      }
+    };
+
+    fetchTeachers();
+  }, [page, search, sortBy, sortOrder]);
 
   const totalPages = Math.ceil(total / limit);
+
+  const buildQuery = (params) => {
+    return Object.entries(params)
+      .filter(([_, val]) => val !== "")
+      .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+      .join("&");
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -31,7 +64,20 @@ export default async function TeacherPage({ searchParams }) {
 
       {/* Filter Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <form method="get" className="flex flex-col md:flex-row gap-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const params = {
+              search: formData.get("search") || "",
+              sortBy: formData.get("sortBy") || "createDate",
+              sortOrder: formData.get("sortOrder") || "desc",
+              page: 1, // Reset to first page when filters change
+            };
+            router.push(`?${buildQuery(params)}`);
+          }}
+          className="flex flex-col md:flex-row gap-4"
+        >
           <div className="flex-grow">
             <input
               type="text"
@@ -208,12 +254,4 @@ export default async function TeacherPage({ searchParams }) {
       )}
     </div>
   );
-}
-
-// Query Builder
-function buildQuery(params) {
-  return Object.entries(params)
-    .filter(([_, val]) => val !== "")
-    .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
-    .join("&");
 }

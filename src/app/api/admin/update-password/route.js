@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 export async function PUT(request) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const token = request.cookies.get("access_token")?.value;

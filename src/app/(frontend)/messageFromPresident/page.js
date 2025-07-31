@@ -3,7 +3,6 @@ import React from "react";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
-
 export default async function page() {
   const { data } = await getLinksContent();
   return (

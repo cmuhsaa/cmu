@@ -13,21 +13,8 @@ const FeedbackPage = () => {
     batch: "",
     message: "",
   });
-  const [currentSlide, setCurrentSlide] = useState(0);
   const dispatch = useDispatch();
 
-  // Sample media items - replace with your actual images and YouTube videos
-  const mediaItems = [
-    {
-      type: "image",
-      url: "https://via.placeholder.com/800x400?text=Sample+Image+1",
-    },
-    { type: "youtube", url: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-    {
-      type: "image",
-      url: "https://via.placeholder.com/800x400?text=Sample+Image+2",
-    },
-  ];
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -91,13 +78,6 @@ const FeedbackPage = () => {
     dispatch({ type: LOADING_END });
   };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === mediaItems.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? mediaItems.length - 1 : prev - 1));
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

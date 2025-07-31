@@ -1,20 +1,15 @@
 import Edit from "@/components/Edit";
 import { getStudentById } from "@/lib/getData";
+import { getPaginatedStudents } from "@/lib/getDatas";
+import { notFound } from "next/navigation";
 import React from "react";
-
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
 
 const Page = async ({ params }) => {
   const { id } = await params;
   const student = await getStudentById(id);
 
   if (!student) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-gray-600">
-        Student not found
-      </div>
-    );
+    notFound();
   }
 
   return (
@@ -122,3 +117,10 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
+
+export async function generateStaticParams() {
+  const students = await getPaginatedStudents({ page: 1, limit: Infinity });
+  return students.students.map((student) => ({
+    id: student._id.toString(),
+  }));
+}

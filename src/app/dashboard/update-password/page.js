@@ -1,7 +1,9 @@
 "use client";
+import { LOADING_END, LOADING_START, MESSAGE } from "@/store/constant";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 export default function UpdatePassword() {
   const router = useRouter();
@@ -12,11 +14,11 @@ export default function UpdatePassword() {
     formState: { errors },
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    setMessage(null);
+    dispatch({ type: LOADING_START });
 
     try {
       const response = await fetch("/api/admin/update-password", {
@@ -33,28 +35,26 @@ export default function UpdatePassword() {
       });
 
       const result = await response.json();
-
-      if (response.ok) {
-        setMessage({
-          text:
-            result.message || "Password updated successfully! Redirecting...",
-          type: "success",
-        });
-        // Redirect after 2 seconds
-        setTimeout(() => router.push("/dashboard"), 2000);
-      } else {
-        setMessage({
-          text: result.error || "Failed to update password. Please try again.",
-          type: "error",
-        });
-      }
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Password Updated",
+          status: "success",
+          path: "/dashboard",
+        },
+      });
     } catch (error) {
-      setMessage({
-        text: "Network error. Please try again later.",
-        type: "error",
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: error.message,
+          status: "error",
+          path: "",
+        },
       });
     } finally {
       setIsSubmitting(false);
+      dispatch({ type: LOADING_END });
     }
   };
 
@@ -70,22 +70,6 @@ export default function UpdatePassword() {
             password
           </p>
         </div>
-
-        {message && (
-          <div
-            className={`rounded-md p-4 ${
-              message.type === "success" ? "bg-green-50" : "bg-red-50"
-            }`}
-          >
-            <div
-              className={`text-sm ${
-                message.type === "success" ? "text-green-800" : "text-red-800"
-              }`}
-            >
-              {message.text}
-            </div>
-          </div>
-        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm space-y-4">

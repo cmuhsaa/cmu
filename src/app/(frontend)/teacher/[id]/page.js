@@ -1,19 +1,14 @@
 import { getTeacherById } from "@/lib/getData";
+import { getPaginatedTeachers } from "@/lib/getDatas";
+import { notFound } from "next/navigation";
 import React from "react";
-
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
 
 const Page = async ({ params }) => {
   const { id } = await params;
   const teacher = await getTeacherById(id);
 
   if (!teacher) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-gray-600">
-        Teacher not found
-      </div>
-    );
+    notFound();
   }
 
   return (
@@ -115,3 +110,10 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
+
+export async function generateStaticParams() {
+  const teachers = await getPaginatedTeachers({ page: 1, limit: Infinity });
+  return teachers.teachers.map((teacher) => ({
+    id: teacher._id.toString(),
+  }));
+}

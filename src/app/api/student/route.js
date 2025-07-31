@@ -5,11 +5,11 @@ import { localTime } from "@/config/localTime";
 import connectDB from "@/config/db";
 import { getPaginatedStudents } from "@/lib/getDatas";
 import cloudinary from "@/config/cloudinary";
-import { AuthCheck } from "@/lib/auth";
+
 
 export async function POST(request) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const formData = await request.formData();
@@ -21,6 +21,7 @@ export async function POST(request) {
     const profession = formData.get("profession");
     const address = formData.get("address");
     const type = formData.get("type");
+    const isActive = formData.get("isActive");
     const avatarFile = formData.get("image");
 
     if (!avatarFile) {
@@ -54,7 +55,7 @@ export async function POST(request) {
       address,
       type,
       avatar,
-      isActive: true,
+      isActive,
       createDate: localTime(),
       updateDate: localTime(),
     });
@@ -80,6 +81,7 @@ export async function GET(request) {
       search: searchParams.get("search"),
       sortBy: searchParams.get("sortBy"),
       sortOrder: searchParams.get("sortOrder"),
+      isActive: searchParams.get("isActive"),
       page: parseInt(searchParams.get("page")) || 1,
       limit: parseInt(searchParams.get("limit")) || 10,
     };

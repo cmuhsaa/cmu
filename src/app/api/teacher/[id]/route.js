@@ -2,13 +2,13 @@
 import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
-import { AuthCheck } from "@/lib/auth";
+
 import Teacher from "@/models/teacherModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -47,6 +47,10 @@ export async function PUT(request, { params }) {
       };
     }
 
+    if (avatar.public_id) {
+      await cloudinary.uploader.destroy(exists.avatar.public_id);
+    }
+
     const updatedTeacher = await Teacher.findByIdAndUpdate(
       id,
       {
@@ -83,6 +87,35 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ teacher });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const teacher = await Teacher.findById(id);
+
+    if (!teacher) {
+      return NextResponse.json({ error: "Teacher not found" }, { status: 404 });
+    }
+
+    // Delete avatar from Cloudinary if exists
+    if (teacher.avatar?.public_id) {
+      await cloudinary.uploader.destroy(teacher.avatar.public_id);
+    }
+
+    // Delete the teacher document
+    const deletedTeacher = await Teacher.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      success: true,
+      message: "Teacher and avatar deleted successfully",
+      deletedTeacher,
+    });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

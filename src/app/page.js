@@ -19,6 +19,7 @@ import { getPaginatedNotices } from "../lib/getDatas";
 import { getPaginatedPosts } from "../lib/getDatas";
 import { getPaginatedStudents } from "../lib/getDatas";
 import MediaCarousel from "@/components/MediaCarousel";
+import StudentReq from "@/components/StuedentReq";
 
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
@@ -29,7 +30,7 @@ export default async function Home() {
       getPaginatedGalleries({ page: 1, limit: 2 }),
       getPaginatedNotices({ page: 1, limit: 2 }),
       getPaginatedPosts({ page: 1, limit: 2 }),
-      getPaginatedStudents({ page: 1, limit: 2 }),
+      getPaginatedStudents({ page: 1, limit: 2, isActive: true }),
     ]);
 
   return (
@@ -43,6 +44,9 @@ export default async function Home() {
       <NoticeSection notices={notices} />
       <PostSection posts={posts} />
       <StudentSection students={students} />
+      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-lg overflow-hidden">
+        <StudentReq />
+      </section>
     </main>
   );
 }

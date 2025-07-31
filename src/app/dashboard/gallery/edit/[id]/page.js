@@ -14,6 +14,7 @@ export default function GalleryUpdate() {
   // Fetch existing gallery data
   useEffect(() => {
     const fetchGallery = async () => {
+      dispatch({ type: LOADING_START });
       try {
         const res = await fetch(`/api/gallery/${id}`);
         const data = await res.json();
@@ -24,6 +25,7 @@ export default function GalleryUpdate() {
       } catch (err) {
         console.error("Failed to fetch gallery", err);
       }
+      dispatch({ type: LOADING_END });
     };
 
     if (id) fetchGallery();

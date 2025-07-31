@@ -2,13 +2,13 @@
 import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
-import { AuthCheck } from "@/lib/auth";
+
 import Gallery from "@/models/galleryModel";
 import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
-  await AuthCheck(request);
+  
 
   try {
     const { id } = await params;
@@ -39,6 +39,14 @@ export async function PUT(request, { params }) {
           url: result.secure_url,
         });
       }
+    }
+
+    if (images.length > 0) {
+      await Promise.all(
+        exists.images.map(async (image) => {
+          await cloudinary.uploader.destroy(image.public_id);
+        })
+      );
     }
 
     const updatedGallery = await Gallery.findByIdAndUpdate(
@@ -73,6 +81,38 @@ export async function GET(request, { params }) {
     }
 
     return NextResponse.json({ gallery });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request, { params }) {
+  await connectDB();
+
+  try {
+    const { id } = await params;
+    const gallery = await Gallery.findById(id);
+
+    if (!gallery) {
+      return NextResponse.json({ error: "Gallery not found" }, { status: 404 });
+    }
+
+    // Delete images from Cloudinary
+    if (gallery.images && gallery.images.length > 0) {
+      await Promise.all(
+        gallery.images.map(async (image) => {
+          await cloudinary.uploader.destroy(image.public_id);
+        })
+      );
+    }
+
+    // Delete the gallery document
+    const deletedGallery = await Gallery.findByIdAndDelete(id);
+
+    return NextResponse.json({
+      message: "Gallery and images deleted successfully",
+      deletedGallery,
+    });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
