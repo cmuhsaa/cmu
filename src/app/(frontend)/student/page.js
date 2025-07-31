@@ -1,69 +1,35 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import Loading from "@/components/Loading";
+import { getAllBatch, getPaginatedStudents } from "@/lib/getDatas";
 
-export default function StudentPage() {
-  const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [students, setStudents] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [batches, setBatches] = useState([]);
-  const dispatch = useDispatch();
-
-  const page = parseInt(searchParams.get("page")) || 1;
+export default async function StudentPage({ searchParams }) {
+  let params = await searchParams;
+  const page = parseInt(params.page) || 1;
   const limit = 10;
-  const search = searchParams.get("search") || "";
-  const type = searchParams.get("type") || "";
-  const batch = searchParams.get("batch") || "";
-  const sortBy = searchParams.get("sortBy") || "createDate";
-  const sortOrder = searchParams.get("sortOrder") || "desc";
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Build query string for the API endpoint
-        const queryParams = new URLSearchParams({
-          page: page.toString(),
-          limit: limit.toString(),
-          ...(search && { search }),
-          ...(type && { type }),
-          ...(batch && { batch }),
-          sortBy,
-          sortOrder,
-          isActive: "true",
-        }).toString();
+  const search = params.search || "";
+  const type = params.type || "";
+  const batch = params.batch || "";
+  const sortBy = params.sortBy || "createDate";
+  const sortOrder = params.sortOrder || "desc";
 
-        // Fetch students data from API endpoint
-        const studentsResponse = await fetch(`/api/student?${queryParams}`);
-        if (!studentsResponse.ok) {
-          throw new Error("Failed to fetch students");
-        }
-        const studentsData = await studentsResponse.json();
+  // Fetch data in parallel
+  const [studentsData, batchesData] = await Promise.all([
+    getPaginatedStudents({
+      page,
+      limit,
+      search,
+      type,
+      batch,
+      sortBy,
+      sortOrder,
+      isActive: true,
+    }),
+    getAllBatch(),
+  ]);
 
-        // Fetch batches data (assuming you still need this)
-        const batchesResponse = await fetch("/api/batch");
-        const batchesData = await batchesResponse.json();
-
-        setStudents(studentsData.students);
-        setTotal(studentsData.total);
-        setBatches(batchesData.batches);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-        // Optionally set error state here
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [page, search, type, batch, sortBy, sortOrder]);
-
+  const students = studentsData.students;
+  const total = studentsData.total;
+  const batches = batchesData.batches;
   const totalPages = Math.ceil(total / limit);
 
   // Utility to rebuild query string
@@ -76,7 +42,6 @@ export default function StudentPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {loading && <Loading />}
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Student Directory
       </h2>
@@ -84,19 +49,15 @@ export default function StudentPage() {
       {/* Filters Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = {
-              search: formData.get("search") || "",
-              type: formData.get("type") || "",
-              batch: formData.get("batch") || "",
-              sortBy: formData.get("sortBy") || "createDate",
-              sortOrder: formData.get("sortOrder") || "desc",
-              page: 1, // Reset to first page when filters change
-            };
-            router.push(`?${buildQuery(params)}`);
-          }}
+          action={`?${buildQuery({
+            search,
+            type,
+            batch,
+            sortBy,
+            sortOrder,
+            page: 1,
+          })}`}
+          method="get"
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4"
         >
           <div className="col-span-1 md:col-span-3 lg:col-span-2">

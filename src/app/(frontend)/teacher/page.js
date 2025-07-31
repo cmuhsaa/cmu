@@ -1,53 +1,22 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
+import { getPaginatedTeachers } from "@/lib/getDatas";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import Loading from "@/components/Loading";
 
-export default function TeacherPage() {
-  const [loading, setLoading] = useState(false)
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [teachers, setTeachers] = useState([]);
-  const [total, setTotal] = useState(0);
-  const dispatch = useDispatch();
-
-  const page = parseInt(searchParams.get("page")) || 1;
+export default async function TeacherPage({ searchParams }) {
+  const params = await searchParams;
+  const page = parseInt(params.page) || 1;
   const limit = 10;
-  const search = searchParams.get("search") || "";
-  const sortBy = searchParams.get("sortBy") || "createDate";
-  const sortOrder = searchParams.get("sortOrder") || "desc";
+  const search = params.search || "";
+  const sortBy = params.sortBy || "createDate";
+  const sortOrder = params.sortOrder || "desc";
 
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      setLoading(true)
-      try {
-        const queryParams = new URLSearchParams({
-          page: page.toString(),
-          limit: limit.toString(),
-          ...(search && { search }),
-          sortBy,
-          sortOrder,
-        }).toString();
-
-        const response = await fetch(`/api/teacher?${queryParams}`);
-        const data = await response.json();
-
-        setTeachers(data.teachers);
-        setTotal(data.total);
-      } catch (error) {
-        console.error("Error fetching teachers:", error);
-      } finally {
-        setLoading(false)
-      }
-    };
-
-    fetchTeachers();
-  }, [page, search, sortBy, sortOrder]);
-
+  const { teachers, total } = await getPaginatedTeachers({
+    page,
+    limit,
+    search,
+    sortBy,
+    sortOrder,
+  });
   const totalPages = Math.ceil(total / limit);
 
   const buildQuery = (params) => {
@@ -59,7 +28,6 @@ export default function TeacherPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {loading && <Loading />}
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         Faculty Directory
       </h1>
@@ -67,17 +35,13 @@ export default function TeacherPage() {
       {/* Filter Section */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6">
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const params = {
-              search: formData.get("search") || "",
-              sortBy: formData.get("sortBy") || "createDate",
-              sortOrder: formData.get("sortOrder") || "desc",
-              page: 1, // Reset to first page when filters change
-            };
-            router.push(`?${buildQuery(params)}`);
-          }}
+          action={`?${buildQuery({
+            search,
+            sortBy,
+            sortOrder,
+            page: 1,
+          })}`}
+          method="get"
           className="flex flex-col md:flex-row gap-4"
         >
           <div className="flex-grow">
