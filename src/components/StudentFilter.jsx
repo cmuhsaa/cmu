@@ -1,5 +1,6 @@
 "use client";
 
+import { committee } from "@/lib/committee";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -73,15 +74,14 @@ export function StudentFilters({ batches }) {
       <select
         name="type"
         value={formValues.type}
-        onChange={(e) =>
-          setFormValues({ ...formValues, type: e.target.value })
-        }
+        onChange={(e) => setFormValues({ ...formValues, type: e.target.value })}
         className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">All Types</option>
-        <option value="Student">Student</option>
-        <option value="Teacher">Teacher</option>
-        <option value="Alumni">Alumni</option>
+        {committee.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.position}
+          </option>
+        ))}
       </select>
 
       <select

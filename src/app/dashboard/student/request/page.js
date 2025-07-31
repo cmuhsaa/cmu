@@ -8,6 +8,7 @@ import ApproveStudent from "@/components/ApproveStudent";
 import DeleteStudent from "@/components/DeleteStudent";
 import { useDispatch } from "react-redux";
 import Loading from "@/components/Loading";
+import { committee } from "@/lib/committee";
 
 export default function StudentPage() {
   const [loading, setLoading] = useState(false);
@@ -117,10 +118,11 @@ export default function StudentPage() {
             defaultValue={type}
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">All Types</option>
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Alumni">Alumni</option>
+            {committee.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.position}
+              </option>
+            ))}
           </select>
 
           <select
