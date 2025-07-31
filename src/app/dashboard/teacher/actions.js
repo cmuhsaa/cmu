@@ -4,6 +4,6 @@ import { revalidatePath } from "next/cache";
 
 export async function revalidatePathTeacher(id = "") {
   revalidatePath("/teacher");
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   if (id) revalidatePath(`/teacher/${id}`);
 }
