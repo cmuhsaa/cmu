@@ -12,17 +12,19 @@ export default async function StudentPage({ searchParams }) {
   const sortBy = params?.sortBy || "createDate";
   const sortOrder = params?.sortOrder || "desc";
 
-  const { students, total } = await getPaginatedStudents({
-    page,
-    limit,
-    search,
-    type,
-    batch,
-    sortBy,
-    sortOrder,
-  });
+  const [{ students, total }, batches] = await Promise.all([
+    getPaginatedStudents({
+      page,
+      limit,
+      search,
+      type,
+      batch,
+      sortBy,
+      sortOrder,
+    }),
+    getAllBatch(),
+  ]);
 
-  const batches = await getAllBatch();
   const totalPages = Math.ceil(total / limit);
 
   return (
