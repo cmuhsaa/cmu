@@ -34,7 +34,7 @@ export function TeacherFilters() {
       ...formValues,
       page: 1, // Reset to first page when filters change
     };
-    router.push(`?${buildQuery(params)}`);
+    router.push(`/teacher/filter?${buildQuery(params)}`);
   };
 
   const handleReset = () => {

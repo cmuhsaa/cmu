@@ -2,8 +2,6 @@ import { getPaginatedEvents } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
 import Link from "next/link";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
 export default async function EventPage({ params }) {
   let { page } = await params;
   page = parseInt(page) || 1;

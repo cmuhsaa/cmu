@@ -40,7 +40,7 @@ export function StudentFilters() {
       ...formValues,
       page: 1, // Reset to first page when filters change
     };
-    router.push(`?${buildQuery(params)}`);
+    router.push(`/student/filter?${buildQuery(params)}`);
   };
 
   const handleReset = () => {

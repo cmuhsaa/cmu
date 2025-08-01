@@ -3,8 +3,6 @@ import { TeacherFilters } from "@/components/TeacherFilter";
 import { getPaginatedTeachers } from "@/lib/getDatas";
 import Link from "next/link";
 
-export const dynamic = "force-static";
-
 export default async function TeacherPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page) || 1;

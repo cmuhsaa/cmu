@@ -3,10 +3,8 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
 export default async function NoticePage({ params }) {
-  let {page} = await params;
+  let { page } = await params;
   page = parseInt(page) || 1;
   const limit = 10;
 

@@ -3,8 +3,6 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
-
 // This remains a Server Component
 export default async function PostPage({ params }) {
   let { page } = await params;

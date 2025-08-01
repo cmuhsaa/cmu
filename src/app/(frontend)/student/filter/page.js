@@ -3,8 +3,6 @@ import Link from "next/link";
 import { getPaginatedStudents } from "@/lib/getDatas";
 import { StudentFilters } from "@/components/StudentFilter";
 
-export const dynamic = "force-static";
-
 export default async function StudentPage({ searchParams }) {
   let params = await searchParams;
   const page = parseInt(params.page) || 1;
