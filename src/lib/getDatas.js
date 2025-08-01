@@ -109,11 +109,7 @@ export async function getPaginatedStudents({
   page = 1,
   limit = 10,
 }) {
-  
-  console.log(`2-${new Date()}`);
   await connectDB();
-  
-  console.log(`3-${new Date()}`);
 
   const filter = {};
   if (batch) filter.batch = batch;

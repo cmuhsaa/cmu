@@ -4,7 +4,6 @@ import { getPaginatedStudents } from "@/lib/getDatas";
 import { StudentFilters } from "@/components/StudentFilter";
 
 export default async function StudentPage({ searchParams }) {
-  console.log(`1-${new Date()}`);
   let params = await searchParams;
   const page = parseInt(params.page) || 1;
   const limit = 10;
@@ -25,8 +24,6 @@ export default async function StudentPage({ searchParams }) {
     sortOrder,
     isActive: true,
   });
-
-  console.log(`4-${new Date()}`);
 
   const students = studentsData.students;
   const total = studentsData.total;
