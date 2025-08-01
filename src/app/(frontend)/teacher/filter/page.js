@@ -6,18 +6,24 @@ import Link from "next/link";
 export default async function TeacherPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page) || 1;
-  const limit = 1;
+  const limit = 10;
   const search = params.search || "";
   const sortBy = params.sortBy || "createDate";
   const sortOrder = params.sortOrder || "desc";
 
-  const { teachers, total } = await getPaginatedTeachers({
+  const queryParams = new URLSearchParams({
     page,
     limit,
     search,
     sortBy,
     sortOrder,
-  });
+  }).toString();
+
+  const response = await fetch(
+    `${process.env.CLIENT_URL}/api/teacher?${queryParams}`
+  );
+  const { teachers, total } = await response.json();
+
   const totalPages = Math.ceil(total / limit);
 
   const buildQuery = (params) => {

@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 export default async function TeacherPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page) || 1;
-  const limit = 1;
+  const limit = 10;
   const search = params.search || "";
   const sortBy = params.sortBy || "createDate";
   const sortOrder = params.sortOrder || "desc";

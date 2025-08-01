@@ -1,56 +1,34 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
 import { StudentFilters } from "@/components/StudentFilter";
 
-export default function StudentPage() {
-  const searchParams = useSearchParams();
-  const [students, setStudents] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  // Get query parameters
-  const page = parseInt(searchParams.get("page")) || 1;
-  const search = searchParams.get("search") || "";
-  const type = searchParams.get("type") || "";
-  const batch = searchParams.get("batch") || "";
-  const sortBy = searchParams.get("sortBy") || "createDate";
-  const sortOrder = searchParams.get("sortOrder") || "desc";
+export default async function StudentPage({ searchParams }) {
+  let params = await searchParams;
+  const page = parseInt(params.page) || 1;
   const limit = 10;
+  const search = params.search || "";
+  const type = params.type || "";
+  const batch = params.batch || "";
+  const sortBy = params.sortBy || "createDate";
+  const sortOrder = params.sortOrder || "desc";
+
+  const queryParams = new URLSearchParams({
+    page,
+    limit,
+    search,
+    type,
+    batch,
+    sortBy,
+    sortOrder,
+    isActive: true,
+  }).toString();
+
+  const response = await fetch(
+    `${process.env.CLIENT_URL}/api/student?${queryParams}`
+  );
+  const { students, total } = await response.json();
+
   const totalPages = Math.ceil(total / limit);
-
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setLoading(true);
-        const queryParams = new URLSearchParams({
-          page,
-          limit,
-          search,
-          type,
-          batch,
-          sortBy,
-          sortOrder,
-          isActive: true,
-        }).toString();
-
-        const response = await fetch(`/api/student?${queryParams}`);
-        const data = await response.json();
-
-        setStudents(data.students);
-        setTotal(data.total);
-      } catch (error) {
-        console.error("Failed to fetch students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStudents();
-  }, [page, search, type, batch, sortBy, sortOrder]);
 
   // Utility to rebuild query string
   const buildQuery = (params) => {
@@ -59,92 +37,6 @@ export default function StudentPage() {
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .join("&");
   };
-
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Student Directory
-        </h1>
-
-        {/* Search and Filters */}
-        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-          <div className="flex flex-wrap gap-4 items-center">
-            <div className="w-full md:w-64 h-10 bg-gray-200 rounded-md animate-pulse"></div>
-            <div className="w-32 h-10 bg-gray-200 rounded-md animate-pulse"></div>
-            <div className="w-32 h-10 bg-gray-200 rounded-md animate-pulse"></div>
-            <div className="w-32 h-10 bg-gray-200 rounded-md animate-pulse"></div>
-          </div>
-        </div>
-
-        {/* Student Cards */}
-        <div className="space-y-4">
-          {/* Student Card 1 */}
-          <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Avatar */}
-              <div className="w-24 h-24 rounded-full bg-gray-200"></div>
-
-              {/* Content */}
-              <div className="flex-grow space-y-4">
-                <div className="flex justify-between">
-                  <div className="w-48 h-6 bg-gray-200 rounded"></div>
-                  <div className="w-20 h-6 bg-gray-200 rounded"></div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="space-y-2">
-                      <div className="w-20 h-4 bg-gray-200 rounded"></div>
-                      <div className="w-32 h-4 bg-gray-200 rounded"></div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="w-full h-4 bg-gray-200 rounded"></div>
-
-                <div className="flex justify-between">
-                  <div className="w-48 h-4 bg-gray-200 rounded"></div>
-                  <div className="w-48 h-4 bg-gray-200 rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Student Card 1 */}
-          <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Avatar */}
-              <div className="w-24 h-24 rounded-full bg-gray-200"></div>
-
-              {/* Content */}
-              <div className="flex-grow space-y-4">
-                <div className="flex justify-between">
-                  <div className="w-48 h-6 bg-gray-200 rounded"></div>
-                  <div className="w-20 h-6 bg-gray-200 rounded"></div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="space-y-2">
-                      <div className="w-20 h-4 bg-gray-200 rounded"></div>
-                      <div className="w-32 h-4 bg-gray-200 rounded"></div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="w-full h-4 bg-gray-200 rounded"></div>
-
-                <div className="flex justify-between">
-                  <div className="w-48 h-4 bg-gray-200 rounded"></div>
-                  <div className="w-48 h-4 bg-gray-200 rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
