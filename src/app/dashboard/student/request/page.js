@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useOptimistic, useTransition } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import ApproveStudent from "@/components/ApproveStudent";
-import DeleteStudent from "@/components/DeleteStudent";
 import { useDispatch } from "react-redux";
 import Loading from "@/components/Loading";
 import { committee } from "@/lib/committee";
+import { MESSAGE } from "@/store/constant";
 
 export default function StudentPage() {
   const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [students, setStudents] = useState([]);
+  const [optimisticStudents, setOptimisticStudents] = useOptimistic(students);
   const [total, setTotal] = useState(0);
   const [batches, setBatches] = useState([]);
   const dispatch = useDispatch();
@@ -26,11 +27,11 @@ export default function StudentPage() {
   const batch = searchParams.get("batch") || "";
   const sortBy = searchParams.get("sortBy") || "createDate";
   const sortOrder = searchParams.get("sortOrder") || "desc";
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Build query string for the API endpoint
         const queryParams = new URLSearchParams({
           page: page.toString(),
           limit: limit.toString(),
@@ -42,24 +43,21 @@ export default function StudentPage() {
           isActive: "false",
         }).toString();
 
-        // Fetch students data from API endpoint
-        const studentsResponse = await fetch(`/api/student?${queryParams}`);
-        if (!studentsResponse.ok) {
-          throw new Error("Failed to fetch students");
-        }
-        const studentsData = await studentsResponse.json();
+        const [studentsResponse, batchesResponse] = await Promise.all([
+          fetch(`/api/student?${queryParams}`),
+          fetch("/api/batch"),
+        ]);
 
-        // Fetch batches data (assuming you still need this)
-        const batchesResponse = await fetch("/api/batch");
-        const batchesData = await batchesResponse.json();
-        console.log(studentsData);
+        const [studentsData, batchesData] = await Promise.all([
+          studentsResponse.json(),
+          batchesResponse.json(),
+        ]);
 
         setStudents(studentsData.students);
         setTotal(studentsData.total);
         setBatches(batchesData.batches);
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        // Optionally set error state here
       } finally {
         setLoading(false);
       }
@@ -70,12 +68,72 @@ export default function StudentPage() {
 
   const totalPages = Math.ceil(total / limit);
 
-  // Utility to rebuild query string
   const buildQuery = (params) => {
     return Object.entries(params)
       .filter(([_, value]) => value !== "")
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .join("&");
+  };
+
+  const handleApprove = async (id) => {
+    setLoading(true);
+    startTransition(() => {
+      setOptimisticStudents((prevStudents) =>
+        prevStudents.filter((student) => student._id !== id)
+      );
+    });
+
+    try {
+      const response = await fetch(`/api/student/${id}`, {
+        method: "PUT",
+        body: new FormData(),
+      });
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Approved Successfully!",
+          status: "info",
+          path: "",
+        },
+      });
+
+      setStudents((prevStudents) =>
+        prevStudents.filter((student) => student._id !== id)
+      );
+      setTotal((prevTotal) => prevTotal - 1);
+    } catch (error) {
+      console.error("Failed to approve student:", error);
+      setOptimisticStudents(students);
+    }
+    setLoading(false);
+  };
+
+  const handleDelete = async (id) => {
+    setLoading(true);
+    startTransition(() => {
+      setOptimisticStudents((prevStudents) =>
+        prevStudents.filter((student) => student._id !== id)
+      );
+    });
+
+    try {
+      const response = await fetch(`/api/student/${id}`, {
+        method: "DELETE",
+      });
+      dispatch({
+        type: MESSAGE,
+        payload: { message: "Deleted Successfully!", status: "info", path: "" },
+      });
+
+      setStudents((prevStudents) =>
+        prevStudents.filter((student) => student._id !== id)
+      );
+      setTotal((prevTotal) => prevTotal - 1);
+    } catch (error) {
+      console.error("Failed to delete student:", error);
+      setOptimisticStudents(students);
+    }
+    setLoading(false);
   };
 
   return (
@@ -97,7 +155,7 @@ export default function StudentPage() {
               batch: formData.get("batch") || "",
               sortBy: formData.get("sortBy") || "createDate",
               sortOrder: formData.get("sortOrder") || "desc",
-              page: 1, // Reset to first page when filters change
+              page: 1,
             };
             router.push(`?${buildQuery(params)}`);
           }}
@@ -174,7 +232,7 @@ export default function StudentPage() {
         </form>
       </div>
 
-      {students.length === 0 ? (
+      {optimisticStudents.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
           <p className="text-gray-600">
             No student data found matching your criteria.
@@ -182,7 +240,7 @@ export default function StudentPage() {
         </div>
       ) : (
         <div className="space-y-4">
-          {students.map((member) => (
+          {optimisticStudents.map((member) => (
             <div
               key={member._id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
@@ -202,6 +260,7 @@ export default function StudentPage() {
 
                   {/* Main Content */}
                   <div className="flex-grow">
+                    {/* ... (rest of the student info display remains the same) ... */}
                     <div className="flex justify-between items-start">
                       <Link href={`/student/${member._id}`} className="group">
                         <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
@@ -259,9 +318,22 @@ export default function StudentPage() {
                       </div>
                     )}
 
-                    <ApproveStudent id={member._id.toString()} />
-                    <DeleteStudent id={member._id.toString()} />
-
+                    <div className="flex gap-2 mt-4">
+                      <button
+                        onClick={() => handleApprove(member._id.toString())}
+                        disabled={isPending}
+                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-green-300 transition-colors"
+                      >
+                        {isPending ? "Processing..." : "Approve"}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(member._id.toString())}
+                        disabled={isPending}
+                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-red-300 transition-colors"
+                      >
+                        {isPending ? "Processing..." : "Delete"}
+                      </button>
+                    </div>
                     <div className="flex justify-between mt-4 text-sm text-gray-500">
                       <span>
                         Created: {member.createDate?.date} at{" "}
@@ -272,6 +344,7 @@ export default function StudentPage() {
                         {member.updateDate?.formatedTime}
                       </span>
                     </div>
+                    {/* ... (rest of the student info display remains the same) ... */}
                   </div>
                 </div>
               </div>
