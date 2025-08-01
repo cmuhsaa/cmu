@@ -1,33 +1,56 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { getPaginatedStudents } from "@/lib/getDatas";
 import { StudentFilters } from "@/components/StudentFilter";
 
-export default async function StudentPage({ searchParams }) {
-  let params = await searchParams;
-  const page = parseInt(params.page) || 1;
+export default function StudentPage() {
+  const searchParams = useSearchParams();
+  const [students, setStudents] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  // Get query parameters
+  const page = parseInt(searchParams.get("page")) || 1;
+  const search = searchParams.get("search") || "";
+  const type = searchParams.get("type") || "";
+  const batch = searchParams.get("batch") || "";
+  const sortBy = searchParams.get("sortBy") || "createDate";
+  const sortOrder = searchParams.get("sortOrder") || "desc";
   const limit = 10;
-  const search = params.search || "";
-  const type = params.type || "";
-  const batch = params.batch || "";
-  const sortBy = params.sortBy || "createDate";
-  const sortOrder = params.sortOrder || "desc";
-
-  // Fetch data in parallel
-  const studentsData = await getPaginatedStudents({
-    page,
-    limit,
-    search,
-    type,
-    batch,
-    sortBy,
-    sortOrder,
-    isActive: true,
-  });
-
-  const students = studentsData.students;
-  const total = studentsData.total;
   const totalPages = Math.ceil(total / limit);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        setLoading(true);
+        const queryParams = new URLSearchParams({
+          page,
+          limit,
+          search,
+          type,
+          batch,
+          sortBy,
+          sortOrder,
+          isActive: true,
+        }).toString();
+
+        const response = await fetch(`/api/student?${queryParams}`);
+        const data = await response.json();
+
+        setStudents(data.students);
+        setTotal(data.total);
+      } catch (error) {
+        console.error("Failed to fetch students:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStudents();
+  }, [page, search, type, batch, sortBy, sortOrder]);
 
   // Utility to rebuild query string
   const buildQuery = (params) => {
@@ -36,6 +59,19 @@ export default async function StudentPage({ searchParams }) {
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .join("&");
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">
+          Student Directory
+        </h2>
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-600">Loading student data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
