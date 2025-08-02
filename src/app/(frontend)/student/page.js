@@ -40,7 +40,7 @@ export default async function StudentPage({ searchParams }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 py-8 max-w-[1440px]">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Student Directory
       </h2>

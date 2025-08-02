@@ -137,7 +137,7 @@ export default function StudentPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 py-8 max-w-[1440px]">
       {loading && <Loading />}
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Student Directory

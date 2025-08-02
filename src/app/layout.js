@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         >
           <Toast />
           <Navbar />
-          <main className="container mx-auto px-4 py-6 min-h-screen">
+          <main className="mx-auto min-h-screen">
             {children}
           </main>
           <Footer />

@@ -90,7 +90,7 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
-              <div className="self-start absolute right-0 mt-[70px] w-48 origin-top-right bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+              <div className="self-start absolute right-0 mt-[30px] w-48 origin-top-right bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
                 {primaryNavItems.map((item) => (
                   <Link
                     key={item.href}
