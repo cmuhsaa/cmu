@@ -83,7 +83,7 @@ export default function NewMemberSection({ members }) {
                     Email
                   </Link>
                   <Link
-                    href={member.phone}
+                    href={`tel:${member.phone}`}
                     className="p-3 h-10 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center text-green-600 transition-colors duration-300 cursor-pointer"
                   >
                     Phone
