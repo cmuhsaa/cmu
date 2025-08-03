@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function HeroSection({ schoolName, total, eventTotal }) {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative shadow-xl p-4 py-20 rounded flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 object-cover object-top"
         style={{
@@ -11,7 +11,7 @@ export default function HeroSection({ schoolName, total, eventTotal }) {
         }}
       ></div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-blue-600/60"></div>
 
       <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
         <div className="mb-8">

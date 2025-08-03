@@ -138,13 +138,6 @@ export default function NewMemberSection({ members }) {
                 <span>Mentorship programs</span>
               </li>
             </ul>
-            <Link
-              href="/objectives"
-              className="inline-flex items-center gap-2 bg-white text-green-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 whitespace-nowrap cursor-pointer"
-            >
-              Learn More
-              <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
-            </Link>
           </div>
         </div>
 

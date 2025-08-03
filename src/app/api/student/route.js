@@ -6,10 +6,8 @@ import connectDB from "@/config/db";
 import { getPaginatedStudents } from "@/lib/getDatas";
 import cloudinary from "@/config/cloudinary";
 
-
 export async function POST(request) {
   await connectDB();
-  
 
   try {
     const formData = await request.formData();
@@ -27,7 +25,8 @@ export async function POST(request) {
     if (!avatarFile) {
       NextResponse.json({ error: "Image is required" }, { status: 500 });
     }
-
+    console.log(formData);
+    console.log(avatarFile);
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
       const buffer = Buffer.from(await avatarFile.arrayBuffer());

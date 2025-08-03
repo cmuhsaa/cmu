@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvider";
 import Toast from "@/components/Toast";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const geistSans = Geist({
@@ -28,10 +27,7 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
         >
           <Toast />
-          <Navbar />
-          <main className="mx-auto min-h-screen">
-            {children}
-          </main>
+          <main className="mx-auto min-h-screen">{children}</main>
           <Footer />
         </body>
       </StoreProvider>

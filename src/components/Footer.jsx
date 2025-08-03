@@ -92,7 +92,7 @@ const Footer = async () => {
 
         <div>
           <h3 className="font-bold text-lg mb-2">About CUAA</h3>
-          <p>{data.introduction.slice(0, 200)}...</p>
+          <p>{data?.formation?.slice(0, 200)}...</p>
           <Link href={`/introduction`}>See more</Link>
         </div>
       </div>

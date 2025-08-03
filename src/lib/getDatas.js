@@ -189,7 +189,9 @@ export async function getPaginatedTeachers({
 export async function getLinksContent() {
   await connectDB();
 
-  const newOrgInfo = await OrganizationInfo.find();
+  const newOrgInfo = await OrganizationInfo.findById(
+    "688fa8122fd0e230caef9c64"
+  );
 
-  return { data: newOrgInfo[0] };
+  return { data: newOrgInfo };
 }
