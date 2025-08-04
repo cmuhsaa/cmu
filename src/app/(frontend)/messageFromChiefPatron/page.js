@@ -1,5 +1,6 @@
 import { getLinksContent } from "@/lib/getDatas";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { TbTargetArrow } from "react-icons/tb";
 import { TfiTarget } from "react-icons/tfi";
 
@@ -16,6 +17,9 @@ export const dynamic = "force-static";
 
 export default async function BackgroundPage() {
   const { data } = await getLinksContent();
+    if (!data) {
+      notFound();
+    }
   const { stats } = backgroundPageData;
   const { vision, mission, achievements, patronMessage } = data;
 

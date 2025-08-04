@@ -13,35 +13,35 @@ export default function OrganizationForm({ initialData = {} }) {
   const [loading, setLoading] = useState(false);
 
   const defaultValues = {
-    history: initialData.history || "",
-    formation: initialData.formation || "",
-    establishment: initialData.establishment || "",
-    vision: initialData.vision || "",
-    mission: initialData.mission || "",
-    achievements: initialData.achievements || "",
-    secretaryMessage: initialData.secretaryMessage || {
+    history: initialData?.history || "",
+    formation: initialData?.formation || "",
+    establishment: initialData?.establishment || "",
+    vision: initialData?.vision || "",
+    mission: initialData?.mission || "",
+    achievements: initialData?.achievements || "",
+    secretaryMessage: initialData?.secretaryMessage || {
       name: "",
       designation: "",
       message: "",
       image: "",
     },
-    presidentMessage: initialData.presidentMessage || {
+    presidentMessage: initialData?.presidentMessage || {
       name: "",
       designation: "",
       message: "",
       image: "",
     },
-    patronMessage: initialData.patronMessage || {
+    patronMessage: initialData?.patronMessage || {
       name: "",
       designation: "",
       message: "",
       image: "",
     },
-    address: initialData.address || "",
-    phonePresident: initialData.phonePresident || "",
-    phoneSecretary: initialData.phoneSecretary || "",
-    email: initialData.email || "",
-    socialLinks: initialData.socialLinks || {
+    address: initialData?.address || "",
+    phonePresident: initialData?.phonePresident || "",
+    phoneSecretary: initialData?.phoneSecretary || "",
+    email: initialData?.email || "",
+    socialLinks: initialData?.socialLinks || {
       facebook: "",
       youtube: "",
       whatsapp: "",

@@ -32,9 +32,6 @@ export default async function EventPage({ params }) {
             <p className="text-gray-600 mb-4">
               No upcoming events found. Check back later!
             </p>
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-              Suggest an Event
-            </button>
           </div>
         ) : (
           <div className="space-y-6 px-3 lg:px-0">

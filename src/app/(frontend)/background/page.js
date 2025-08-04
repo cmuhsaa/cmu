@@ -1,5 +1,6 @@
 import { getLinksContent } from "@/lib/getDatas";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { TbTargetArrow } from "react-icons/tb";
 import { TfiTarget } from "react-icons/tfi";
 
@@ -12,10 +13,13 @@ const backgroundPageData = {
   ],
 };
 
-export const dynamic = "force-static"
+export const dynamic = "force-static";
 
 export default async function BackgroundPage() {
   const { data } = await getLinksContent();
+  if (!data) {
+    notFound();
+  }
   const { stats } = backgroundPageData;
   const { history, vision, mission, achievements } = data;
 
@@ -42,10 +46,10 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-8 border-l-4 border-blue-500">
           <blockquote className="italic text-lg text-gray-700 leading-relaxed">
             <i className="ri-double-quotes-l text-3xl text-blue-500 float-left mr-2 mt-1"></i>
-            &quot;মহান দার্শনিক রুশো বলেছিলেন &apos;বিশ্ববিদ্যালয় হবে শহর থেকে দূরে
-            নির্জন কোনো জায়গায়, যেখানে থাকবে না কোনো কোলাহল, পরিবেশ হবে মুক্ত,
-            শিক্ষার্থীরা বেড়ে উঠবে অপরূপ এক প্রকৃতির কোলে, প্রকৃতি হবে তাদের
-            শিক্ষক&apos;।&quot;
+            &quot;মহান দার্শনিক রুশো বলেছিলেন &apos;বিশ্ববিদ্যালয় হবে শহর থেকে
+            দূরে নির্জন কোনো জায়গায়, যেখানে থাকবে না কোনো কোলাহল, পরিবেশ হবে
+            মুক্ত, শিক্ষার্থীরা বেড়ে উঠবে অপরূপ এক প্রকৃতির কোলে, প্রকৃতি হবে
+            তাদের শিক্ষক&apos;।&quot;
           </blockquote>
           <cite className="block text-sm text-blue-600 font-medium mt-4">
             - জঁ-জাক রুশো
