@@ -2,11 +2,12 @@ import { getPaginatedNotices } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
+import { Calendar, Clock, FileText, AlertCircle } from "lucide-react";
 
-export const dynamic = "force-static"; // Optional: forces static + ISR
+export const dynamic = "force-static";
 
 export default async function NoticePage({ params }) {
-  let {page} = await params;
+  let { page } = await params;
   page = parseInt(page) || 1;
   const limit = 10;
 
@@ -14,62 +15,92 @@ export default async function NoticePage({ params }) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-        Notice List
-      </h2>
+    <div className="container rounded-2xl overflow-hidden">
+      <div
+        className="relative h-80 bg-cover bg-center mb-6"
+        style={{
+          backgroundImage: `url('https://readdy.ai/api/search-image?query=Beautiful%20university%20campus%20in%20Bangladesh%20with%20lush%20green%20hills%2C%20traditional%20academic%20buildings%2C%20students%20walking%20on%20pathways%2C%20serene%20natural%20environment%2C%20peaceful%20educational%20atmosphere%2C%20blue%20sky%20with%20white%20clouds%2C%20vibrant%20green%20landscapes%20surrounding%20the%20campus&width=800&height=320&seq=bg-hero-001&orientation=landscape')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
+        <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Notice</h1>
+        </div>
+      </div>
 
       {notices.length === 0 ? (
-        <p className="text-gray-600 text-center">No notice data found.</p>
+        <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-gray-100">
+          <AlertCircle className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+          <p className="text-gray-600 text-lg">
+            No notices available at this time.
+          </p>
+        </div>
       ) : (
         <>
-          <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-3 lg:px-0">
             {notices.map((notice) => (
               <div
                 key={notice._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
               >
                 <div className="p-6">
-                  <div className="flex justify-between items-start">
-                    <Link href={`/notice/${notice._id}`} className="group">
-                      <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
-                        {notice.title}
-                      </h3>
-                    </Link>
-                    <Edit model="notice" id={notice._id.toString()} />
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span
+                          className={`px-2 py-1 text-xs font-medium rounded-full ${
+                            notice.type === "urgent"
+                              ? "bg-red-100 text-red-800"
+                              : notice.type === "general"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {notice.type}
+                        </span>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1.5 text-gray-500" />
+                          <span>
+                            {new Date(notice.dateTime).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </span>
+                        </div>
+                      </div>
+
+                      <Link href={`/notice/${notice._id}`} className="group">
+                        <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors mb-3">
+                          {notice.title}
+                        </h3>
+                      </Link>
+                      <p className="text-gray-600 line-clamp-2 mb-2">
+                        {notice.description}
+                      </p>
+                    </div>
+                    <Edit
+                      model="notice"
+                      id={notice._id.toString()}
+                      className="text-gray-400 hover:text-blue-600"
+                    />
                   </div>
 
-                  <div className="mt-4 space-y-3 text-gray-600">
-                    <p>
-                      <strong className="text-gray-700">Description:</strong>{" "}
-                      {notice.description}
-                    </p>
-                    <p>
-                      <strong className="text-gray-700">Type:</strong>{" "}
-                      {notice.type}
-                    </p>
-                    <p>
-                      <strong className="text-gray-700">Date & Time:</strong>{" "}
-                      {notice.dateTime}
-                    </p>
-                    <p>
-                      <strong className="text-gray-700">Created:</strong>{" "}
-                      {notice.createDate?.date} at{" "}
-                      {notice.createDate?.formatedTime}
-                    </p>
-                    <p>
-                      <strong className="text-gray-700">Updated:</strong>{" "}
-                      {notice.updateDate?.date} at{" "}
-                      {notice.updateDate?.formatedTime}
-                    </p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 pt-2 pb-2 border-t border-gray-100">
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-1.5 text-gray-500" />
+                      <span>Publish: {notice.createDate?.date}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 mr-1.5 text-gray-500" />
+                      <span>Updated: {notice.updateDate?.date}</span>
+                    </div>
                   </div>
 
-                  {/* Media Carousel for Images */}
                   {notice.images?.length > 0 && (
-                    <div className="mt-6">
-                      <h4 className="text-lg font-medium text-gray-700 mb-3">
-                        Images
-                      </h4>
+                    <div className="pt-3 border-t border-gray-100">
+                      <div className="flex items-center gap-2 text-gray-700 mb-3">
+                        <FileText className="h-5 w-5" />
+                        <h4 className="font-medium">Attachments</h4>
+                      </div>
                       <MediaCarousel
                         images={notice.images.map((item) => ({
                           url: item.url,
@@ -83,24 +114,51 @@ export default async function NoticePage({ params }) {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center items-center mt-10 gap-4">
-            {page > 1 && (
-              <Link href={`/notice/page/${page - 1}`}>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-10">
+            <div className="text-sm text-gray-600">
+              Showing {notices.length} of {total} notices
+            </div>
+            <div className="flex gap-2">
+              {page > 1 && (
+                <Link
+                  href={`/notice/page/${page - 1}`}
+                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors flex items-center"
+                >
                   Previous
-                </button>
-              </Link>
-            )}
-            <span className="text-gray-700">
-              Page {page} of {totalPages}
-            </span>
-            {page < totalPages && (
-              <Link href={`/notice/page/${page + 1}`}>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+                </Link>
+              )}
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                const pageNum =
+                  page <= 3
+                    ? i + 1
+                    : page >= totalPages - 2
+                    ? totalPages - 4 + i
+                    : page - 2 + i;
+                return (
+                  pageNum <= totalPages && (
+                    <Link
+                      key={pageNum}
+                      href={`/notice/page/${pageNum}`}
+                      className={`px-4 py-2 border rounded-lg transition-colors ${
+                        page === pageNum
+                          ? "bg-blue-600 text-white border-blue-600"
+                          : "bg-white border-gray-300 hover:bg-gray-50"
+                      }`}
+                    >
+                      {pageNum}
+                    </Link>
+                  )
+                );
+              })}
+              {page < totalPages && (
+                <Link
+                  href={`/notice/page/${page + 1}`}
+                  className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors flex items-center"
+                >
                   Next
-                </button>
-              </Link>
-            )}
+                </Link>
+              )}
+            </div>
           </div>
         </>
       )}

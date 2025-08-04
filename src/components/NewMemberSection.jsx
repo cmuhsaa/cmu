@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { IoMail } from "react-icons/io5";
+import { BsTelephoneOutboundFill } from "react-icons/bs";
 
 export default function NewMemberSection({ members }) {
   return (
@@ -57,36 +59,19 @@ export default function NewMemberSection({ members }) {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  {member.about}
-                </p>
-
-                <div className="text-sm text-gray-500">
-                  <div className="flex items-center gap-2 mb-2">
-                    <i className="ri-calendar-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>Joined on {member.createDate.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <i className="ri-map-pin-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>{member.address}</span>
-                  </div>
-                </div>
-              </div>
-
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-3">
                   <Link
                     href={`mailto:${member.email}`}
                     className="p-3 h-10 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center text-green-600 transition-colors duration-300 cursor-pointer"
                   >
-                    Email
+                    <IoMail />
                   </Link>
                   <Link
                     href={`tel:${member.phone}`}
                     className="p-3 h-10 bg-green-100 hover:bg-green-200 rounded-full flex items-center justify-center text-green-600 transition-colors duration-300 cursor-pointer"
                   >
-                    Phone
+                    <BsTelephoneOutboundFill />
                   </Link>
                 </div>
 

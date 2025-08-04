@@ -13,16 +13,24 @@ export default async function PostPage({ params }) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-        Post List
-      </h2>
+    <div className="container rounded-2xl overflow-hidden">
+      <div
+        className="relative h-80 bg-cover bg-center mb-6"
+        style={{
+          backgroundImage: `url('https://readdy.ai/api/search-image?query=Beautiful%20university%20campus%20in%20Bangladesh%20with%20lush%20green%20hills%2C%20traditional%20academic%20buildings%2C%20students%20walking%20on%20pathways%2C%20serene%20natural%20environment%2C%20peaceful%20educational%20atmosphere%2C%20blue%20sky%20with%20white%20clouds%2C%20vibrant%20green%20landscapes%20surrounding%20the%20campus&width=800&height=320&seq=bg-hero-001&orientation=landscape')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
+        <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Posts</h1>
+        </div>
+      </div>
 
       {posts.length === 0 ? (
         <p className="text-gray-600 text-center">No post data found.</p>
       ) : (
         <>
-          <div className="space-y-10">
+          <div className="space-y-10 px-3 lg:px-0">
             {posts.map((post) => (
               <div
                 key={post._id}

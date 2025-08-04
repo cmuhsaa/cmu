@@ -1,8 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  FiChevronUp,
+  FiChevronDown,
+  FiMenu,
+  FiPhone,
+  FiLink,
+  FiMapPin,
+  FiMail,
+} from "react-icons/fi";
 import {
   FiHome,
   FiInfo,
@@ -16,13 +25,6 @@ import {
   FiFileText,
   FiUsers,
   FiMessageSquare,
-  FiMenu,
-  FiLink,
-  FiPhone,
-  FiMapPin,
-  FiMail,
-  FiChevronUp,
-  FiChevronDown,
 } from "react-icons/fi";
 import Edit from "./Edit";
 
@@ -102,117 +104,233 @@ const SidebarData = {
 export default function Sidebar() {
   const { sidebarItems, quickLinks, contactInfo } = SidebarData;
   const pathname = usePathname();
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // for mobile sidebar toggle
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(true);
   const [isQuickLinksOpen, setIsQuickLinksOpen] = useState(true);
 
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
-    <div className="lg:col-span-1">
-      <div className="sticky top-8">
-        {/* Navigation Menu - Collapsible with smooth transition */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
-          <div
-            className="flex items-center justify-between cursor-pointer"
-            onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}
-          >
-            <h3 className="text-lg font-bold text-gray-800 flex items-center">
-              <FiMenu className="w-5 h-5 mr-2 text-blue-600" />
-              প্রধান মেনু
+    <>
+      {/* Toggle Button only on small screens */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-md"
+      >
+        <FiMenu />
+      </button>
+
+      <div className="inline-block lg:hidden">
+        <div
+          className={`z-40 lg:sticky lg:top-8 transition-all duration-300 bg-white shadow-xl overflow-y-auto h-screen lg:h-auto`}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: isSidebarOpen ? "0" : "-100%",
+            width: "80%", // control width in mobile
+            maxWidth: "320px",
+          }}
+        >
+          <div className="p-6 mb-6">
+            {/* Main Menu */}
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}
+            >
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <FiMenu className="w-5 h-5 mr-2 text-blue-600" />
+                প্রধান মেনু
+              </h3>
+              {isMainMenuOpen ? (
+                <FiChevronUp className="w-5 h-5 text-gray-500" />
+              ) : (
+                <FiChevronDown className="w-5 h-5 text-gray-500" />
+              )}
+            </div>
+            <nav
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isMainMenuOpen ? "max-h-96 mt-4" : "max-h-0"
+              }`}
+            >
+              <div className="space-y-2">
+                {sidebarItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className={`flex items-center px-4 py-3 rounded-xl transition-all ${
+                      item.href === pathname
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                        : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                ))}
+                <Edit model={"dashboard"} id={`/dashboard`} />
+              </div>
+            </nav>
+          </div>
+
+          {/* Quick Links */}
+          <div className="p-6 mb-6">
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => setIsQuickLinksOpen(!isQuickLinksOpen)}
+            >
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <FiLink className="w-5 h-5 mr-2 text-green-600" />
+                দ্রুত লিঙ্ক
+              </h3>
+              {isQuickLinksOpen ? (
+                <FiChevronUp className="w-5 h-5 text-gray-500" />
+              ) : (
+                <FiChevronDown className="w-5 h-5 text-gray-500" />
+              )}
+            </div>
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isQuickLinksOpen ? "max-h-96 mt-4" : "max-h-0"
+              }`}
+            >
+              <div className="space-y-2">
+                {quickLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className={`flex items-center px-4 py-3 rounded-xl transition-all ${
+                      link.href === pathname
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                        : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                  >
+                    {link.icon}
+                    <span className="text-sm">{link.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-xl p-6 text-white m-6">
+            <h3 className="text-lg font-bold mb-4 flex items-center">
+              <FiPhone className="w-5 h-5 mr-2" />
+              যোগাযোগ
             </h3>
-            {isMainMenuOpen ? (
-              <FiChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-200" />
-            ) : (
-              <FiChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-200" />
-            )}
-          </div>
-
-          <nav
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isMainMenuOpen ? "max-h-96 mt-4" : "max-h-0"
-            }`}
-          >
-            <div className="space-y-2">
-              {sidebarItems.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className={`flex items-center px-4 py-3 rounded-xl transition-all ${
-                    item.href === pathname
-                      ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
-                      : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
-                  }`}
-                >
-                  {item.icon}
-                  <span className="font-medium">{item.label}</span>
-                </Link>
-              ))}
-              <Edit model={"dashboard"} id={`/dashboard`} />
-            </div>
-          </nav>
-        </div>
-
-        {/* Quick Links - Collapsible with smooth transition */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
-          <div
-            className="flex items-center justify-between cursor-pointer"
-            onClick={() => setIsQuickLinksOpen(!isQuickLinksOpen)}
-          >
-            <h3 className="text-lg font-bold text-gray-800 flex items-center">
-              <FiLink className="w-5 h-5 mr-2 text-green-600" />
-              দ্রুত লিঙ্ক
-            </h3>
-            {isQuickLinksOpen ? (
-              <FiChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-200" />
-            ) : (
-              <FiChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-200" />
-            )}
-          </div>
-
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isQuickLinksOpen ? "max-h-96 mt-4" : "max-h-0"
-            }`}
-          >
-            <div className="space-y-2">
-              {quickLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  href={link.href}
-                  className={`flex items-center px-4 py-3 rounded-xl transition-all ${
-                    link.href === pathname
-                      ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
-                      : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
-                  }`}
-                >
-                  {link.icon}
-                  <span className="text-sm">{link.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Info - Remains unchanged */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-xl p-6 text-white">
-          <h3 className="text-lg font-bold mb-4 flex items-center">
-            <FiPhone className="w-5 h-5 mr-2" />
-            যোগাযোগ
-          </h3>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center">
-              <FiMapPin className="w-4 h-4 mr-2" />
-              <span>{contactInfo.address}</span>
-            </div>
-            <div className="flex items-center">
-              <FiPhone className="w-4 h-4 mr-2" />
-              <span>{contactInfo.phone}</span>
-            </div>
-            <div className="flex items-center">
-              <FiMail className="w-4 h-4 mr-2" />
-              <span>{contactInfo.email}</span>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center">
+                <FiMapPin className="w-4 h-4 mr-2" />
+                <span>{contactInfo.address}</span>
+              </div>
+              <div className="flex items-center">
+                <FiPhone className="w-4 h-4 mr-2" />
+                <span>{contactInfo.phone}</span>
+              </div>
+              <div className="flex items-center">
+                <FiMail className="w-4 h-4 mr-2" />
+                <span>{contactInfo.email}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div className="lg:col-span-1">
+        <div className="sticky top-8 w-full lg:inline-block hidden">
+          {/* Navigation Menu - Collapsible with smooth transition */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}
+            >
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <FiMenu className="w-5 h-5 mr-2 text-blue-600" />
+                প্রধান মেনু
+              </h3>
+              {isMainMenuOpen ? (
+                <FiChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-200" />
+              ) : (
+                <FiChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-200" />
+              )}
+            </div>
+
+            <nav
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isMainMenuOpen ? "max-h-96 mt-4" : "max-h-0"
+              }`}
+            >
+              <div className="space-y-2">
+                {sidebarItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className={`flex items-center px-4 py-3 rounded-xl transition-all ${
+                      item.href === pathname
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                        : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                ))}
+                <Edit model={"dashboard"} id={`/dashboard`} />
+              </div>
+            </nav>
+          </div>
+
+          {/* Quick Links - Collapsible with smooth transition */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => setIsQuickLinksOpen(!isQuickLinksOpen)}
+            >
+              <h3 className="text-lg font-bold text-gray-800 flex items-center">
+                <FiLink className="w-5 h-5 mr-2 text-green-600" />
+                দ্রুত লিঙ্ক
+              </h3>
+              {isQuickLinksOpen ? (
+                <FiChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-200" />
+              ) : (
+                <FiChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-200" />
+              )}
+            </div>
+
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isQuickLinksOpen ? "max-h-96 mt-4" : "max-h-0"
+              }`}
+            >
+              <div className="space-y-2">
+                {quickLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className={`flex items-center px-4 py-3 rounded-xl transition-all ${
+                      link.href === pathname
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                        : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                  >
+                    {link.icon}
+                    <span className="text-sm">{link.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {isSidebarOpen && (
+        <div
+          onClick={toggleSidebar}
+          className="h-full w-full fixed left-0 top-0 bg-[#ff117710] z-10"
+          style={{ backdropFilter: "blur(3px)" }}
+        ></div>
+      )}
+    </>
   );
 }

@@ -13,12 +13,12 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6">
+    <div className="container p-3 lg:p-0">
       <article className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
-        <header className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-          <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
-          <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-600">
+        <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
+          <h1 className="text-3xl font-bold text-gray-900 text-white">{post.title}</h1>
+          <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-300">
             <div>
               <span className="font-medium">Created:</span>{" "}
               {post.createDate?.date} at {post.createDate?.formatedTime}

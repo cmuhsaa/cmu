@@ -30,25 +30,11 @@ export default function PostsSection({ posts }) {
                 </div>
               </div>
 
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <i className="ri-time-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>Posted on </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <i className="ri-user-line w-4 h-4 flex items-center justify-center"></i>
-                    <span>{post.createDate.date}</span>
-                  </div>
-                </div>
+              <div className="p-4">
 
-                <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300">
                   {post.title}
                 </h3>
-
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  {post.content}
-                </p>
 
                 <div className="flex items-center justify-between">
                   <Link

@@ -8,7 +8,7 @@ const UpdateContentPage = async () => {
 
   return (
     <main className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Update CUAA Content</h1>
+      <h1 className="text-2xl font-bold mb-4">Update CMU Content</h1>
       <UpdateForm initialData={JSON.parse(JSON.stringify(data))} />
     </main>
   );

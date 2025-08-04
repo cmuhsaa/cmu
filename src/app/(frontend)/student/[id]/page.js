@@ -13,10 +13,10 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6">
+    <div className="container">
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white flex flex-col md:flex-row items-start md:items-center gap-6">
           {student.avatar && (
             <img
               src={student.avatar.url}
@@ -25,7 +25,7 @@ const Page = async ({ params }) => {
             />
           )}
           <div className="flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-white">
               {student.name}
             </h1>
             <div className="mt-2 flex flex-wrap gap-2">

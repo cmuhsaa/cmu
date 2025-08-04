@@ -41,12 +41,8 @@ export default function GallerySection({ gallery }) {
 
                 <div className="text-sm text-gray-600 space-y-1">
                   <p>
-                    <span className="font-medium">Created:</span>{" "}
+                    <span className="font-medium">Post On:</span>{" "}
                     {item.createDate?.date} {item.createDate?.formatedTime}
-                  </p>
-                  <p>
-                    <span className="font-medium">Updated:</span>{" "}
-                    {item.updateDate?.date} {item.updateDate?.formatedTime}
                   </p>
                 </div>
               </div>

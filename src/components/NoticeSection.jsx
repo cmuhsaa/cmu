@@ -43,33 +43,7 @@ export default function NoticeSection({ notices }) {
                       {notice.type}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-500">{notice.dateTime}</div>
-                </div>
 
-                <div className="flex-grow">
-                  <MediaCarousel
-                    images={notice.images.map((item) => ({ url: item.url }))}
-                  />
-                </div>
-
-                <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-red-600 transition-colors duration-300">
-                  {notice.title}
-                </h3>
-
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  {notice.description}
-                </p>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-sm text-gray-500">
-                    Publish Date:
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {notice.createDate.formatedTime} • {notice.createDate.date}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
                   <Link
                     href={`/notice/${notice._id}`}
                     className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:from-red-600 hover:to-orange-600 transition-all duration-300 whitespace-nowrap cursor-pointer"
@@ -77,15 +51,15 @@ export default function NoticeSection({ notices }) {
                     Read Full Notice
                     <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
                   </Link>
+                </div>
 
-                  <div className="flex items-center gap-2">
-                    <button className="w-10 h-10 bg-gray-100 hover:bg-red-100 rounded-full flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors duration-300 cursor-pointer">
-                      <i className="ri-bookmark-line w-5 h-5 flex items-center justify-center"></i>
-                    </button>
-                    <button className="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center text-gray-600 hover:text-blue-500 transition-colors duration-300 cursor-pointer">
-                      <i className="ri-share-line w-5 h-5 flex items-center justify-center"></i>
-                    </button>
-                  </div>
+                <h3 className="text-center text-2xl font-bold text-gray-800 mb-4 group-hover:text-red-600 transition-colors duration-300">
+                  {notice.title}
+                </h3>
+                <div className="flex-grow">
+                  <MediaCarousel
+                    images={notice.images.map((item) => ({ url: item.url }))}
+                  />
                 </div>
               </div>
             </div>
