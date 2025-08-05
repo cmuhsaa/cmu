@@ -30,7 +30,7 @@ export default function BatchAdd() {
         payload: {
           message: result.message,
           status: "success",
-          path: "/batch",
+          path: "/dashboard/batch",
         },
       });
     } else {

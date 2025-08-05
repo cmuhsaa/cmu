@@ -1,5 +1,5 @@
 "use client";
-import {  MESSAGE } from "@/store/constant";
+import { MESSAGE } from "@/store/constant";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import { committee } from "@/lib/committee";
 import Loading from "@/components/Loading";
 
 export default function MemberAdd() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ export default function MemberAdd() {
   }, []);
 
   const onSubmit = async (data) => {
-      setLoading(true)
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -60,6 +60,7 @@ export default function MemberAdd() {
       });
 
       const result = await response.json();
+      console.log(result);
       revalidatePathStudent();
 
       dispatch({
@@ -71,6 +72,7 @@ export default function MemberAdd() {
         },
       });
     } catch (error) {
+      console.log(error);
       dispatch({
         type: MESSAGE,
         payload: {
@@ -80,7 +82,7 @@ export default function MemberAdd() {
         },
       });
     } finally {
-        setLoading(false)
+      setLoading(false);
     }
   };
 

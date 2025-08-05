@@ -59,7 +59,7 @@ export default function BatchUpdate() {
         payload: {
           message: result.message || result.error || "Unknown error",
           status: result.message ? "success" : "error",
-          path: result.message ? `/batch` : "",
+          path: result.message ? `/dashboard/batch` : "",
         },
       });
     } catch (error) {
