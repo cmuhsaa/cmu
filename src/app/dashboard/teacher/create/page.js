@@ -47,8 +47,9 @@ export default function TeacherAdd() {
         path: result.message ? "/teacher" : "",
       },
     });
-
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   return (

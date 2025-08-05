@@ -60,7 +60,7 @@ export default function MemberAdd() {
       });
 
       const result = await response.json();
-      console.log(result);
+      
       revalidatePathStudent();
 
       dispatch({
@@ -72,7 +72,6 @@ export default function MemberAdd() {
         },
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: MESSAGE,
         payload: {
@@ -82,7 +81,9 @@ export default function MemberAdd() {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

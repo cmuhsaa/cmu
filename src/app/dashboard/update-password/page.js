@@ -56,7 +56,9 @@ export default function UpdatePassword() {
       });
     } finally {
       setIsSubmitting(false);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

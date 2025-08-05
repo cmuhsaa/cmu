@@ -6,10 +6,8 @@ import { localTime } from "@/config/localTime";
 import Gallery from "@/models/galleryModel";
 import { NextResponse } from "next/server";
 
-
 export async function POST(request) {
   await connectDB();
-  
 
   try {
     const formData = await request.formData();
@@ -20,6 +18,12 @@ export async function POST(request) {
     const images = [];
     for (const file of files) {
       if (file.size > 0) {
+        if (file.size > 4.2 * 1024 * 1024) {
+          return NextResponse.json(
+            { error: "Image shold be less than 4.2 MB" },
+            { status: 500 }
+          );
+        }
         const buffer = Buffer.from(await file.arrayBuffer());
         const result = await new Promise((resolve, reject) => {
           cloudinary.uploader

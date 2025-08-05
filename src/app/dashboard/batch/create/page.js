@@ -43,8 +43,9 @@ export default function BatchAdd() {
         },
       });
     }
-
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   return (

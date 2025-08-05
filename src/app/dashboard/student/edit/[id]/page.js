@@ -114,7 +114,9 @@ export default function MemberUpdate() {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

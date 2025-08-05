@@ -93,7 +93,9 @@ export default function EventUpdate() {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

@@ -53,7 +53,9 @@ export default function ResetPassword() {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

@@ -61,9 +61,6 @@ export default function OrganizationForm({ initialData = {} }) {
     try {
       setLoading(true);
       const formData = new FormData();
-
-      console.log(formData.get("secretaryImage"));
-      console.log(data.secretaryImage && data.secretaryImage.length > 0);
       // Append all text fields
       Object.entries(data).forEach(([key, value]) => {
         if (
@@ -131,7 +128,9 @@ export default function OrganizationForm({ initialData = {} }) {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

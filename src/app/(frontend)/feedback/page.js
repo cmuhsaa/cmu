@@ -76,7 +76,9 @@ const FeedbackPage = () => {
         },
       });
     }
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   return (

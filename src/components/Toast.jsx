@@ -6,7 +6,6 @@ import { CLEAR_MESSAGE, CLEAR_PATH } from "@/store/constant";
 import { Toaster, toast } from "sonner";
 
 const Toast = () => {
-  const pathname = usePathname();
   const message = useSelector((state) => state.message);
   const path = useSelector((state) => state.path);
   const router = useRouter();
@@ -20,7 +19,9 @@ const Toast = () => {
 
     if (path) {
       dispatch({ type: CLEAR_PATH });
-      router.push(path, { scroll: false });
+      setTimeout(() => {
+        router.push(path, { scroll: false });
+      }, 500);
     }
   }, [message, path]);
 

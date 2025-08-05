@@ -90,7 +90,9 @@ export default function TeacherUpdate() {
         },
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 

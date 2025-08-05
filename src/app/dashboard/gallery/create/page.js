@@ -45,8 +45,9 @@ export default function GalleryAdd() {
         path: result.message ? "/gallery" : "",
       },
     });
-
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   return (

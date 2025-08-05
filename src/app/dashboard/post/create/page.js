@@ -46,8 +46,9 @@ export default function PostAdd() {
         path: result.message ? "/post" : "",
       },
     });
-
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   return (
