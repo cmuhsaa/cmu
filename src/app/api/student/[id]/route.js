@@ -33,12 +33,6 @@ export async function PUT(request, { params }) {
 
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
-      if (avatarFile.size > 4.2 * 1024 * 1024) {
-        return NextResponse.json(
-          { error: "Image shold be less than 4.2 MB" },
-          { status: 500 }
-        );
-      }
       const buffer = Buffer.from(await avatarFile.arrayBuffer());
       const result = await new Promise((resolve, reject) => {
         cloudinary.uploader

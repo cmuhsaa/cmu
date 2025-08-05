@@ -87,7 +87,7 @@ export default function EventUpdate() {
       dispatch({
         type: MESSAGE,
         payload: {
-          message: "Network error occurred",
+          message: error.message || "Network error occurred",
           status: "error",
           path: "",
         },
