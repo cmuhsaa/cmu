@@ -1,67 +1,94 @@
 import Link from "next/link";
-import MediaCarousel from "./MediaCarousel";
 
 export default function NoticeSection({ notices }) {
   return (
-    <section className="py-20 bg-gradient-to-br from-red-50 to-orange-50">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+    <section className="py-12 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Important Notices
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Stay updated with the latest announcements and important information
-            from Chanchaitara Madla United High School
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Stay updated with the latest announcements from Chanchaitara Madla
+            United High School
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {notices.map((notice, index) => (
+        <div className="max-w-4xl mx-auto space-y-6 mb-10">
+          {notices.map((notice) => (
             <div
               key={notice._id}
-              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white"
+              className="group relative bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-red-500"
             >
-              <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
-
-              <div className="p-8">
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-4 h-4 rounded-full ${
-                        notice.type === "important"
-                          ? "bg-red-500 animate-pulse"
-                          : "bg-orange-500"
-                      }`}
-                    ></div>
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        notice.type === "important"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-orange-100 text-orange-700"
-                      }`}
-                    >
-                      {notice.type}
+              <Link href={`/notice/${notice._id}`} className="block">
+                <div className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          notice.type === "important"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-orange-100 text-orange-700"
+                        }`}
+                      >
+                        {notice.type.toUpperCase()}
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        {notice.createDate.date}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-500">
+                      {notice.department && `For: ${notice.department}`}
                     </span>
                   </div>
 
-                  <Link
-                    href={`/notice/${notice._id}`}
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-full font-semibold hover:from-red-600 hover:to-orange-600 transition-all duration-300 whitespace-nowrap cursor-pointer"
-                  >
-                    Read Full Notice
-                    <i className="ri-arrow-right-line w-4 h-4 flex items-center justify-center"></i>
-                  </Link>
-                </div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors">
+                    {notice.title}
+                  </h3>
 
-                <h3 className="text-center text-2xl font-bold text-gray-800 mb-4 group-hover:text-red-600 transition-colors duration-300">
-                  {notice.title}
-                </h3>
-                <div className="flex-grow">
-                  <MediaCarousel
-                    images={notice.images.map((item) => ({ url: item.url }))}
-                  />
+                  <p className="text-gray-600 line-clamp-2 mb-4">
+                    {notice.description}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {new Date(notice.dateTime).toLocaleDateString("en-GB")}
+                    </div>
+
+                    <span className="inline-flex items-center text-red-600 font-medium text-sm group-hover:underline">
+                      Read more
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -69,10 +96,23 @@ export default function NoticeSection({ notices }) {
         <div className="text-center">
           <Link
             href="/notice"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-red-700 hover:to-orange-700 transition-all duration-300 whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
           >
             View All Notices
-            <i className="ri-notification-line w-5 h-5 flex items-center justify-center"></i>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 ml-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            </svg>
           </Link>
         </div>
       </div>

@@ -47,7 +47,7 @@ export default async function StudentPage({ searchParams }) {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
         <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">
             Alimni Students
           </h1>
         </div>

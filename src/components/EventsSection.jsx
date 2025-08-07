@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function EventsSection({ events }) {
   return (
-    <section className="py-20">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+    <section className="py-10">
+      <div className="px-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
             Upcoming Events
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -35,19 +35,18 @@ export default function EventsSection({ events }) {
               ></div>
 
               <div className="relative z-10 p-4 text-white">
-                <div className="flex items-start justify-between">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4">
-                    <div className="text-2xl font-bold">{event.eventDate}</div>
-                  </div>
-                  <div className="bg-yellow-400 text-black px-4 py-2 rounded-full text-sm font-semibold">
-                    Register Now
+                <div className="flex items-center justify-between">
+                  <h3 className="line-clamp-1 overflow-hidden text-md md:text-lg font-bold">
+                    {event.title} ({event.titleBangla})
+                  </h3>
+                  <div className="min-w-[150px] ml-auto bg-white/20 backdrop-blur-sm rounded-2xl p-2 px-4">
+                    <div className="text-xl font-bold">{event.eventDate}</div>
                   </div>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-bold pb-2 pt-4">
-                  {event.title} ({event.titleBangla})
-                </h3>
-                <p className="text-base opacity-80 pt-2 pb-4">{event.description}</p>
+                <p className="text-base opacity-80 pt-2 pb-4">
+                  {event.description.slice(0, 80)}...
+                </p>
 
                 <div className="flex items-center gap-4 text-sm opacity-90">
                   <div className="flex items-center gap-2">
@@ -70,7 +69,7 @@ export default function EventsSection({ events }) {
         <div className="text-center">
           <Link
             href="/event"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 whitespace-nowrap cursor-pointer"
           >
             View All Events
             <i className="ri-calendar-line w-5 h-5 flex items-center justify-center"></i>

@@ -25,10 +25,10 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+    <section className="py-10 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="px-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
             Our Alumni Network
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -43,7 +43,7 @@ export default function StatsSection() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-6 group-hover:rotate-6 transition-transform duration-300">
                   <i className={`${stat.icon} text-2xl text-white w-8 h-8 flex items-center justify-center`}></i>
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+                <div className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
                   {stat.number}
                 </div>
                 <div className="text-lg text-gray-600 font-medium">

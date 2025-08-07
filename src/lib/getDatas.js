@@ -113,7 +113,7 @@ export async function getPaginatedStudents({
 
   const filter = {};
   if (batch) filter.batch = batch;
-  if (type) filter.type = { $regex: type, $options: "i" };
+  if (type) filter.type = type;
   if (search) {
     filter.$or = [
       { name: { $regex: search, $options: "i" } },
@@ -128,7 +128,6 @@ export async function getPaginatedStudents({
   if (sortBy) sort[sortBy] = sortOrder === "desc" ? -1 : 1;
 
   const skip = (page - 1) * limit;
-
   const students = await Student.find(filter)
     .sort(sort)
     .skip(skip)

@@ -34,7 +34,7 @@ export default async function BackgroundPage() {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
         <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">পরিচিতি</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">পরিচিতি</h1>
           <p className="text-xl">চাঁচাইতারা মাদলা ইউনাইটেড হাই স্কুল</p>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default async function BackgroundPage() {
             className={`bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-2xl p-8`}
           >
             <div className="flex items-center mb-4">
-              <span className="text-4xl mr-3">
+              <span className="text-2xl mr-3">
                 <TbTargetArrow />
               </span>
               <h3 className="text-xl font-bold">আমাদের লক্ষ্য</h3>
@@ -111,7 +111,7 @@ export default async function BackgroundPage() {
             className={`bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-2xl p-8`}
           >
             <div className="flex items-center mb-4">
-              <span className="text-4xl mr-3">
+              <span className="text-2xl mr-3">
                 <TfiTarget />
               </span>
               <h3 className="text-xl font-bold">আমাদের দৃষ্টিভঙ্গি</h3>

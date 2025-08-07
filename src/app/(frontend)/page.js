@@ -23,7 +23,7 @@ export default async function Home() {
   ] = await Promise.all([
     getPaginatedEvents({ page: 1, limit: 2 }),
     getPaginatedGalleries({ page: 1, limit: 2 }),
-    getPaginatedNotices({ page: 1, limit: 2 }),
+    getPaginatedNotices({ page: 1, limit: 7 }),
     getPaginatedPosts({ page: 1, limit: 2 }),
     getPaginatedStudents({ page: 1, limit: 2, isActive: true }),
   ]);
@@ -35,6 +35,7 @@ export default async function Home() {
         eventTotal={eventTotal}
         schoolName="Chanchaitara Madla United High School"
       />
+      <NoticeSection notices={JSON.parse(JSON.stringify(notices))} />
       <div className="w-full bg-[#faf9f6] relative">
         {/* Paper Texture */}
         <div
@@ -52,7 +53,6 @@ export default async function Home() {
         <EventsSection events={JSON.parse(JSON.stringify(events))} />
       </div>
       <GallerySection gallery={JSON.parse(JSON.stringify(galleries))} />
-      <NoticeSection notices={JSON.parse(JSON.stringify(notices))} />
       <PostsSection posts={JSON.parse(JSON.stringify(posts))} />
       <NewMemberSection members={JSON.parse(JSON.stringify(students))} />
     </main>

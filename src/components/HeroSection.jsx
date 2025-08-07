@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function HeroSection({ schoolName, total, eventTotal }) {
   return (
-    <section className="relative shadow-xl p-4 py-20 rounded flex items-center justify-center overflow-hidden">
+    <section className="relative shadow-xl p-4 py-10 rounded flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 object-cover object-top"
         style={{
@@ -14,47 +14,39 @@ export default function HeroSection({ schoolName, total, eventTotal }) {
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-blue-600/60"></div>
 
       <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="font-['Pacifico'] text-4xl md:text-6xl mb-4 text-yellow-300">
+        <div className="mb-4">
+          <div className="text-2xl md:text-3xl mb-2 text-yellow-300">
             {schoolName}
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-            Alumni Network
+          <h1 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
+            Alumni Association
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            Connecting generations of excellence. Stay connected with your alma
-            mater and fellow graduates.
-          </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             href="/join"
-            className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-8 py-4 rounded-full text-lg font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 whitespace-nowrap cursor-pointer"
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-4 py-2 rounded-full text-lg font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 whitespace-nowrap cursor-pointer"
           >
-            Join Alumni Network
+            Join Alumni
           </Link>
           <Link
             href="/event"
-            className="bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/30 transition-all duration-300 whitespace-nowrap cursor-pointer"
+            className="bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 px-4 py-2 rounded-full text-lg font-semibold hover:bg-white/30 transition-all duration-300 whitespace-nowrap cursor-pointer"
           >
             Upcoming Events
           </Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="text-center">
-            <div className="text-4xl font-bold text-yellow-300 mb-2">
+            <div className="text-2xl font-bold text-yellow-300 mb-2">
               {total}+
             </div>
             <div className="text-gray-200">Registered Alumni</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-yellow-300 mb-2">25+</div>
-            <div className="text-gray-200">Years of Excellence</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-yellow-300 mb-2">
+            <div className="text-2xl font-bold text-yellow-300 mb-2">
               {eventTotal}+
             </div>
             <div className="text-gray-200">Annual Events</div>

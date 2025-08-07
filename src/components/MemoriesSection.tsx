@@ -19,10 +19,10 @@ interface MemoriesSectionProps {
 
 export default function MemoriesSection({ memories }: MemoriesSectionProps) {
   return (
-    <section className="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <section className="py-10 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-hidden">
+      <div className="px-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">
             Cherished Memories
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -79,7 +79,7 @@ export default function MemoriesSection({ memories }: MemoriesSectionProps) {
         </div>
         
         <div className="text-center mt-16">
-          <Link href="/memories" className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-pink-500 text-black px-8 py-4 rounded-full text-lg font-semibold hover:from-yellow-600 hover:to-pink-600 transition-all duration-300 whitespace-nowrap cursor-pointer">
+          <Link href="/memories" className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-pink-500 text-black px-4 py-2 rounded-full text-lg font-semibold hover:from-yellow-600 hover:to-pink-600 transition-all duration-300 whitespace-nowrap cursor-pointer">
             Share Your Memory
             <i className="ri-add-line w-5 h-5 flex items-center justify-center"></i>
           </Link>

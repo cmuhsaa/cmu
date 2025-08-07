@@ -86,7 +86,7 @@ const FeedbackPage = () => {
       {loading && <Loading />}
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-2xl">
             Share Your Feedback
           </h2>
           <p className="mt-3 text-xl text-gray-500">

@@ -4,10 +4,10 @@ import { BsTelephoneOutboundFill } from "react-icons/bs";
 
 export default function NewMemberSection({ members }) {
   return (
-    <section className="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+    <section className="py-10 bg-gradient-to-br from-green-50 to-emerald-50">
+      <div className="px-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
             Welcome New Members
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -129,7 +129,7 @@ export default function NewMemberSection({ members }) {
         <div className="text-center">
           <Link
             href="/student"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 whitespace-nowrap cursor-pointer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-full text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 whitespace-nowrap cursor-pointer"
           >
             View All Members
             <i className="ri-group-line w-5 h-5 flex items-center justify-center"></i>

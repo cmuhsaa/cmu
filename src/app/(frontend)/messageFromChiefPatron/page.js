@@ -34,7 +34,7 @@ export default async function BackgroundPage() {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
         <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">
             প্রধান পৃষ্ঠপোষকের বাণী
           </h1>
         </div>
@@ -61,11 +61,11 @@ export default async function BackgroundPage() {
             </div>
             <div className="md:w-2/3">
               <div className="relative">
-                <i className="ri-double-quotes-l text-4xl text-red-400 opacity-20 absolute -top-2 -left-2"></i>
+                <i className="ri-double-quotes-l text-2xl text-red-400 opacity-20 absolute -top-2 -left-2"></i>
                 <pre className="rounded-md p-4 text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-x-auto text-xjl leading-relaxed relative z-10">
                   {patronMessage.message}
                 </pre>
-                <i className="ri-double-quotes-r text-4xl text-red-400 opacity-20 absolute -bottom-2 -right-2"></i>
+                <i className="ri-double-quotes-r text-2xl text-red-400 opacity-20 absolute -bottom-2 -right-2"></i>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default async function BackgroundPage() {
             className={`bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-2xl p-8`}
           >
             <div className="flex items-center mb-4">
-              <span className="text-4xl mr-3">
+              <span className="text-2xl mr-3">
                 <TbTargetArrow />
               </span>
               <h3 className="text-xl font-bold">আমাদের লক্ষ্য</h3>
@@ -90,7 +90,7 @@ export default async function BackgroundPage() {
             className={`bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-2xl p-8`}
           >
             <div className="flex items-center mb-4">
-              <span className="text-4xl mr-3">
+              <span className="text-2xl mr-3">
                 <TfiTarget />
               </span>
               <h3 className="text-xl font-bold">আমাদের দৃষ্টিভঙ্গি</h3>

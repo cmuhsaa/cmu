@@ -27,10 +27,6 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: "Student not found" }, { status: 400 });
     }
 
-    if (!avatarFile) {
-      return NextResponse.json({ error: "Image is required" }, { status: 500 });
-    }
-
     let avatar = {};
     if (avatarFile && avatarFile.size > 0) {
       const buffer = Buffer.from(await avatarFile.arrayBuffer());

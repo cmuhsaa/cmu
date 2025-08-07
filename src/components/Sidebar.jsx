@@ -116,14 +116,14 @@ export default function Sidebar() {
       {/* Toggle Button only on small screens */}
       <button
         onClick={toggleSidebar}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-md"
+        className="xl:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-md"
       >
         <FiMenu />
       </button>
 
-      <div className="inline-block lg:hidden">
+      <div className="inline-block xl:hidden">
         <div
-          className={`z-40 lg:sticky lg:top-8 transition-all duration-300 bg-white shadow-xl overflow-y-auto h-screen lg:h-auto`}
+          className={`z-40 xl:sticky xl:top-8 transition-all duration-300 bg-white shadow-xl overflow-y-auto h-screen xl:h-auto`}
           style={{
             position: "fixed",
             top: 0,
@@ -237,8 +237,8 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="lg:col-span-1">
-        <div className="sticky top-8 w-full lg:inline-block hidden">
+      <div className="sticky top-8 xl:col-span-1 overflow-auto max-h-[calc(100dvh-32px)] hide-scrollbar">
+        <div className="w-full xl:inline-block hidden">
           {/* Navigation Menu - Collapsible with smooth transition */}
           <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
             <div
