@@ -43,7 +43,7 @@ export async function POST(request) {
             <br /> If you did not make this request, please ignore this email.
           </p>
           <p style="text-align: center;">
-            <a style="margin: 0 auto; text-align: center; background-color: #34eb34; font-size: 25px; box-shadow: 0 0 5px black; color: black; font-weight: 700; padding: 5px 10px; text-decoration: none;" href="${process.env.CLIENT_URL}/auth/reset-password/${token}" target="_blank">Click Here</a>
+            <a style="margin: 0 auto; text-align: center; background-color: #34eb34; font-size: 25px; box-shadow: 0 0 5px black; color: black; font-weight: 700; padding: 5px 10px; text-decoration: none;" href="${process.env.CLIENT_URL}/reset-password/${token}" target="_blank">Click Here</a>
           </p>
           <p style="text-align: center; font-size: 18px; color: black;">to reset your password.</p>
           <p style="text-align: center;">

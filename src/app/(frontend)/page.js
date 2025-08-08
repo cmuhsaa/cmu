@@ -31,8 +31,6 @@ export default async function Home() {
   return (
     <main className="shadow-xl rounded">
       <HeroSection
-        total={total}
-        eventTotal={eventTotal}
         schoolName="Chanchaitara Madla United High School"
       />
       <EventsSection events={JSON.parse(JSON.stringify(events))} />

@@ -44,10 +44,10 @@ export default async function StudentPage({ searchParams }) {
       <div
         className="relative h-80 bg-cover bg-center mb-6"
         style={{
-          backgroundImage: `url('https://readdy.ai/api/search-image?query=Beautiful%20university%20campus%20in%20Bangladesh%20with%20lush%20green%20hills%2C%20traditional%20academic%20buildings%2C%20students%20walking%20on%20pathways%2C%20serene%20natural%20environment%2C%20peaceful%20educational%20atmosphere%2C%20blue%20sky%20with%20white%20clouds%2C%20vibrant%20green%20landscapes%20surrounding%20the%20campus&width=800&height=320&seq=bg-hero-001&orientation=landscape')`,
+          backgroundImage: `url('/cover2.png')`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-green-900/10"></div>
         <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">
             Alimni Students
@@ -126,7 +126,7 @@ export default async function StudentPage({ searchParams }) {
                   </h3>
                 </Link>
 
-                <div className="flex items-center mb-4">
+                <div className="flex items-center mb-2">
                   <span
                     className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       member.isActive
@@ -143,7 +143,7 @@ export default async function StudentPage({ searchParams }) {
                   )}
                 </div>
 
-                <div className="space-y-3 text-sm">
+                <div className="space-y-0 text-sm mb-2">
                   <div className="flex items-center">
                     <svg
                       className="h-4 w-4 text-gray-500 mr-2"
@@ -182,30 +182,7 @@ export default async function StudentPage({ searchParams }) {
                   </div>
                 </div>
 
-                <Link
-                  href={`/student/${member._id}`}
-                  className="mt-6 inline-flex items-center text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                >
-                  View profile{" "}
-                  <svg
-                    className="h-4 w-4 ml-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
-                <Edit
-                  model="student"
-                  id={member._id.toString()}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors"
-                />
+                <Edit model="student" id={member._id.toString()} />
               </div>
             </div>
           ))}
@@ -240,8 +217,8 @@ export default async function StudentPage({ searchParams }) {
                 page <= 3
                   ? i + 1
                   : page >= totalPages - 2
-                  ? totalPages - 4 + i
-                  : page - 2 + i;
+                    ? totalPages - 4 + i
+                    : page - 2 + i;
               return (
                 pageNum <= totalPages && (
                   <Link

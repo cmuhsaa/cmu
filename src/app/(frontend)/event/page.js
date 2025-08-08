@@ -18,10 +18,10 @@ export default async function EventPage({ params }) {
       <div
         className="relative h-80 bg-cover bg-center mb-6"
         style={{
-          backgroundImage: `url('https://readdy.ai/api/search-image?query=Beautiful%20university%20campus%20in%20Bangladesh%20with%20lush%20green%20hills%2C%20traditional%20academic%20buildings%2C%20students%20walking%20on%20pathways%2C%20serene%20natural%20environment%2C%20peaceful%20educational%20atmosphere%2C%20blue%20sky%20with%20white%20clouds%2C%20vibrant%20green%20landscapes%20surrounding%20the%20campus&width=800&height=320&seq=bg-hero-001&orientation=landscape')`,
+          backgroundImage: `url('/cover2.png')`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-green-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-green-900/10"></div>
         <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">Events</h1>
         </div>
@@ -60,12 +60,14 @@ export default async function EventPage({ params }) {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                          {event.title}
-                          {event.titleBangla && (
-                            <span className="ml-3 text-lg font-normal text-gray-600 mt-1">
-                              ({event.titleBangla})
-                            </span>
-                          )}
+                          <Link href={`/event/${event._id.toString()}`}>
+                            {event.title}
+                            {event.titleBangla && (
+                              <span className="ml-3 text-lg font-normal text-gray-600 mt-1">
+                                ({event.titleBangla})
+                              </span>
+                            )}
+                          </Link>
                         </h3>
                         <div className="flex flex-wrap items-center gap-4 mt-3">
                           <div className="flex items-center">
@@ -115,8 +117,8 @@ export default async function EventPage({ params }) {
                     page <= 3
                       ? i + 1
                       : page >= totalPages - 2
-                      ? totalPages - 4 + i
-                      : page - 2 + i;
+                        ? totalPages - 4 + i
+                        : page - 2 + i;
                   return (
                     pageNum <= totalPages && (
                       <Link

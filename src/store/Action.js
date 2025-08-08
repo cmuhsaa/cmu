@@ -68,7 +68,7 @@ export const registerAdmin = (data) => async (dispatch) => {
         payload: {
           message: result.message || "Account Creation Succesfull",
           status: "success",
-          path: "/auth/login",
+          path: "/login",
         },
       });
     } else {
@@ -175,7 +175,7 @@ export const forgotPassword = (data) => async (dispatch) => {
         payload: {
           message: result.message || "An Email send",
           status: "success",
-          path: `/auth/login`,
+          path: `/login`,
         },
       });
     } else {
@@ -230,7 +230,7 @@ export const resetPassword =
           payload: {
             message: result.message || "Password Reset Successfull",
             status: "success",
-            path: `/auth/login`,
+            path: `/login`,
           },
         });
       } else {

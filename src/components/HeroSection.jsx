@@ -1,17 +1,17 @@
 import Link from "next/link";
-export default function HeroSection({ schoolName, total, eventTotal }) {
+export default function HeroSection({ schoolName }) {
   return (
-    <section className="relative shadow-xl p-4 py-10 rounded flex items-center justify-center overflow-hidden">
+    <section className="relative shadow-xl p-4 py-20 rounded flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 object-cover object-top"
         style={{
-          backgroundImage: `url('https://readdy.ai/api/search-image?query=Beautiful%20Indian%20high%20school%20campus%20with%20modern%20buildings%2C%20green%20lawns%2C%20students%20walking%2C%20palm%20trees%2C%20bright%20sunny%20day%2C%20educational%20institution%20architecture%2C%20welcoming%20entrance%20gate%2C%20vibrant%20school%20environment%2C%20academic%20atmosphere&width=1920&height=1080&seq=hero-school&orientation=landscape')`,
+          backgroundImage: `url('/cover.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       ></div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-blue-600/60"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 via-blue-800/10 to-purple-600/10"></div>
 
       <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
         <div className="mb-4">
@@ -37,25 +37,6 @@ export default function HeroSection({ schoolName, total, eventTotal }) {
             Upcoming Events
           </Link>
         </div>
-
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-300 mb-2">
-              {total}+
-            </div>
-            <div className="text-gray-200">Registered Alumni</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-300 mb-2">
-              {eventTotal}+
-            </div>
-            <div className="text-gray-200">Annual Events</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-        <i className="ri-arrow-down-line text-3xl w-8 h-8 flex items-center justify-center"></i>
       </div>
     </section>
   );
