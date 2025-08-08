@@ -13,7 +13,7 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="container p-3 lg:p-0">
+    <div className="p-3 xl:p-0">
       <article className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">

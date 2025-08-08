@@ -36,23 +36,23 @@ export default async function StudentsPage() {
   );
 
   return (
-    <div className="container mx-auto px-4 xl:px-0 py-4 xl:py-0">
+    <div className="mx-auto px-4 xl:px-0 py-4 xl:py-0">
       <div className="space-y-3">
         {allData.map(({ role, students }, index) => {
           if (!students?.students?.length) return null;
 
           return (
             <section key={role.value} className="">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-1 gap-3">
+              <div className="flex flex-wrap gap-3 justify-center">
                 {students.students.map((student, i) => (
                   <div
                     key={student.id || i}
-                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-1/2 md:w-1/3 xl:w-full bg-gray-200"
                   >
                     <h2 className="text-sm bg-green-700 font-bold text-white p-1 text-center">
                       {role.position}
                     </h2>
-                    <div className="relative h-48 bg-gray-100 flex items-center justify-center">
+                    <div className="relative m-auto w-40 h-40 bg-gray-100 flex items-center justify-center">
                       <img
                         src={student?.avatar?.url || "/placeholder.png"}
                         alt={student?.name}

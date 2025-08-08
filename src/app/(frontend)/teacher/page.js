@@ -31,7 +31,7 @@ export default async function TeacherPage({ searchParams }) {
   };
 
   return (
-    <div className="container rounded-2xl overflow-hidden">
+    <div className="rounded-2xl overflow-hidden">
       <div
         className="relative h-80 bg-cover bg-center mb-6"
         style={{
@@ -47,7 +47,7 @@ export default async function TeacherPage({ searchParams }) {
       </div>
 
       {/* Filter Section */}
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-100">
+      <div className="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-100 mx-3 xl:mx-0">
         <TeacherFilters />
       </div>
 
@@ -61,7 +61,7 @@ export default async function TeacherPage({ searchParams }) {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 lg:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 xl:px-0">
           {teachers.map((member) => (
             <div
               key={member._id}

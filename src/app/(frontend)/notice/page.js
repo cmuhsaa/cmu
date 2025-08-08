@@ -15,7 +15,7 @@ export default async function NoticePage({ params }) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="container rounded-2xl overflow-hidden">
+    <div className="rounded-2xl overflow-hidden">
       <div
         className="relative h-80 bg-cover bg-center mb-6"
         style={{
@@ -37,7 +37,7 @@ export default async function NoticePage({ params }) {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-3 lg:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-3 xl:px-0">
             {notices.map((notice) => (
               <div
                 key={notice._id}

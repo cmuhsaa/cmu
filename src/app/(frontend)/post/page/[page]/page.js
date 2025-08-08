@@ -13,7 +13,7 @@ export default async function PostPage({ params }) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="container rounded-2xl overflow-hidden">
+    <div className="rounded-2xl overflow-hidden">
       <div
         className="relative h-80 bg-cover bg-center mb-6"
         style={{
@@ -30,7 +30,7 @@ export default async function PostPage({ params }) {
         <p className="text-gray-600 text-center">No post data found.</p>
       ) : (
         <>
-          <div className="space-y-10 px-3 lg:px-0">
+          <div className="space-y-10 px-3 xl:px-0">
             {posts.map((post) => (
               <div
                 key={post._id}

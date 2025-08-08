@@ -13,7 +13,7 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="container p-3 lg:p-0">
+    <div className="p-3 xl:p-0">
       <article className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         {/* Header section */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
