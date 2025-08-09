@@ -127,7 +127,7 @@ export default function EventUpdate() {
                   {...register("title", {
                     required: "English title is required",
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.title ? "border-red-500" : "border"
                   }`}
                 />
@@ -152,7 +152,7 @@ export default function EventUpdate() {
                   {...register("titleBangla", {
                     required: "Bangla title is required",
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.titleBangla ? "border-red-500" : "border"
                   }`}
                 />
@@ -177,7 +177,7 @@ export default function EventUpdate() {
                   {...register("description", {
                     required: "Description is required",
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.description ? "border-red-500" : "border"
                   }`}
                 />
@@ -202,7 +202,7 @@ export default function EventUpdate() {
                   {...register("eventDate", {
                     required: "Event date is required",
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.eventDate ? "border-red-500" : "border"
                   }`}
                 />
@@ -219,15 +219,14 @@ export default function EventUpdate() {
                   htmlFor="location"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Location <span className="text-red-500">*</span>
+                  Location
                 </label>
                 <input
                   type="text"
                   id="location"
                   {...register("location", {
-                    required: "Location is required",
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors?.location ? "border-red-500" : "border"
                   }`}
                 />
@@ -244,13 +243,12 @@ export default function EventUpdate() {
                   htmlFor="registrationStartDate"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Registration Start <span className="text-red-500">*</span>
+                  Registration Start
                 </label>
                 <input
                   type="date"
                   id="registrationStartDate"
                   {...register("registrationStartDate", {
-                    required: "Start date is required",
                     validate: (value) => {
                       if (
                         watchEndDate &&
@@ -261,7 +259,7 @@ export default function EventUpdate() {
                       return true;
                     },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.registrationStartDate ? "border-red-500" : "border"
                   }`}
                 />
@@ -278,13 +276,12 @@ export default function EventUpdate() {
                   htmlFor="registrationEndDate"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Registration End <span className="text-red-500">*</span>
+                  Registration End
                 </label>
                 <input
                   type="date"
                   id="registrationEndDate"
                   {...register("registrationEndDate", {
-                    required: "End date is required",
                     validate: (value) => {
                       if (
                         watchStartDate &&
@@ -295,7 +292,7 @@ export default function EventUpdate() {
                       return true;
                     },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.registrationEndDate ? "border-red-500" : "border"
                   }`}
                 />

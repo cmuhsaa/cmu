@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathGallery } from "../actions";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function GalleryAdd() {
   const [loading, setLoading] = useState(false);
@@ -18,20 +19,34 @@ export default function GalleryAdd() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("youtubeLink", data.youtubeLink);
+    if (data.images.length == 0 && !data.youtubeLink) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Image or yt video is required",
+          status: "error",
+          path: "",
+        },
+      });
+      setLoading(false);
+      return;
+    }
+
+    const formData = {};
+    formData.title = data.title;
+    formData.youtubeLink = data.youtubeLink;
+    formData.images = [];
 
     if (data.images && data.images.length > 0) {
       for (let i = 0; i < data.images.length; i++) {
-        formData.append("images", data.images[i]);
+        formData.images.push(await clientCloudinary(data.images[i], "gallery"));
       }
     }
 
     const response = await fetch(`/api/gallery`, {
       method: "POST",
       credentials: "include",
-      body: formData,
+      body: JSON.stringify(formData),
     });
 
     const result = await response.json();
@@ -124,7 +139,7 @@ export default function GalleryAdd() {
                   htmlFor="images"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Images <span className="text-red-500">*</span>
+                  Images
                 </label>
                 <div className="mt-1">
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-gray-300 rounded-lg">
@@ -152,9 +167,7 @@ export default function GalleryAdd() {
                           <input
                             id="images"
                             type="file"
-                            {...register("images", {
-                              required: "At least one image is required",
-                            })}
+                            {...register("images", {})}
                             multiple
                             className="sr-only"
                           />

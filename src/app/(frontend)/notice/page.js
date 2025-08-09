@@ -41,8 +41,9 @@ export default async function NoticePage({ params }) {
             {notices.map((notice) => (
               <div
                 key={notice._id}
-                className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
+                className="relative bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
               >
+                <Edit model="notice" id={notice._id.toString()} />
                 <div className="p-6">
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1">
@@ -77,11 +78,6 @@ export default async function NoticePage({ params }) {
                         {notice.description}
                       </p>
                     </div>
-                    <Edit
-                      model="notice"
-                      id={notice._id.toString()}
-                      className="text-gray-400 hover:text-blue-600"
-                    />
                   </div>
 
                   {notice.images?.length > 0 && (

@@ -11,35 +11,18 @@ export async function PUT(request, { params }) {
 
   try {
     const { id } = await params;
-    const formData = await request.formData();
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const title = formData.get("title");
-    const about = formData.get("about");
-    const address = formData.get("address");
-    const avatarFile = formData.get("image");
+    const formData = await request.json();
+    const name = formData.name;
+    const email = formData.email;
+    const phone = formData.phone;
+    const title = formData.title;
+    const about = formData.about;
+    const address = formData.address;
+    const avatar = formData.image;
 
     const exists = await Teacher.findById(id);
     if (!exists) {
       return NextResponse.json({ error: "Teacher not found" }, { status: 400 });
-    }
-
-    let avatar = {};
-    if (avatarFile && avatarFile.size > 0) {
-      const buffer = Buffer.from(await avatarFile.arrayBuffer());
-      const result = await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({ folder: "student" }, (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          })
-          .end(Buffer.from(buffer));
-      });
-      avatar = {
-        public_id: result.public_id,
-        url: result.secure_url,
-      };
     }
 
     if (avatar.public_id) {

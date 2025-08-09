@@ -4,37 +4,17 @@ import connectDB from "@/config/db";
 import { localTime } from "@/config/localTime";
 import Notice from "@/models/noticeModel";
 import { NextResponse } from "next/server";
-import cloudinary from "@/config/cloudinary";
 
 export async function POST(request) {
   await connectDB();
 
   try {
-    const formData = await request.formData();
-    const title = formData.get("title");
-    const description = formData.get("description");
-    const type = formData.get("type");
-    const dateTime = formData.get("dateTime");
-    const files = formData.getAll("images");
-
-    const images = [];
-    for (const file of files) {
-      if (file.size > 0) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream({ folder: "notice" }, (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            })
-            .end(Buffer.from(buffer));
-        });
-        images.push({
-          public_id: result.public_id,
-          url: result.secure_url,
-        });
-      }
-    }
+    const data = await request.json();
+    const title = data.title;
+    const description = data.description;
+    const type = data.type;
+    const dateTime = data.dateTime;
+    const images = data.images;
 
     const newNotice = new Notice({
       title,

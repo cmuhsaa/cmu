@@ -13,7 +13,8 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="p-3 xl:p-0">
+    <div className="relative p-3 xl:p-0">
+      <Edit model="notice" id={id} />
       <article className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         {/* Header section */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
@@ -51,7 +52,6 @@ const Page = async ({ params }) => {
               <p className="whitespace-pre-line mb-6 leading-relaxed">
                 {notice.description}
               </p>
-              <Edit model="notice" id={id} />
             </div>
 
             {/* Meta information - moves to bottom on mobile, stays in column on desktop */}

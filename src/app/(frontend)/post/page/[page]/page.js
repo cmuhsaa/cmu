@@ -30,27 +30,29 @@ export default async function PostPage({ params }) {
         <p className="text-gray-600 text-center">No post data found.</p>
       ) : (
         <>
-          <div className="space-y-10 px-3 xl:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-3 xl:px-0">
             {posts.map((post) => (
               <div
                 key={post._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="p-6">
+                <Edit model="post" id={post._id.toString()} />
+                <div className="p-6 h-full">
                   <div className="flex justify-between items-start">
                     <Link href={`/post/${post._id}`} className="group">
                       <h3 className="line-clamp-1 text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
                         {post.title}
                       </h3>
                     </Link>
-                    <Edit model="post" id={post._id.toString()} />
                   </div>
 
-                  <p className="line-clamp-2 mt-2 text-gray-600">{post.content}</p>
+                  <p className="line-clamp-2 mt-2 text-gray-600">
+                    {post.content}
+                  </p>
 
                   {/* Media Carousel */}
                   {(post.youtubeLink || post.images?.length > 0) && (
-                    <div className="mt-6">
+                    <div className="mt-auto">
                       <h4 className="text-lg font-medium text-gray-700 mb-3">
                         Media
                       </h4>

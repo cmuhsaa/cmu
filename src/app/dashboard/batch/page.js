@@ -18,8 +18,9 @@ const Batch = async () => {
             {batchesData?.map((batch) => (
               <div
                 key={batch._id}
-                className="p-6 hover:bg-gray-50 transition-colors duration-200"
+                className=" relative p-6 hover:bg-gray-50 transition-colors duration-200"
               >
+                <Edit model="batch" id={batch._id.toString()} />
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -38,7 +39,6 @@ const Batch = async () => {
                       </p>
                     </div>
                   </div>
-                  <Edit model="batch" id={batch._id.toString()} />
                 </div>
               </div>
             ))}

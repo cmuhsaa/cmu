@@ -29,12 +29,13 @@ export default async function GalleryPage({ params }) {
         <p className="text-gray-600 text-center">No gallery data found.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 xl:px-0">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-3 xl:px-0">
             {galleries.map((item) => (
               <div
                 key={item._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
               >
+                <Edit model="gallery" id={item._id.toString()} />
                 {/* Media Carousel - Top Section */}
                 <div className="flex-grow">
                   <MediaCarousel
@@ -51,7 +52,6 @@ export default async function GalleryPage({ params }) {
                         {item.title}
                       </Link>
                     </h3>
-                    <Edit model="gallery" id={item._id.toString()} />
                   </div>
                 </div>
               </div>

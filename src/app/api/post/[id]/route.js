@@ -10,34 +10,15 @@ export async function PUT(request, { params }) {
 
   try {
     const { id } = await params;
-    const formData = await request.formData();
-    const title = formData.get("title");
-    const content = formData.get("content");
-    const youtubeLink = formData.get("youtubeLink");
-    const files = formData.getAll("images");
+    const data = await request.json();
+    const title = data.title;
+    const content = data.content;
+    const youtubeLink = data.youtubeLink;
+    const images = data.images;
 
     const exists = await Post.findById(id);
     if (!exists) {
       return NextResponse.json({ error: "Post not found" }, { status: 400 });
-    }
-
-    const images = [];
-    for (const file of files) {
-      if (file.size > 0) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream({ folder: "post" }, (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            })
-            .end(Buffer.from(buffer));
-        });
-        images.push({
-          public_id: result.public_id,
-          url: result.secure_url,
-        });
-      }
     }
 
     if (images.length > 0) {

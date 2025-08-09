@@ -11,34 +11,17 @@ export async function POST(request) {
   await connectDB();
 
   try {
-    const formData = await request.formData();
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const about = formData.get("about");
-    const title = formData.get("title");
-    const address = formData.get("address");
-    const avatarFile = formData.get("image");
+    const data = await request.json();
+    const name = data.name;
+    const email = data.email;
+    const phone = data.phone;
+    const about = data.about;
+    const title = data.title;
+    const address = data.address;
+    const avatar = data.image;
 
-    if (!avatarFile) {
+    if (!avatar) {
       return NextResponse.json({ error: "Image is required" }, { status: 500 });
-    }
-
-    let avatar = {};
-    if (avatarFile && avatarFile.size > 0) {
-      const buffer = Buffer.from(await avatarFile.arrayBuffer());
-      const result = await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({ folder: "student" }, (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          })
-          .end(Buffer.from(buffer));
-      });
-      avatar = {
-        public_id: result.public_id,
-        url: result.secure_url,
-      };
     }
 
     const newTeacher = new Teacher({

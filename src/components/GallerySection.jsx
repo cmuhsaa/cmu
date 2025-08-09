@@ -20,8 +20,9 @@ export default function GallerySection({ gallery }) {
           {gallery.map((item) => (
             <div
               key={item._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
+              className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
             >
+              <Edit model="gallery" id={item._id.toString()} />
               {/* Media Carousel - Top Section */}
               <div className="flex-grow">
                 <MediaCarousel
@@ -36,7 +37,6 @@ export default function GallerySection({ gallery }) {
                   <h3 className="line-clamp-3 text-lg font-semibold text-gray-800 mb-2">
                     {item.title}
                   </h3>
-                  <Edit model="gallery" id={item._id.toString()} />
                 </div>
 
                 <div className="text-sm text-gray-600 space-y-1">

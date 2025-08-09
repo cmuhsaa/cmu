@@ -38,8 +38,9 @@ export default async function EventPage({ params }) {
             {events.map((event) => (
               <div
                 key={event._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group"
+                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group"
               >
+                <Edit model="event" id={event._id.toString()} />
                 <div className="md:flex">
                   <div className="md:w-1/4 bg-gray-100 p-6 flex items-center justify-center">
                     <div className="text-center">
@@ -89,8 +90,6 @@ export default async function EventPage({ params }) {
                           Alumni Event
                         </span>
                       </div>
-
-                      <Edit model="event" id={event._id.toString()} />
                     </div>
                   </div>
                 </div>

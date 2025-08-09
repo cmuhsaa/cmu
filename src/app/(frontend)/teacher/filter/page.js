@@ -63,8 +63,9 @@ export default async function TeacherPage({ searchParams }) {
           {teachers.map((member) => (
             <div
               key={member._id}
-              className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
+              className="relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
             >
+              <Edit model="teacher" id={member._id.toString()} />
               {/* Card Header */}
               <div className="relative h-40 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
                 {member.avatar ? (
@@ -117,11 +118,6 @@ export default async function TeacherPage({ searchParams }) {
                     </div>
                   )}
                 </div>
-                <Edit
-                  model="teacher"
-                  id={member._id.toString()}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors"
-                />
               </div>
             </div>
           ))}

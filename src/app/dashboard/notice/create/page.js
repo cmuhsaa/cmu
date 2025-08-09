@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathNotice } from "../actions";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function NoticeAdd() {
   const [loading, setLoading] = useState(false);
@@ -18,22 +19,23 @@ export default function NoticeAdd() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("description", data.description);
-    formData.append("type", data.type);
-    formData.append("dateTime", data.dateTime);
+    const formData = {};
+    formData.title = data.title;
+    formData.description = data.description;
+    formData.type = data.type;
+    formData.dateTime = data.dateTime;
+    formData.images = [];
 
     if (data.images && data.images.length > 0) {
       for (let i = 0; i < data.images.length; i++) {
-        formData.append("images", data.images[i]);
+        formData.images.push(await clientCloudinary(data.images[i], "notice"));
       }
     }
 
     const response = await fetch(`/api/notice`, {
       method: "POST",
       credentials: "include",
-      body: formData,
+      body: JSON.stringify(formData),
     });
 
     const result = await response.json();
@@ -77,7 +79,7 @@ export default function NoticeAdd() {
                   id="title"
                   type="text"
                   {...register("title", { required: "Title is required" })}
-                  className={`block w-full rounded-md ${
+                  className={`p-2 block w-full rounded-md ${
                     errors.title
                       ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -105,7 +107,7 @@ export default function NoticeAdd() {
                   {...register("description", {
                     required: "Description is required",
                   })}
-                  className={`block w-full rounded-md ${
+                  className={`p-2 block w-full rounded-md ${
                     errors.description
                       ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -125,13 +127,13 @@ export default function NoticeAdd() {
                   htmlFor="type"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Type <span className="text-red-500">*</span>
+                  Type
                 </label>
                 <div className="mt-1">
                   <select
                     id="type"
-                    {...register("type", { required: "Type is required" })}
-                    className={`block w-full rounded-md ${
+                    {...register("type", {})}
+                    className={`p-2 block w-full rounded-md ${
                       errors.type
                         ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
                         : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -154,16 +156,14 @@ export default function NoticeAdd() {
                   htmlFor="dateTime"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Date & Time <span className="text-red-500">*</span>
+                  Date & Time
                 </label>
                 <div className="mt-1">
                   <input
                     id="dateTime"
                     type="datetime-local"
-                    {...register("dateTime", {
-                      required: "Date & Time is required",
-                    })}
-                    className={`block w-full rounded-md ${
+                    {...register("dateTime", {})}
+                    className={`p-2 block w-full rounded-md ${
                       errors.dateTime
                         ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
                         : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"

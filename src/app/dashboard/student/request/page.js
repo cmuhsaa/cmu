@@ -243,8 +243,9 @@ export default function StudentPage() {
           {optimisticStudents.map((member) => (
             <div
               key={member._id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
+              <Edit model="student" id={member._id.toString()} />
               <div className="p-6">
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Avatar Section */}
@@ -268,7 +269,6 @@ export default function StudentPage() {
                         </h3>
                       </Link>
                     </div>
-                    <Edit model="student" id={member._id.toString()} />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                       <div>

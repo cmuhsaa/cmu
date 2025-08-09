@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { revalidatePathStudent } from "../actions";
 import { committee } from "@/lib/committee";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function MemberAdd() {
   const [loading, setLoading] = useState(false);
@@ -37,30 +38,30 @@ export default function MemberAdd() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("phone", data.phone);
-    formData.append("batch", data.batch);
-    formData.append("about", data.about);
-    formData.append("profession", data.profession);
-    formData.append("address", data.address);
-    formData.append("type", data.type);
-    formData.append("isActive", true);
+    const formData = {};
+    formData.name = data.name;
+    formData.email = data.email;
+    formData.phone = data.phone;
+    formData.batch = data.batch;
+    formData.about = data.about;
+    formData.profession = data.profession;
+    formData.address = data.address;
+    formData.type = data.type;
+    formData.isActive = true;
 
     if (data.image && data.image.length > 0) {
-      formData.append("image", data.image[0]);
+      formData.image = await clientCloudinary(data.image[0], "student");
     }
 
     try {
       const response = await fetch(`/api/student`, {
         method: "POST",
         credentials: "include",
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
-      
+
       revalidatePathStudent();
 
       dispatch({
@@ -130,13 +131,12 @@ export default function MemberAdd() {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email <span className="text-red-500">*</span>
+                  Email
                 </label>
                 <input
                   id="email"
                   type="email"
                   {...register("email", {
-                    required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Invalid email address",
@@ -159,13 +159,12 @@ export default function MemberAdd() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone <span className="text-red-500">*</span>
+                  Phone
                 </label>
                 <input
                   id="phone"
                   type="tel"
                   {...register("phone", {
-                    required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
@@ -220,14 +219,12 @@ export default function MemberAdd() {
                   htmlFor="profession"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profession <span className="text-red-500">*</span>
+                  Profession
                 </label>
                 <input
                   id="profession"
                   type="text"
-                  {...register("profession", {
-                    required: "Profession is required",
-                  })}
+                  {...register("profession", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.profession ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -275,12 +272,12 @@ export default function MemberAdd() {
                   htmlFor="address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Address <span className="text-red-500">*</span>
+                  Address
                 </label>
                 <input
                   id="address"
                   type="text"
-                  {...register("address", { required: "Address is required" })}
+                  {...register("address", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.address ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -298,14 +295,12 @@ export default function MemberAdd() {
                   htmlFor="about"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  About <span className="text-red-500">*</span>
+                  About
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", {
-                    required: "About information is required",
-                  })}
+                  {...register("about", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.about ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -323,7 +318,7 @@ export default function MemberAdd() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image
+                  Profile Image <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
@@ -350,7 +345,9 @@ export default function MemberAdd() {
                         <input
                           id="image"
                           type="file"
-                          {...register("image")}
+                          {...register("image", {
+                            required: "Image is required",
+                          })}
                           accept="image/*"
                           className="sr-only"
                         />

@@ -35,8 +35,9 @@ export default async function GalleryPage({ params }) {
             {galleries.map((item) => (
               <div
                 key={item._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col"
               >
+                <Edit model="gallery" id={item._id.toString()} />
                 {/* Media Carousel - Top Section */}
                 <div className="flex-grow">
                   <MediaCarousel
@@ -53,7 +54,6 @@ export default async function GalleryPage({ params }) {
                         {item.title}
                       </Link>
                     </h3>
-                    <Edit model="gallery" id={item._id.toString()} />
                   </div>
                 </div>
               </div>

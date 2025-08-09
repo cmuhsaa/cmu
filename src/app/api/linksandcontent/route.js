@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import OrganizationInfo from "@/models/linksandcontent";
 import connectDB from "@/config/db";
-import cloudinary from "@/config/cloudinary";
 
 export async function PUT(request) {
   try {
     await connectDB();
 
-    const formData = await request.formData();
+    const formData = await request.json();
 
     // 1️⃣ Fetch existing document
     const existing = await OrganizationInfo.findById(
@@ -22,66 +21,38 @@ export async function PUT(request) {
 
     // 2️⃣ Build updateData with fallback to existing data
     const updateData = {
-      history: formData.get("history") || existing.history,
-      formation: formData.get("formation") || existing.formation,
-      establishment: formData.get("establishment") || existing.establishment,
-      vision: formData.get("vision") || existing.vision,
-      mission: formData.get("mission") || existing.mission,
-      achievements: formData.get("achievements") || existing.achievements,
-      address: formData.get("address") || existing.address,
-      phonePresident: formData.get("phonePresident") || existing.phonePresident,
-      phoneSecretary: formData.get("phoneSecretary") || existing.phoneSecretary,
-      email: formData.get("email") || existing.email,
-      socialLinks: formData.get("socialLinks")
-        ? JSON.parse(formData.get("socialLinks"))
+      history: formData.history || existing.history,
+      formation: formData.formation || existing.formation,
+      establishment: formData.establishment || existing.establishment,
+      vision: formData.vision || existing.vision,
+      mission: formData.mission || existing.mission,
+      achievements: formData.achievements || existing.achievements,
+      address: formData.address || existing.address,
+      phonePresident: formData.phonePresident || existing.phonePresident,
+      phoneSecretary: formData.phoneSecretary || existing.phoneSecretary,
+      email: formData.email || existing.email,
+      socialLinks: formData.socialLinks
+        ? formData.socialLinks
         : existing.socialLinks,
+      secretaryMessage: {
+        ...(formData.secretaryMessage || existing.secretaryMessage),
+        image: formData.secretaryMessage.image.url
+          ? formData.secretaryMessage.image
+          : existing.secretaryMessage.image,
+      },
+      presidentMessage: {
+        ...(formData.presidentMessage || existing.presidentMessage),
+        image: formData.presidentMessage.image.url
+          ? formData.presidentMessage.image
+          : existing.presidentMessage.image,
+      },
+      patronMessage: {
+        ...(formData.patronMessage || existing.patronMessage),
+        image: formData.patronMessage.image.url
+          ? formData.patronMessage.image
+          : existing.patronMessage.image,
+      },
     };
-
-    // 3️⃣ Messages (patron, president, secretary)
-    const messages = ["patronMessage", "presidentMessage", "secretaryMessage"];
-    messages.forEach((type) => {
-      const messageDataStr = formData.get(type);
-      const fallback = existing[type] || { text: "", image: {} };
-
-      if (messageDataStr) {
-        const messageData = JSON.parse(messageDataStr);
-        updateData[type] = {
-          ...fallback,
-          ...messageData,
-          image: fallback.image || {},
-        };
-      } else {
-        updateData[type] = fallback;
-      }
-    });
-
-    // 4️⃣ Handle images if new image provided
-    const imageTypes = [
-      { image: "patronImage", key: "patronMessage" },
-      { image: "presidentImage", key: "presidentMessage" },
-      { image: "secretaryImage", key: "secretaryMessage" },
-    ];
-
-    for (const type of imageTypes) {
-      const imageFile = formData.get(type.image);
-      if (imageFile && imageFile.size > 0) {
-        const buffer = Buffer.from(await imageFile.arrayBuffer());
-
-        const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream({ folder: "committee" }, (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            })
-            .end(buffer);
-        });
-
-        updateData[type.key].image = {
-          public_id: result.public_id,
-          url: result.secure_url,
-        };
-      }
-    }
 
     // 5️⃣ Update document
     const updatedInfo = await OrganizationInfo.findByIdAndUpdate(

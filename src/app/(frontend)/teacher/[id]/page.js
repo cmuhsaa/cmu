@@ -1,3 +1,4 @@
+import Edit from "@/components/Edit";
 import { getTeacherById } from "@/lib/getData";
 import { getPaginatedTeachers } from "@/lib/getDatas";
 import { notFound } from "next/navigation";
@@ -12,7 +13,8 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="p-3 xl:p-0">
+    <div className="relative p-3 xl:p-0">
+      <Edit model="teacher" id={id.toString()} />
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         {/* Profile Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">

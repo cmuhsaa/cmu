@@ -89,8 +89,9 @@ export default async function StudentPage({ searchParams }) {
           {students.map((member) => (
             <div
               key={member._id}
-              className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
+              className="relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
             >
+              <Edit model="student" id={member._id.toString()} />
               {/* Card Header */}
               <div className="relative h-40 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
                 {member.avatar ? (
@@ -181,8 +182,6 @@ export default async function StudentPage({ searchParams }) {
                     </span>
                   </div>
                 </div>
-
-                <Edit model="student" id={member._id.toString()} />
               </div>
             </div>
           ))}

@@ -10,29 +10,11 @@ export async function POST(request) {
   await connectDB();
 
   try {
-    const formData = await request.formData();
-    const title = formData.get("title");
-    const youtubeLink = formData.get("youtubeLink");
-    const files = formData.getAll("images");
+    const data = await request.json(); // parse JSON body
 
-    const images = [];
-    for (const file of files) {
-      if (file.size > 0) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream({ folder: "gallery" }, (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            })
-            .end(Buffer.from(buffer));
-        });
-        images.push({
-          public_id: result.public_id,
-          url: result.secure_url,
-        });
-      }
-    }
+    const title = data.title;
+    const youtubeLink = data.youtubeLink;
+    const images = data.images;
 
     const newGallery = new Gallery({
       title,

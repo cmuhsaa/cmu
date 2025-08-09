@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathPost } from "../actions";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function PostAdd() {
   const [loading, setLoading] = useState(false);
@@ -18,21 +19,34 @@ export default function PostAdd() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("content", data.content);
-    formData.append("youtubeLink", data.youtubeLink);
+    const formData = {};
+    formData.title = data.title;
+    formData.content = data.content;
+    formData.youtubeLink = data.youtubeLink;
+    formData.images = [];
 
     if (data.images && data.images.length > 0) {
       for (let i = 0; i < data.images.length; i++) {
-        formData.append("images", data.images[i]);
+        formData.images.push(await clientCloudinary(data.images[i], "post"));
       }
+    }
+    if (data.images.length == 0 && !data.youtubeLink && !data.content) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: "Image or yt video is required",
+          status: "error",
+          path: "",
+        },
+      });
+      setLoading(false);
+      return;
     }
 
     const response = await fetch(`/api/post`, {
       method: "POST",
       credentials: "include",
-      body: formData,
+      body: JSON.stringify(formData),
     });
 
     const result = await response.json();
@@ -71,7 +85,7 @@ export default function PostAdd() {
                 htmlFor="title"
                 className="block text-sm font-medium text-gray-700"
               >
-                Title
+                Title <span className="text-red-500">*</span>
               </label>
               <div className="mt-1">
                 <input
@@ -101,7 +115,7 @@ export default function PostAdd() {
                 <textarea
                   id="content"
                   rows={4}
-                  {...register("content", { required: "Content is required" })}
+                  {...register("content", {})}
                   className={`appearance-none block w-full px-3 py-2 border ${
                     errors.content ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}

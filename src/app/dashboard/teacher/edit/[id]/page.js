@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathTeacher } from "../../actions";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function TeacherUpdate() {
   const [loading, setLoading] = useState(false);
@@ -50,24 +51,23 @@ export default function TeacherUpdate() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("phone", data.phone);
-    formData.append("title", data.title);
-    formData.append("about", data.about);
-    formData.append("address", data.address);
+    const formData = {};
+    formData.name = data.name;
+    formData.email = data.email;
+    formData.phone = data.phone;
+    formData.title = data.title;
+    formData.about = data.about;
+    formData.address = data.address;
 
-    // Handle image upload if changed
     if (data.image && data.image.length > 0) {
-      formData.append("image", data.image[0]);
+      formData.image = await clientCloudinary(data.image[0], "teacher");
     }
 
     try {
       const response = await fetch(`/api/teacher/${id}`, {
         method: "PUT",
         credentials: "include",
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -122,7 +122,7 @@ export default function TeacherUpdate() {
                   type="text"
                   id="name"
                   {...register("name", { required: "Name is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.name ? "border-red-500" : "border"
                   }`}
                 />
@@ -139,19 +139,18 @@ export default function TeacherUpdate() {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email <span className="text-red-500">*</span>
+                  Email
                 </label>
                 <input
                   type="email"
                   id="email"
                   {...register("email", {
-                    required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Invalid email address",
                     },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.email ? "border-red-500" : "border"
                   }`}
                 />
@@ -168,19 +167,18 @@ export default function TeacherUpdate() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number <span className="text-red-500">*</span>
+                  Phone Number
                 </label>
                 <input
                   type="tel"
                   id="phone"
                   {...register("phone", {
-                    required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
                     },
                   })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.phone ? "border-red-500" : "border"
                   }`}
                 />
@@ -197,13 +195,13 @@ export default function TeacherUpdate() {
                   htmlFor="title"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Professional Title <span className="text-red-500">*</span>
+                  Professional Title
                 </label>
                 <input
                   type="text"
                   id="title"
-                  {...register("title", { required: "Title is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  {...register("title", {})}
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.title ? "border-red-500" : "border"
                   }`}
                 />
@@ -220,13 +218,13 @@ export default function TeacherUpdate() {
                   htmlFor="address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Address <span className="text-red-500">*</span>
+                  Address
                 </label>
                 <input
                   type="text"
                   id="address"
-                  {...register("address", { required: "Address is required" })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  {...register("address", {})}
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.address ? "border-red-500" : "border"
                   }`}
                 />
@@ -243,15 +241,13 @@ export default function TeacherUpdate() {
                   htmlFor="about"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  About <span className="text-red-500">*</span>
+                  About
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", {
-                    required: "About information is required",
-                  })}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
+                  {...register("about", {})}
+                  className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.about ? "border-red-500" : "border"
                   }`}
                 />

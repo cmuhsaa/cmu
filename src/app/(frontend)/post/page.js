@@ -36,8 +36,9 @@ export default async function PostPage({ params }) {
             {posts.map((post) => (
               <div
                 key={post._id}
-                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
+                <Edit model="post" id={post._id.toString()} />
                 <div className="p-6 h-full">
                   <div className="flex justify-between items-start">
                     <Link href={`/post/${post._id}`} className="group">
@@ -45,10 +46,11 @@ export default async function PostPage({ params }) {
                         {post.title}
                       </h3>
                     </Link>
-                    <Edit model="post" id={post._id.toString()} />
                   </div>
 
-                  <p className="line-clamp-2 mt-2 text-gray-600">{post.content}</p>
+                  <p className="line-clamp-2 mt-2 text-gray-600">
+                    {post.content}
+                  </p>
 
                   {/* Media Carousel */}
                   {(post.youtubeLink || post.images?.length > 0) && (

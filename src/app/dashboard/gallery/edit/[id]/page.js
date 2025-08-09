@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { revalidatePathGallery } from "../../actions";
 import Loading from "@/components/Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function GalleryUpdate() {
   const [loading, setLoading] = useState(false);
@@ -36,20 +37,21 @@ export default function GalleryUpdate() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("youtubeLink", data.youtubeLink);
+    const formData = {};
+    formData.title = data.title;
+    formData.youtubeLink = data.youtubeLink;
+    formData.images = [];
 
     if (data.images && data.images.length > 0) {
       for (let i = 0; i < data.images.length; i++) {
-        formData.append("images", data.images[i]);
+        formData.images.push(await clientCloudinary(data.images[i], "gallery"));
       }
     }
 
     const response = await fetch(`/api/gallery/${id}`, {
       method: "PUT",
       credentials: "include",
-      body: formData,
+      body: JSON.stringify(formData),
     });
 
     const result = await response.json();
@@ -86,12 +88,12 @@ export default function GalleryUpdate() {
                 htmlFor="title"
                 className="block text-sm font-medium text-gray-700"
               >
-                Title
+                Title <span className="text-red-500">*</span>
               </label>
               <input
                 id="title"
                 type="text"
-                {...register("title", { required: true })}
+                {...register("title", { required: "Title is required" })}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>

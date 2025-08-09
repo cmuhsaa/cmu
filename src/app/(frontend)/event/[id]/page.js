@@ -27,7 +27,8 @@ const Page = async ({ params }) => {
   };
 
   return (
-    <div className="p-3 xl:p-0 max-w-6xl mx-auto">
+    <div className="relative p-3 xl:p-0 max-w-6xl mx-auto">
+      <Edit model="event" id={id} />
       <article className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
@@ -37,7 +38,6 @@ const Page = async ({ params }) => {
                 {event.title} ({event.titleBangla})
               </h1>
             </div>
-            <Edit model="event" id={id} />
           </div>
 
           <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-300">

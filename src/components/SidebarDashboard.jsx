@@ -14,7 +14,6 @@ import {
   FiImage,
   FiFileText,
   FiLock,
-  FiEdit,
 } from "react-icons/fi";
 import LogoutButton from "./Logout";
 
@@ -83,7 +82,7 @@ const SidebarData = {
     {
       href: "/dashboard/update-content",
       label: "Update Content",
-      icon: <FiEdit className="w-5 h-5 mr-3" />,
+      icon: <FiUsers className="w-5 h-5 mr-3" />,
     },
   ],
   contactInfo: {

@@ -11,33 +11,15 @@ export async function PUT(request, { params }) {
 
   try {
     const { id } = await params;
-    const formData = await request.formData();
-    const title = formData.get("title");
-    const youtubeLink = formData.get("youtubeLink");
-    const files = formData.getAll("images");
+    const data = await request.json(); // parse JSON body
+
+    const title = data.title;
+    const youtubeLink = data.youtubeLink;
+    const images = data.images;
 
     const exists = await Gallery.findById(id);
     if (!exists) {
       return NextResponse.json({ error: "Gallery not found" }, { status: 400 });
-    }
-
-    const images = [];
-    for (const file of files) {
-      if (file.size > 0) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream({ folder: "gallery" }, (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            })
-            .end(Buffer.from(buffer));
-        });
-        images.push({
-          public_id: result.public_id,
-          url: result.secure_url,
-        });
-      }
     }
 
     if (images.length > 0) {

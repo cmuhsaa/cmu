@@ -13,7 +13,8 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="p-3 xl:p-0">
+    <div className="relative p-3 xl:p-0">
+      <Edit model="gallery" id={id} />
       <article className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
@@ -31,7 +32,6 @@ const Page = async ({ params }) => {
                 {gallery.updateDate?.date} at {gallery.updateDate?.formatedTime}
               </div>
             )}
-            <Edit model="gallery" id={id} />
           </div>
         </header>
 

@@ -13,11 +13,14 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="p-3 xl:p-0">
+    <div className="relative p-3 xl:p-0">
+      <Edit model="post" id={id} />
       <article className="bg-white rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
-          <h1 className="text-3xl font-bold text-gray-900 text-white">{post.title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 text-white">
+            {post.title}
+          </h1>
           <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-300">
             <div>
               <span className="font-medium">Created:</span>{" "}
@@ -44,7 +47,6 @@ const Page = async ({ params }) => {
         <section className="p-6 pt-0">
           <div className="prose max-w-none text-gray-700">
             <p className="whitespace-pre-line">{post.content}</p>
-            <Edit model="post" id={id} />
           </div>
         </section>
       </article>

@@ -57,16 +57,11 @@ export default async function BackgroundPage() {
         </h2>
         <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-6">
           <div className="flex items-center mb-4">
-            <div className="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
-              ২০১৬
-            </div>
+            <div className="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold"></div>
             <div className="ml-4">
               <h3 className="text-lg font-bold text-gray-800">
                 প্রাথমিক উদ্যোগ
               </h3>
-              <p className="text-sm text-gray-600">
-                সুবর্ণজয়ন্তী অনুষ্ঠানের পর
-              </p>
             </div>
           </div>
           <pre className="rounded-md p-4 text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-x-auto text-xjl leading-relaxed">
@@ -77,14 +72,11 @@ export default async function BackgroundPage() {
         {/* Establishment */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 mb-10">
           <div className="flex items-center mb-4">
-            <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold">
-              ২০১৮
-            </div>
+            <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold"></div>
             <div className="ml-4">
               <h3 className="text-lg font-bold text-gray-800">
                 আনুষ্ঠানিক প্রতিষ্ঠা
               </h3>
-              <p className="text-sm text-gray-600">২২ ডিসেম্বর, ২০১৮</p>
             </div>
           </div>
           <pre className="rounded-md p-4 text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-x-auto text-xjl leading-relaxed">

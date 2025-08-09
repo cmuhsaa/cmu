@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { FiUpload, FiSave, FiLink, FiMessageSquare } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import Loading from "./Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function OrganizationForm({ initialData = {} }) {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ export default function OrganizationForm({ initialData = {} }) {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      const formData = new FormData();
+      const formData = {};
       // Append all text fields
       Object.entries(data).forEach(([key, value]) => {
         if (
@@ -72,37 +73,40 @@ export default function OrganizationForm({ initialData = {} }) {
           key !== "secretaryImage" &&
           key !== "socialLinks"
         ) {
-          formData.append(key, value);
+          formData[key] = value;
         }
       });
       // Append message objects
-      formData.append("patronMessage", JSON.stringify(data.patronMessage));
-      formData.append(
-        "presidentMessage",
-        JSON.stringify(data.presidentMessage)
-      );
-      formData.append(
-        "secretaryMessage",
-        JSON.stringify(data.secretaryMessage)
-      );
+      formData.patronMessage = data.patronMessage;
+      formData.presidentMessage = data.presidentMessage;
+      formData.secretaryMessage = data.secretaryMessage;
 
       // Append social links
-      formData.append("socialLinks", JSON.stringify(data.socialLinks));
+      formData.socialLinks = data.socialLinks;
 
       // Append image files if they exist
       if (data.patronImage && data.patronImage.length > 0) {
-        formData.append("patronImage", data.patronImage[0]);
+        formData.patronMessage.image = await clientCloudinary(
+          data.patronImage[0],
+          "committee"
+        );
       }
       if (data.presidentImage && data.presidentImage.length > 0) {
-        formData.append("presidentImage", data.presidentImage[0]);
+        formData.presidentMessage.image = await clientCloudinary(
+          data.presidentImage[0],
+          "committee"
+        );
       }
       if (data.secretaryImage && data.secretaryImage.length > 0) {
-        formData.append("secretaryImage", data.secretaryImage[0]);
+        formData.secretaryMessage.image = await clientCloudinary(
+          data.secretaryImage[0],
+          "committee"
+        );
       }
 
       const res = await fetch("/api/linksandcontent", {
         method: "PUT",
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) {
