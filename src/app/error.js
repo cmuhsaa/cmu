@@ -43,8 +43,8 @@ export default function ErrorPage({
 
         {/* Description */}
         <p className="mb-8 text-gray-500">
-          We're sorry, but something unexpected happened. Our team has been
-          notified and we're working to fix it.
+          We&apos;re sorry, but something unexpected happened. Our team has been
+          notified and we&apos;re working to fix it.
         </p>
 
         {/* Action buttons */}
