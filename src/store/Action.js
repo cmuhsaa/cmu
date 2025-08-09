@@ -121,7 +121,7 @@ export const login = (data) => async (dispatch) => {
         payload: {
           message: result.message || "Login Succesfull",
           status: "success",
-          path: "/dashboard",
+          path: "/",
         },
       });
     } else {
