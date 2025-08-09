@@ -132,6 +132,7 @@ export default function GalleryUpdate() {
                       <input
                         id="images"
                         type="file"
+                        accept="image/*"
                         {...register("images")}
                         multiple
                         className="sr-only"

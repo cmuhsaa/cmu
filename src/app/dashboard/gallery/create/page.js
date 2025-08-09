@@ -167,6 +167,7 @@ export default function GalleryAdd() {
                           <input
                             id="images"
                             type="file"
+                            accept="image/*"
                             {...register("images", {})}
                             multiple
                             className="sr-only"
