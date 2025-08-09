@@ -4,6 +4,7 @@ import { MESSAGE } from "@/store/constant";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathBatches } from "../actions";
 
 export default function BatchAdd() {
   const { register, handleSubmit } = useForm();
@@ -23,6 +24,7 @@ export default function BatchAdd() {
     });
 
     const result = await response.json();
+    revalidatePathBatches();
 
     if (result.message) {
       dispatch({

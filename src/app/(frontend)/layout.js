@@ -3,7 +3,7 @@ import Sidebar from "@/components/Sidebar";
 
 export default function BackgroundPage({ children }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen">
       <div className="mx-auto xl:px-4 px-0 xl:py-8 py-0 max-w-[1440px] mx-auto ">
         <div className="grid grid-cols-1 xl:grid-cols-5 xl:gap-8 gap-0">
           <Sidebar />

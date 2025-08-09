@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { revalidatePathBatches } from "../../actions";
 
 export default function BatchUpdate() {
   const [loading, setLoading] = useState(false);
@@ -53,6 +54,7 @@ export default function BatchUpdate() {
       });
 
       const result = await response.json();
+      revalidatePathBatches();
 
       dispatch({
         type: MESSAGE,

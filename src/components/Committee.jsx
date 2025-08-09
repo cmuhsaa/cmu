@@ -47,7 +47,7 @@ export default async function StudentsPage() {
                 {students.students.map((student, i) => (
                   <div
                     key={student.id || i}
-                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-1/2 md:w-1/3 xl:w-full bg-gray-200"
+                    className="bg-white/40 backdrop-blur-[2px] rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-1/2 md:w-1/3 xl:w-full bg-gray-200"
                   >
                     <h2 className="text-sm bg-green-700 font-bold text-white p-1 text-center">
                       {role.position}

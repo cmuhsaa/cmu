@@ -205,7 +205,7 @@ export default function Sidebar() {
       <div className="sticky top-8 xl:col-span-1 overflow-auto max-h-[calc(100dvh-32px)] hide-scrollbar">
         <div className="w-full xl:inline-block hidden">
           {/* Navigation Menu - Collapsible with smooth transition */}
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+          <div className="bg-white/40 backdrop-blur-[2px] rounded-2xl shadow-xl p-6 mb-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}
@@ -247,7 +247,7 @@ export default function Sidebar() {
           </div>
 
           {/* Quick Links - Collapsible with smooth transition */}
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+          <div className="bg-white/40 backdrop-blur-[2px] rounded-2xl shadow-xl p-6 mb-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setIsQuickLinksOpen(!isQuickLinksOpen)}

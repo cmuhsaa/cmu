@@ -82,7 +82,7 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white/40 backdrop-blur-[2px] rounded-xl py-12 px-4 sm:px-6 lg:px-8">
       {loading && <Loading />}
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
@@ -96,7 +96,7 @@ const FeedbackPage = () => {
 
         <div className="grid">
           {/* Feedback Form */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden p-6 sm:p-8">
+          <div className="bg-white/40 backdrop-blur-[2px] rounded-xl shadow-lg overflow-hidden p-6 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label

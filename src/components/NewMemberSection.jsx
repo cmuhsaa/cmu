@@ -4,7 +4,7 @@ import { BsTelephoneOutboundFill } from "react-icons/bs";
 
 export default function NewMemberSection({ members }) {
   return (
-    <section className="py-10 bg-gradient-to-br from-green-50 to-emerald-50">
+    <section className="py-10 bg-gradient-to-br from-green-50/50 to-emerald-50/50">
       <div className="px-6">
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">

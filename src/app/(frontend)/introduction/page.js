@@ -26,7 +26,7 @@ export default async function BackgroundPage() {
   const { formation, establishment, vision, mission, achievements } = data;
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div className="bg-white/40 backdrop-blur-[2px] rounded-2xl shadow-xl overflow-hidden">
       {/* Hero */}
       <div
         className="relative h-80 bg-cover bg-center"
