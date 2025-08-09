@@ -17,7 +17,7 @@ const Footer = async () => {
   } = JSON.parse(JSON.stringify(data));
 
   return (
-    <footer className="bg-gradient-to-r from-orange-600 to-red-600 shadow-xl text-white px-6 py-10 mt-4 lg:mt-0">
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-900 shadow-xl text-white px-6 py-10 mt-4 lg:mt-0">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {/* Contact Info */}
         <div>
@@ -25,19 +25,19 @@ const Footer = async () => {
           <p className="mb-2">{address}</p>
           <p className="mb-1">
             📧{" "}
-            <a href={`mailto:${email}`} className="hover:text-blue-400">
+            <a href={`mailto:${email}`} className="hover:text-red-400">
               {email}
             </a>
           </p>
           <p className="mb-1">
             👤 সভাপতি:{" "}
-            <a href={`tel:${phonePresident}`} className="hover:text-blue-400">
+            <a href={`tel:${phonePresident}`} className="hover:text-red-400">
               {phonePresident}
             </a>
           </p>
           <p>
             👤 সম্পাদক:{" "}
-            <a href={`tel:${phoneSecretary}`} className="hover:text-blue-400">
+            <a href={`tel:${phoneSecretary}`} className="hover:text-red-400">
               {phoneSecretary}
             </a>
           </p>
