@@ -3,6 +3,12 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Gallery",
+  };
+}
+
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
 export default async function GalleryPage({ params }) {

@@ -3,15 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import {
-  FiChevronUp,
-  FiChevronDown,
-  FiMenu,
-  FiPhone,
-  FiLink,
-  FiMapPin,
-  FiMail,
-} from "react-icons/fi";
+import { FiChevronUp, FiChevronDown, FiMenu, FiLink } from "react-icons/fi";
 import {
   FiHome,
   FiInfo,
@@ -70,12 +62,12 @@ const SidebarData = {
     },
     {
       href: "/notice",
-      label: "Notice",
+      label: "নোটিশ",
       icon: <FiBell className="w-4 h-4 mr-2" />,
     },
     {
       href: "/post",
-      label: "Post",
+      label: "পোস্ট",
       icon: <FiFileText className="w-4 h-4 mr-2" />,
     },
     {
@@ -94,15 +86,10 @@ const SidebarData = {
       icon: <FiMessageSquare className="w-4 h-4 mr-2" />,
     },
   ],
-  contactInfo: {
-    address: "চাঁচাইতারা মাদলা",
-    phone: "+৮৮০১৭XXXXXXXXX",
-    email: "info@cmuhschool.edu.bd",
-  },
 };
 
 export default function Sidebar() {
-  const { sidebarItems, quickLinks, contactInfo } = SidebarData;
+  const { sidebarItems, quickLinks } = SidebarData;
   const pathname = usePathname();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // for mobile sidebar toggle
@@ -209,28 +196,6 @@ export default function Sidebar() {
                     <span className="text-sm">{link.label}</span>
                   </Link>
                 ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-xl p-6 text-white m-6">
-            <h3 className="text-lg font-bold mb-4 flex items-center">
-              <FiPhone className="w-5 h-5 mr-2" />
-              যোগাযোগ
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center">
-                <FiMapPin className="w-4 h-4 mr-2" />
-                <span>{contactInfo.address}</span>
-              </div>
-              <div className="flex items-center">
-                <FiPhone className="w-4 h-4 mr-2" />
-                <span>{contactInfo.phone}</span>
-              </div>
-              <div className="flex items-center">
-                <FiMail className="w-4 h-4 mr-2" />
-                <span>{contactInfo.email}</span>
               </div>
             </div>
           </div>

@@ -4,6 +4,17 @@ import { getGalleryById } from "@/lib/getData";
 import { getPaginatedGalleries } from "@/lib/getDatas";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const gallery = await getGalleryById(id);
+  if (!gallery) {
+    notFound();
+  }
+  return {
+    title: "Gallery | " + gallery.title,
+  };
+}
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const gallery = await getGalleryById(id);

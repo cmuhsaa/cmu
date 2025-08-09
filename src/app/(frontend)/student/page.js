@@ -5,6 +5,12 @@ import { StudentFilters } from "@/components/StudentFilter";
 
 export const dynamic = "force-static";
 
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Alumni Students",
+  };
+}
+
 export default async function StudentPage({ searchParams }) {
   let params = await searchParams;
   const page = parseInt(params.page) || 1;

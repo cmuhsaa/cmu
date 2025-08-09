@@ -147,7 +147,7 @@ const FeedbackPage = () => {
                   type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="01712345678"
                   value={form.phone}
                   onChange={handleChange}
                   required

@@ -30,9 +30,7 @@ export default async function Home() {
 
   return (
     <main className="shadow-xl rounded">
-      <HeroSection
-        schoolName="Chanchaitara Madla United High School"
-      />
+      <HeroSection schoolName="Chanchaitara Madla United High School" />
       <EventsSection events={JSON.parse(JSON.stringify(events))} />
       <NoticeSection notices={JSON.parse(JSON.stringify(notices))} />
       <GallerySection gallery={JSON.parse(JSON.stringify(galleries))} />

@@ -9,6 +9,19 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const event = await getEventById(id);
+
+  if (!event) {
+    notFound();
+  }
+  return {
+    title: "Event | " + event.title,
+    description: event.description,
+  };
+}
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const event = await getEventById(id);

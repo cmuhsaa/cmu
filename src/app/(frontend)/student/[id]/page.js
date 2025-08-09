@@ -4,6 +4,19 @@ import { getPaginatedStudents } from "@/lib/getDatas";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const student = await getStudentById(id);
+
+  if (!student) {
+    notFound();
+  }
+  return {
+    title: "Alumni Student | " + student.name,
+    description: "Alumni Student | " + student.about,
+  };
+}
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const student = await getStudentById(id);

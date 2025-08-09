@@ -3,6 +3,12 @@ import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
 
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Posts",
+  };
+}
+
 // This remains a Server Component
 export default async function PostPage({ params }) {
   let { page } = await params;

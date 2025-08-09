@@ -34,7 +34,6 @@ export async function POST(request) {
 
 export async function GET(request) {
   await connectDB();
-  
 
   try {
     const { searchParams } = new URL(request.url);

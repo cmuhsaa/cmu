@@ -85,18 +85,12 @@ const SidebarData = {
       icon: <FiUsers className="w-5 h-5 mr-3" />,
     },
   ],
-  contactInfo: {
-    address: "চাঁচাইতারা মাদলা",
-    phone: "+৮৮০১৭XXXXXXXXX",
-    email: "info@cmuhschool.edu.bd",
-  },
 };
 
 export default function SidebarDashboard() {
-  const { sidebarItems, contactInfo } = SidebarData;
+  const { sidebarItems } = SidebarData;
   const pathname = usePathname();
   const [isMainMenuOpen, setIsMainMenuOpen] = useState(true);
-  const [isQuickLinksOpen, setIsQuickLinksOpen] = useState(true);
 
   return (
     <div className="lg:col-span-1">

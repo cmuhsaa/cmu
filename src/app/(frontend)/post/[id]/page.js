@@ -4,6 +4,19 @@ import { getPostById } from "@/lib/getData";
 import { getPaginatedPosts } from "@/lib/getDatas";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const post = await getPostById(id);
+
+  if (!post) {
+    notFound();
+  }
+  return {
+    title: "Post | " + post.title,
+    description: "Post | " + post.description,
+  };
+}
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const post = await getPostById(id);

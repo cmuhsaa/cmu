@@ -4,14 +4,17 @@ import { notFound } from "next/navigation";
 import { TbTargetArrow } from "react-icons/tb";
 import { TfiTarget } from "react-icons/tfi";
 
-const backgroundPageData = {
-  stats: [
-    { icon: "ri-calendar-line", label: "বছরের ঐতিহ্য", value: "৫৮+" },
-    { icon: "ri-graduation-cap-line", label: "একর ক্যাম্পাস", value: "২১" },
-    { icon: "ri-group-line", label: "প্রাক্তন শিক্ষার্থী", value: "১০০০+" },
-    { icon: "ri-award-line", label: "সম্মাননা", value: "অসংখ্য" },
-  ],
-};
+export async function generateMetadata() {
+  const { data } = await getLinksContent();
+  if (!data) {
+    notFound();
+  }
+  const { history } = data;
+  return {
+    title: "প্রেক্ষাপট ও ইতিহাস",
+    description: history,
+  };
+}
 
 export const dynamic = "force-static";
 
@@ -20,7 +23,6 @@ export default async function BackgroundPage() {
   if (!data) {
     notFound();
   }
-  const { stats } = backgroundPageData;
   const { history, vision, mission, achievements } = data;
 
   return (
@@ -37,7 +39,6 @@ export default async function BackgroundPage() {
           <h1 className="text-2xl md:text-3xl font-bold mb-4">
             প্রেক্ষাপট ও ইতিহাস
           </h1>
-          <p className="text-xl">চাঁচাইতারা মাদলা ইউনাইটেড হাই স্কুল</p>
         </div>
       </div>
 
@@ -112,20 +113,6 @@ export default async function BackgroundPage() {
           <pre className="rounded-md p-4 text-gray-700 whitespace-pre-wrap break-words max-w-full overflow-x-auto text-xjl leading-relaxed">
             {achievements}
           </pre>
-        </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          {stats.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 text-center"
-            >
-              <i className={`${item.icon} text-3xl mb-2 opacity-80`}></i>
-              <div className="text-2xl font-bold">{item.value}</div>
-              <div className="text-sm opacity-90">{item.label}</div>
-            </div>
-          ))}
         </div>
 
         {/* CTA */}

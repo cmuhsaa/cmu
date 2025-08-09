@@ -4,6 +4,12 @@ import { getPaginatedTeachers } from "@/lib/getDatas";
 import Link from "next/link";
 import { Mail, Phone, MapPin, User } from "lucide-react";
 
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Teachers",
+  };
+}
+
 export default async function TeacherPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page) || 1;

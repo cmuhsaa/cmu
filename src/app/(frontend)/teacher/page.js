@@ -6,6 +6,12 @@ import { Mail, Phone, MapPin, User, ChevronRight } from "lucide-react";
 
 export const dynamic = "force-static";
 
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Teachers",
+  };
+}
+
 export default async function TeacherPage({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page) || 1;

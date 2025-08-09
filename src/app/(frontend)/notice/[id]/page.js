@@ -4,6 +4,19 @@ import { getNoticeById } from "@/lib/getData";
 import { getPaginatedNotices } from "@/lib/getDatas";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const notice = await getNoticeById(id);
+
+  if (!notice) {
+    notFound();
+  }
+  return {
+    title: "Notice | " + notice.title,
+    description: notice.description,
+  };
+}
+
 const Page = async ({ params }) => {
   const { id } = await params;
   const notice = await getNoticeById(id);

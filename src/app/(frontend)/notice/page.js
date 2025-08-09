@@ -2,7 +2,13 @@ import { getPaginatedNotices } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
 import Link from "next/link";
 import MediaCarousel from "@/components/MediaCarousel";
-import { Calendar, Clock, FileText, AlertCircle } from "lucide-react";
+import { Calendar, FileText, AlertCircle } from "lucide-react";
+
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Notices",
+  };
+}
 
 export const dynamic = "force-static";
 

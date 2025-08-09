@@ -1,7 +1,13 @@
 import { getPaginatedEvents } from "@/lib/getDatas";
 import Edit from "@/components/Edit";
 import Link from "next/link";
-import { MapPin, ArrowRight } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+export async function generateMetadata() {
+  return {
+    title: "CMUHSAA Events",
+  };
+}
 
 export const dynamic = "force-static";
 
