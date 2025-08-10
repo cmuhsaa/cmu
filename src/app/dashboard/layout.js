@@ -10,6 +10,7 @@ export default function BackgroundPage({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     const authCheck = async () => {
+      setLoaded(false);
       const response = await fetch("/api/admin/verifyAdmin");
       const result = await response.json();
       setIsAuthenticated(result.success);
@@ -25,12 +26,14 @@ export default function BackgroundPage({ children }) {
   return (
     <div className="min-h-screen">
       {!loaded && <Loading />}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <SidebarDashboard />
-          <div className="lg:col-span-3">{children}</div>
+      {isAuthenticated && (
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <SidebarDashboard />
+            <div className="lg:col-span-3">{children}</div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
