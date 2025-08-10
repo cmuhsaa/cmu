@@ -137,7 +137,7 @@ export default function Sidebar() {
             </div>
             <nav
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isMainMenuOpen ? "max-h-96 mt-4" : "max-h-0"
+                isMainMenuOpen ? "max-h-110 mt-4" : "max-h-0"
               }`}
             >
               <div className="space-y-2">
@@ -178,7 +178,7 @@ export default function Sidebar() {
             </div>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isQuickLinksOpen ? "max-h-96 mt-4" : "max-h-0"
+                isQuickLinksOpen ? "max-h-110 mt-4" : "max-h-0"
               }`}
             >
               <div className="space-y-2">
@@ -223,7 +223,7 @@ export default function Sidebar() {
 
             <nav
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isMainMenuOpen ? "max-h-96 mt-4" : "max-h-0"
+                isMainMenuOpen ? "max-h-110 mt-4" : "max-h-0"
               }`}
             >
               <div className="space-y-2">
@@ -265,7 +265,7 @@ export default function Sidebar() {
 
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                isQuickLinksOpen ? "max-h-96 mt-4" : "max-h-0"
+                isQuickLinksOpen ? "max-h-110 mt-4" : "max-h-0"
               }`}
             >
               <div className="space-y-2">
