@@ -37,7 +37,9 @@ export default function EventsSection({ events }) {
               <div className="relative z-10 p-4 text-white">
                 <div className="flex items-center justify-between">
                   <h3 className="line-clamp-1 overflow-hidden text-md md:text-lg font-bold">
-                    {event.title} ({event.titleBangla})
+                    <Link href={`/event/${event._id.toString()}`}>
+                      {event.title} ({event.titleBangla})
+                    </Link>
                   </h3>
                   <div className="min-w-[150px] ml-auto bg-white/20 backdrop-blur-sm rounded-2xl p-2 px-4">
                     <div className="text-xl font-bold">{event.eventDate}</div>

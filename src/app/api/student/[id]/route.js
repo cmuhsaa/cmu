@@ -27,7 +27,26 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: "Student not found" }, { status: 400 });
     }
 
-    if (avatar.public_id) {
+    if (
+      email &&
+      (await Student.exists({
+        email,
+        _id: { $ne: id },
+      }))
+    ) {
+      return NextResponse.status(400).json({ message: "Email already in use" });
+    }
+    if (
+      phone &&
+      (await Student.exists({
+        phone,
+        _id: { $ne: id },
+      }))
+    ) {
+      return NextResponse.status(400).json({ message: "Phone already in use" });
+    }
+
+    if (avatar?.public_id) {
       await cloudinary.uploader.destroy(exists.avatar.public_id);
     }
 
@@ -42,13 +61,12 @@ export async function PUT(request, { params }) {
         profession: profession || exists.profession,
         address: address || exists.address,
         type: type || exists.type,
-        avatar: Object.keys(avatar).length ? avatar : exists.avatar,
+        avatar: avatar?.url ? avatar : exists.avatar,
         isActive: true,
         updateDate: localTime(),
       },
       { new: true }
     );
-
     return NextResponse.json(
       { message: "Student updated", student: updatedStudent },
       { status: 200 }

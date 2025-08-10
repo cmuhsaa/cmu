@@ -14,19 +14,14 @@ import NewMemberSection from "@/components/NewMemberSection";
 export const dynamic = "force-static"; // Optional: forces static + ISR
 
 export default async function Home() {
-  const [
-    { events, total: eventTotal },
-    { galleries },
-    { notices },
-    { posts },
-    { students, total },
-  ] = await Promise.all([
-    getPaginatedEvents({ page: 1, limit: 2 }),
-    getPaginatedGalleries({ page: 1, limit: 2 }),
-    getPaginatedNotices({ page: 1, limit: 7 }),
-    getPaginatedPosts({ page: 1, limit: 2 }),
-    getPaginatedStudents({ page: 1, limit: 2, isActive: true }),
-  ]);
+  const [{ events }, { galleries }, { notices }, { posts }, { students }] =
+    await Promise.all([
+      getPaginatedEvents({ page: 1, limit: 2 }),
+      getPaginatedGalleries({ page: 1, limit: 2 }),
+      getPaginatedNotices({ page: 1, limit: 7 }),
+      getPaginatedPosts({ page: 1, limit: 2 }),
+      getPaginatedStudents({ page: 1, limit: 2, isActive: true }),
+    ]);
 
   return (
     <main className="shadow-xl rounded-xl overflow-hidden">

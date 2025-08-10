@@ -43,7 +43,14 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error.code === 11000) {
+      return NextResponse.json(
+        { error: "Email or Phone already exists" },
+        { status: 500 }
+      );
+    } else {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
   }
 }
 

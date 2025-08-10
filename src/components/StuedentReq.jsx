@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Loading from "./Loading";
+import { clientCloudinary } from "@/config/clientCloudinary";
 
 export default function StudentReq() {
   const [loading, setLoading] = useState(false);
@@ -36,26 +37,26 @@ export default function StudentReq() {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("phone", data.phone);
-    formData.append("batch", data.batch);
-    formData.append("about", data.about);
-    formData.append("profession", data.profession);
-    formData.append("address", data.address);
-    formData.append("type", data.type);
-    formData.append("isActive", false);
+    const formData = {};
+    formData.name = data.name;
+    formData.email = data.email;
+    formData.phone = data.phone;
+    formData.batch = data.batch;
+    formData.about = data.about;
+    formData.profession = data.profession;
+    formData.address = data.address;
+    formData.type = data.type;
+    formData.isActive = false;
 
     if (data.image && data.image.length > 0) {
-      formData.append("image", data.image[0]);
+      formData.image = await clientCloudinary(data.image[0], "student");
     }
 
     try {
       const response = await fetch(`/api/student`, {
         method: "POST",
         credentials: "include",
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -66,7 +67,7 @@ export default function StudentReq() {
         payload: {
           message: result.message || result.error || "Unknown error",
           status: result.message ? "success" : "error",
-          path: result.message ? "/" : "/",
+          path: result.message ? "/" : "",
         },
       });
     } catch (error) {
@@ -86,7 +87,7 @@ export default function StudentReq() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white/40 backdrop-blur-[2px] py-8 px-4 sm:px-6 lg:px-8">
       {loading && <Loading />}
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
@@ -294,23 +295,16 @@ export default function StudentReq() {
                   htmlFor="about"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  About <span className="text-red-500">*</span>
+                  About
                 </label>
                 <textarea
                   id="about"
                   rows={4}
-                  {...register("about", {
-                    required: "About information is required",
-                  })}
+                  {...register("about", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.about ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                 />
-                {errors.about && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.about.message}
-                  </p>
-                )}
               </div>
 
               {/* Profile Image */}
@@ -319,7 +313,7 @@ export default function StudentReq() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image
+                  Profile Image <span className="text-red-500">*</span>
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
@@ -346,7 +340,9 @@ export default function StudentReq() {
                         <input
                           id="image"
                           type="file"
-                          {...register("image")}
+                          {...register("image", {
+                            required: "Image is required",
+                          })}
                           accept="image/*"
                           className="sr-only"
                         />
@@ -356,6 +352,11 @@ export default function StudentReq() {
                     <p className="text-xs text-gray-500">
                       PNG, JPG, GIF up to 10MB
                     </p>
+                    {errors.image && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.image.message}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

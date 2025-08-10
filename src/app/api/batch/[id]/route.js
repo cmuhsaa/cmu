@@ -7,11 +7,15 @@ import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   await connectDB();
-  
 
   try {
     const { id } = await params;
     const { name } = await request.json();
+
+    const exists = await Batch.findOne({ name });
+    if (exists) {
+      throw new Error("Batch name already exists");
+    }
 
     const updatedBatch = await Batch.findByIdAndUpdate(
       id,
@@ -53,7 +57,6 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
 
 export async function DELETE(request, { params }) {
   await connectDB();

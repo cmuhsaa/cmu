@@ -5,6 +5,7 @@ const batchSchema = new Schema({
     type: String,
     required: [true, "Please enter Your name."],
     trim: true,
+    unique: true,
   },
   createDate: {
     type: Object,

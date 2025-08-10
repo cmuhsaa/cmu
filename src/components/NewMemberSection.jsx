@@ -45,7 +45,9 @@ export default function NewMemberSection({ members }) {
 
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                    {member.name}
+                    <Link href={`/student/${member._id.toString()}`}>
+                      {member.name}
+                    </Link>
                   </h3>
                   <div className="text-green-600 font-semibold mb-1">
                     {member.profession}

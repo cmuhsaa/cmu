@@ -31,9 +31,10 @@ export default function PostsSection({ posts }) {
               </div>
 
               <div className="p-4">
-
                 <h3 className="text-lg line-clamp-1 font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                  {post.title}
+                  <Link href={`/post/${post._id.toString()}`}>
+                    {post.title}
+                  </Link>
                 </h3>
 
                 <div className="flex items-center justify-between">

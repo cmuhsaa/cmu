@@ -25,6 +25,25 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: "Teacher not found" }, { status: 400 });
     }
 
+    if (
+      email &&
+      (await Teacher.exists({
+        email,
+        _id: { $ne: id },
+      }))
+    ) {
+      return NextResponse.status(400).json({ message: "Email already in use" });
+    }
+    if (
+      phone &&
+      (await Teacher.exists({
+        phone,
+        _id: { $ne: id },
+      }))
+    ) {
+      return NextResponse.status(400).json({ message: "Phone already in use" });
+    }
+
     if (avatar.public_id) {
       await cloudinary.uploader.destroy(exists.avatar.public_id);
     }

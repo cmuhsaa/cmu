@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import Loading from "@/components/Loading";
 import { committee } from "@/lib/committee";
 import { MESSAGE } from "@/store/constant";
+import { revalidatePathStudent } from "../actions";
 
 export default function StudentPage() {
   const [loading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ export default function StudentPage() {
     try {
       const response = await fetch(`/api/student/${id}`, {
         method: "PUT",
-        body: new FormData(),
+        body: JSON.stringify({}),
       });
       dispatch({
         type: MESSAGE,
@@ -96,6 +97,8 @@ export default function StudentPage() {
           path: "",
         },
       });
+
+      revalidatePathStudent();
 
       setStudents((prevStudents) =>
         prevStudents.filter((student) => student._id !== id)

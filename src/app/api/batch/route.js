@@ -7,10 +7,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   await connectDB();
-  
 
   try {
     const { name } = await request.json();
+
+    const exists = await Batch.findOne({name});
+    if (exists) {
+      throw new Error("Batch name already exists")
+    }
 
     const newBatch = new Batch({
       name,
