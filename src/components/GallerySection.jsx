@@ -34,7 +34,7 @@ export default function GallerySection({ gallery }) {
               {/* Content - Bottom Section */}
               <div className="p-4">
                 <div className="flex justify-between items-start">
-                  <h3 className="line-clamp-3 text-lg font-semibold text-gray-800 mb-2">
+                  <h3 className="line-clamp-1 text-lg font-semibold text-gray-800 mb-2">
                     <Link href={`/gallery/${gallery._id}`}>
                       {item.title}
                     </Link>

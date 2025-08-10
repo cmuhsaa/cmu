@@ -42,7 +42,7 @@ export default function NoticeSection({ notices }) {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors">
+                  <h3 className="line-clamp-1 text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors">
                     {notice.title}
                   </h3>
 
