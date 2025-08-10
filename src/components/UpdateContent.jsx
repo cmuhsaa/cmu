@@ -141,8 +141,8 @@ export default function OrganizationForm({ initialData = {} }) {
   return (
     <div className="min-h-screen">
       {loading && <Loading />}
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="bg-white/40 rounded-2xl shadow-xl overflow-hidden">
           {/* Form Header */}
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white">
             <h1 className="text-2xl font-bold">
@@ -165,7 +165,7 @@ export default function OrganizationForm({ initialData = {} }) {
               <textarea
                 {...register("history")}
                 className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                rows={5}
+                rows={10}
                 placeholder="Enter organization history..."
               />
             </div>
@@ -177,7 +177,7 @@ export default function OrganizationForm({ initialData = {} }) {
                 <textarea
                   {...register("formation")}
                   className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  rows={5}
+                  rows={10}
                   placeholder="How the organization was formed..."
                 />
               </div>
@@ -186,7 +186,7 @@ export default function OrganizationForm({ initialData = {} }) {
                 <textarea
                   {...register("establishment")}
                   className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  rows={5}
+                  rows={10}
                   placeholder="Official establishment details..."
                 />
               </div>
@@ -199,7 +199,7 @@ export default function OrganizationForm({ initialData = {} }) {
                 <textarea
                   {...register("vision")}
                   className="w-full p-4 bg-white/10 rounded-lg focus:ring-2 focus:ring-white focus:border-white"
-                  rows={4}
+                  rows={10}
                   placeholder="Organization vision..."
                 />
               </div>
@@ -208,7 +208,7 @@ export default function OrganizationForm({ initialData = {} }) {
                 <textarea
                   {...register("mission")}
                   className="w-full p-4 bg-white/10 rounded-lg focus:ring-2 focus:ring-white focus:border-white"
-                  rows={4}
+                  rows={10}
                   placeholder="Organization mission..."
                 />
               </div>
@@ -220,7 +220,7 @@ export default function OrganizationForm({ initialData = {} }) {
               <textarea
                 {...register("achievements")}
                 className="w-full p-4 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                rows={5}
+                rows={10}
                 placeholder="Organization achievements..."
               />
             </div>
