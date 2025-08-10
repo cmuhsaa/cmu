@@ -20,7 +20,7 @@ export default function BackgroundPage({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated && loaded) router.push("/");
-  }, [isAuthenticated]);
+  }, [isAuthenticated, pathname, loaded]);
 
   return (
     <div className="min-h-screen">

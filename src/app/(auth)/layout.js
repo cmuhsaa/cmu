@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     if (isAuthenticated && loaded) router.push("/");
-  }, [isAuthenticated]);
+  }, [isAuthenticated, pathname, loaded]);
 
   const isLoading = useSelector((state) => state.isLoading);
   return (
