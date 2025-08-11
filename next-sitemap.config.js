@@ -6,5 +6,11 @@ module.exports = {
   sitemapSize: 5000,
 
   // Exclude specific routes from sitemap
-  exclude: ["/login", "/dashboard/*", "/forgot-password", "/reset-password"],
+  exclude: [
+    "/login",
+    "/dashboard/*",
+    "/dashboard",
+    "/forgot-password",
+    "/reset-password",
+  ],
 };
