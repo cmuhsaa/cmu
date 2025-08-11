@@ -15,9 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Chanchaitara Madla United High School Alumni Association",
+  title:
+    "Chanchaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন",
   description:
-    "Chanchaitara Madla United High School Alumni Association connects former students, fosters lifelong friendships, shares memories, and supports community development through events and initiatives.",
+    "Chanchaitara Madla United High School Alumni Association (চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।",
 };
 
 export default function RootLayout({ children }) {
@@ -26,32 +27,36 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           property="og:title"
-          content="Chanchaitara Madla United High School Alumni Association"
+          content="Chanchaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           property="og:description"
-          content="Connecting past and present students of Chanchaitara Madla United High School."
+          content="Chanchaitara Madla United High School Alumni Association (চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           property="og:image"
-          content="https://cmu-alumni.com/og-image.jpg"
+          content="https://www.cmu-alumni.com/og-image.jpg"
         />
-        <meta property="og:url" content="https://cmu-alumni.com" />
+        <meta property="og:url" content="https://www.cmu-alumni.com" />
         <meta property="og:type" content="website" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Chanchaitara Madla United High School Alumni Association"
+          content="Chanchaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           name="twitter:description"
-          content="Join the official alumni association and reconnect with old friends."
+          content="Chanchaitara Madla United High School Alumni Association (চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           name="twitter:image"
-          content="https://cmu-alumni.com/og-image.jpg"
+          content="https://www.cmu-alumni.com/og-image.jpg"
+        />
+        <meta
+          name="google-site-verification"
+          content="IiHLaPPFMPq69YZrzoKYfBvJ20M63oT21KT4pX5df60"
         />
       </head>
       <StoreProvider>
@@ -59,12 +64,26 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           style={{
             background: `
+        /* Paper texture (on top) */
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px),
+        
+        /* Aurora gradient (underneath) */
         radial-gradient(ellipse 85% 65% at 8% 8%, rgba(175, 109, 255, 0.42), transparent 60%),
             radial-gradient(ellipse 75% 60% at 75% 35%, rgba(255, 235, 170, 0.55), transparent 62%),
             radial-gradient(ellipse 70% 60% at 15% 80%, rgba(255, 100, 180, 0.40), transparent 62%),
             radial-gradient(ellipse 70% 60% at 92% 92%, rgba(120, 190, 255, 0.45), transparent 62%),
             linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%)
       `,
+            backgroundSize: `
+      8px 8px, 32px 32px, 32px 32px, 
+      auto, auto, auto, auto, auto
+    `,
+            backgroundAttachment: `
+      fixed, fixed, fixed, 
+      fixed, fixed, fixed, fixed, fixed
+    `,
           }}
         >
           <Toast />
@@ -75,3 +94,20 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+<div className="min-h-screen w-full relative">
+  {/* Aurora Dream Corner Whispers */}
+  <div
+    className="absolute inset-0 z-0"
+    style={{
+      background: `
+        radial-gradient(ellipse 85% 65% at 8% 8%, rgba(175, 109, 255, 0.42), transparent 60%),
+            radial-gradient(ellipse 75% 60% at 75% 35%, rgba(255, 235, 170, 0.55), transparent 62%),
+            radial-gradient(ellipse 70% 60% at 15% 80%, rgba(255, 100, 180, 0.40), transparent 62%),
+            radial-gradient(ellipse 70% 60% at 92% 92%, rgba(120, 190, 255, 0.45), transparent 62%),
+            linear-gradient(180deg, #f7eaff 0%, #fde2ea 100%)
+      `,
+    }}
+  />
+  {/* Your content goes here */}
+</div>;

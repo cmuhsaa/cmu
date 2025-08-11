@@ -168,7 +168,7 @@ export default function Sidebar() {
             >
               <h3 className="text-lg font-bold text-gray-800 flex items-center">
                 <FiLink className="w-5 h-5 mr-2 text-green-600" />
-                দ্রুত লিঙ্ক
+                সহায়ক লিঙ্ক
               </h3>
               {isQuickLinksOpen ? (
                 <FiChevronUp className="w-5 h-5 text-gray-500" />
@@ -254,7 +254,7 @@ export default function Sidebar() {
             >
               <h3 className="text-lg font-bold text-gray-800 flex items-center">
                 <FiLink className="w-5 h-5 mr-2 text-green-600" />
-                দ্রুত লিঙ্ক
+                সহায়ক লিঙ্ক
               </h3>
               {isQuickLinksOpen ? (
                 <FiChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-200" />
