@@ -81,9 +81,9 @@ export default function BatchUpdate() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
       {loading && <Loading />}
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-lg w-full">
+      <div className="max-w-md mx-auto bg-white/50 rounded-xl shadow-md overflow-hidden md:max-w-lg w-full">
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
             <div>
