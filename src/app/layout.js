@@ -58,6 +58,7 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="IiHLaPPFMPq69YZrzoKYfBvJ20M63oT21KT4pX5df60"
         />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <StoreProvider>
         <body
