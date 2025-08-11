@@ -15,12 +15,15 @@ export default function HeroSection({ schoolName }) {
 
       <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
         <div className="mb-4">
-          <div className="text-2xl md:text-3xl mb-2 text-yellow-300">
+          <h1 className="text-2xl md:text-4xl mb-2 font-bold text-blue font-roboto-condensed clear-text-shadow">
             {schoolName}
-          </div>
-          <h1 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
-            Alumni Association
           </h1>
+          <h2 className="text-xs font-bold mb-2 leading-tight invisible">
+            Chanchaitara Madla United High School
+          </h2>
+          <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
+            Alumni Association
+          </h3>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

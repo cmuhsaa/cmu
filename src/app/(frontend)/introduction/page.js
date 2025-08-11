@@ -45,9 +45,12 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-8 border-l-4 border-blue-500">
           <blockquote className="italic text-lg text-gray-700 leading-relaxed">
             <i className="ri-double-quotes-l text-3xl text-blue-500 float-left mr-2 mt-1"></i>
-            &quot;বিশ্ববিদ্যালয়ের প্রাক্তন শিক্ষার্থীরা হলেন এর জীবন্ত ইতিহাস
-            এবং ভবিষ্যতের রূপকার। তাদের সমন্বিত প্রচেষ্টাই পারে বিশ্ববিদ্যালয়ের
-            গৌরবময় ঐতিহ্যকে আরও সমৃদ্ধ করতে।&quot;
+            &quot;আমাদের প্রিয় চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয়-এর
+            প্রাক্তন শিক্ষার্থীরা শুধু একত্রিত নয়, তারা এই প্রতিষ্ঠানের জীবন্ত
+            ইতিহাস ও গৌরবময় ঐতিহ্যের ধারক ও বাহক। যেমন মহান দার্শনিক রুশো
+            বলেছিলেন, প্রকৃতির কোলে শিক্ষার্থীরা বেড়ে উঠলে তাদের মন ও মেধা
+            বিকশিত হয়, তেমনি আমাদের স্কুলের শোভাযাত্রায় প্রাক্তন শিক্ষার্থীদের
+            অবদান রয়েছে অমূল্য।&quot;
           </blockquote>
         </div>
 

@@ -47,14 +47,13 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-8 border-l-4 border-blue-500">
           <blockquote className="italic text-lg text-gray-700 leading-relaxed">
             <i className="ri-double-quotes-l text-3xl text-blue-500 float-left mr-2 mt-1"></i>
-            &quot;মহান দার্শনিক রুশো বলেছিলেন &apos;বিশ্ববিদ্যালয় হবে শহর থেকে
-            দূরে নির্জন কোনো জায়গায়, যেখানে থাকবে না কোনো কোলাহল, পরিবেশ হবে
-            মুক্ত, শিক্ষার্থীরা বেড়ে উঠবে অপরূপ এক প্রকৃতির কোলে, প্রকৃতি হবে
-            তাদের শিক্ষক&apos;।&quot;
+            &quot;আমাদের Alumni Association শিক্ষার্থীদের মধ্যে ঐক্য, পারস্পরিক
+            সহযোগিতা ও উন্নয়নের সেতুবন্ধন হিসেবে কাজ করে, যা স্কুল ও সমাজের
+            উন্নতিতে অনন্য ভূমিকা পালন করে। আমরা বিশ্বাস করি প্রাক্তন
+            শিক্ষার্থীদের সম্মিলিত প্রচেষ্টা ও অভিজ্ঞতা আমাদের বিদ্যালয়ের
+            ঐতিহ্যকে আরও সমৃদ্ধ করবে এবং নতুন প্রজন্মের জন্য অনুপ্রেরণার উৎস
+            হবে।&quot;
           </blockquote>
-          <cite className="block text-sm text-blue-600 font-medium mt-4">
-            - জঁ-জাক রুশো
-          </cite>
         </div>
 
         {/* History */}

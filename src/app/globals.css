@@ -1,11 +1,19 @@
 @import "tailwindcss";
 
-
 /* hide-scrollbar.css */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.clear-text-shadow {
+  font-weight: 700; /* বোল্ড টেক্সট */
+  text-shadow:
+    -1px -1px 5px rgba(0, 0, 0, 0.8),
+    1px -1px 5px rgba(0, 0, 0, 0.8),
+    -1px 1px 5px rgba(0, 0, 0, 0.8),
+    1px 1px 5px rgba(0, 0, 0, 0.8);
 }
