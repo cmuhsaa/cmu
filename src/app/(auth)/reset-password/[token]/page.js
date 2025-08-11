@@ -60,9 +60,9 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       {loading && <Loading />}
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-8 p-3 rounded-xl bg-white/50">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             Reset Your Password
@@ -71,22 +71,6 @@ export default function ResetPassword() {
             Please enter your new password below
           </p>
         </div>
-
-        {message && (
-          <div
-            className={`rounded-md p-4 ${
-              message.type === "success" ? "bg-green-50" : "bg-red-50"
-            }`}
-          >
-            <div
-              className={`text-sm ${
-                message.type === "success" ? "text-green-800" : "text-red-800"
-              }`}
-            >
-              {message.text}
-            </div>
-          </div>
-        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm space-y-4">

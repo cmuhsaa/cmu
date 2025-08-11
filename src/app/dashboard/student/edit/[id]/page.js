@@ -123,9 +123,9 @@ export default function MemberUpdate() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
       {loading && <Loading />}
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="max-w-3xl mx-auto bg-white/50 rounded-xl shadow-md overflow-hidden">
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
             <div>

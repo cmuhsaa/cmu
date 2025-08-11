@@ -42,7 +42,7 @@ const Page = async ({ params }) => {
   return (
     <div className="relative p-3 xl:p-0 max-w-6xl mx-auto">
       <Edit model="event" id={id} />
-      <article className="bg-white rounded-xl shadow-md overflow-hidden">
+      <article className="bg-white/50 rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -89,7 +89,7 @@ const Page = async ({ params }) => {
           </div>
 
           {/* Event metadata */}
-          <div className="bg-gray-50 rounded-lg p-6 h-fit">
+          <div className="bg-gray-50/30 rounded-lg p-6 h-fit">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Event Details
             </h3>
@@ -124,7 +124,7 @@ const Page = async ({ params }) => {
             </div>
 
             {/* Registration status */}
-            <div className="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+            <div className="mt-6 p-4 bg-indigo-50/50 rounded-lg border border-indigo-100">
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center">
                   <FaCalendarAlt className="text-indigo-600 text-xl" />

@@ -28,7 +28,7 @@ const Page = async ({ params }) => {
   return (
     <div className="relative p-3 xl:p-0">
       <Edit model="teacher" id={id.toString()} />
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div className="bg-white/50 rounded-xl shadow-lg overflow-hidden">
         {/* Profile Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">

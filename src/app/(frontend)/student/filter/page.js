@@ -60,12 +60,12 @@ export default async function StudentPage({ searchParams }) {
       </div>
 
       {/* Filters Section */}
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-100 mx-3 xl:mx-0">
+      <div className="bg-white/50 rounded-xl shadow-sm p-6 mb-8 border border-gray-100 mx-3 xl:mx-0">
         <StudentFilters />
       </div>
 
       {students.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-gray-100">
+        <div className="bg-white/50 rounded-xl shadow-sm p-8 text-center border border-gray-100">
           <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
             <svg
               className="h-8 w-8 text-gray-400"
@@ -93,11 +93,11 @@ export default async function StudentPage({ searchParams }) {
           {students.map((member) => (
             <div
               key={member._id}
-              className="relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
+              className="relative bg-white/50 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-200 border border-gray-100 group"
             >
               <Edit model="student" id={member._id.toString()} />
               {/* Card Header */}
-              <div className="relative h-40 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
+              <div className="relative h-40 bg-blue-50/30 flex items-center justify-center">
                 {member.avatar ? (
                   <img
                     src={member.avatar.url}

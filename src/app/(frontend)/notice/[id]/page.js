@@ -28,7 +28,7 @@ const Page = async ({ params }) => {
   return (
     <div className="relative p-3 xl:p-0">
       <Edit model="notice" id={id} />
-      <article className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+      <article className="bg-white/50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         {/* Header section */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -70,7 +70,7 @@ const Page = async ({ params }) => {
             {/* Meta information - moves to bottom on mobile, stays in column on desktop */}
             <footer className="mt-8 pt-6 border-t border-gray-100">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-gray-600">
-                <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="bg-gray-50/30 p-4 rounded-lg">
                   <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     Created
                   </h3>
@@ -82,7 +82,7 @@ const Page = async ({ params }) => {
                   </p>
                 </div>
                 {notice.updateDate && (
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-gray-50/30 p-4 rounded-lg">
                     <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       Updated
                     </h3>

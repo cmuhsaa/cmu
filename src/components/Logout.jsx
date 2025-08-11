@@ -34,7 +34,7 @@ export default function LogoutButton({ className = "" }) {
     <button
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className={`flex items-center justify-center gap-2 pointer${className} ${
+      className={`flex items-center justify-center gap-2 cursor-pointer ${className} ${
         isLoggingOut ? "opacity-75" : "hover:opacity-90"
       } transition-opacity`}
     >

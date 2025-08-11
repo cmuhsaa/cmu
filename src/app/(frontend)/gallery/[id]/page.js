@@ -26,7 +26,7 @@ const Page = async ({ params }) => {
   return (
     <div className="relative p-3 xl:p-0">
       <Edit model="gallery" id={id} />
-      <article className="bg-white rounded-xl shadow-md overflow-hidden">
+      <article className="bg-white/50 rounded-xl shadow-md overflow-hidden">
         {/* Header with title */}
         <header className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white">
           <h1 className="text-3xl font-bold text-gray-900 text-white">

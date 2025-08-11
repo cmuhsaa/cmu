@@ -13,12 +13,12 @@ const Batch = async () => {
       {batchesData.length === 0 ? (
         <p className="text-gray-600 text-center py-8">No batch data found.</p>
       ) : (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="grid grid-cols-1 divide-y divide-gray-200">
+        <div className="rounded-lg shadow-md overflow-hidden">
+          <div className="grid grid-cols-1 space-y-4 divide-y divide-gray-200">
             {batchesData?.map((batch) => (
               <div
                 key={batch._id}
-                className=" relative p-6 hover:bg-gray-50 transition-colors duration-200"
+                className="bg-white/50 relative p-6 hover:bg-gray-50 transition-colors duration-200"
               >
                 <Edit model="batch" id={batch._id.toString()} />
                 <div className="flex justify-between items-start">

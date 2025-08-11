@@ -30,7 +30,7 @@ const Feedback = () => {
       </h2>
 
       {feedbacksData?.length === 0 ? (
-        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+        <div className="bg-white/50 rounded-lg shadow-md p-8 text-center">
           <p className="text-gray-600">No feedback submissions yet.</p>
         </div>
       ) : (
@@ -38,7 +38,7 @@ const Feedback = () => {
           {feedbacksData?.map((feedback) => (
             <div
               key={feedback._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              className="bg-white/50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <div className="p-6">
                 <div className="flex justify-between items-start">

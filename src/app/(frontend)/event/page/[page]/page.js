@@ -34,7 +34,7 @@ export default async function EventPage({ params }) {
       {/* All Events */}
       <section>
         {events.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-md p-8 text-center">
+          <div className="bg-white/50 rounded-xl shadow-md p-8 text-center">
             <p className="text-gray-600 mb-4">
               No upcoming events found. Check back later!
             </p>
@@ -44,11 +44,11 @@ export default async function EventPage({ params }) {
             {events.map((event) => (
               <div
                 key={event._id}
-                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group"
+                className="relative bg-white/50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group"
               >
                 <Edit model="event" id={event._id.toString()} />
                 <div className="md:flex">
-                  <div className="md:w-1/4 bg-gray-100 p-6 flex items-center justify-center">
+                  <div className="md:w-1/4 bg-gray-100/30 p-6 flex items-center justify-center">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600">
                         {event.eventDate}

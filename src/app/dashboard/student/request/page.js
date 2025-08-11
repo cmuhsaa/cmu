@@ -147,7 +147,7 @@ export default function StudentPage() {
       </h2>
 
       {/* Filters Section */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+      <div className="bg-white/50 rounded-lg shadow-md p-4 mb-6">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -162,7 +162,7 @@ export default function StudentPage() {
             };
             router.push(`?${buildQuery(params)}`);
           }}
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
         >
           <div className="col-span-1 md:col-span-3 lg:col-span-2">
             <input
@@ -199,7 +199,7 @@ export default function StudentPage() {
             ))}
           </select>
 
-          <div className="flex gap-2">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-2 flex gap-2">
             <select
               name="sortBy"
               defaultValue={sortBy}
@@ -218,7 +218,7 @@ export default function StudentPage() {
             </select>
           </div>
 
-          <div className="flex gap-2 col-span-full md:col-span-1">
+          <div className="col-span-1 sm:col-span-1 lg:col-span-1 flex gap-2">
             <button
               type="submit"
               className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
@@ -236,7 +236,7 @@ export default function StudentPage() {
       </div>
 
       {optimisticStudents.length === 0 ? (
-        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+        <div className="bg-white/50 rounded-lg shadow-md p-8 text-center">
           <p className="text-gray-600">
             No student data found matching your criteria.
           </p>
@@ -246,7 +246,7 @@ export default function StudentPage() {
           {optimisticStudents.map((member) => (
             <div
               key={member._id}
-              className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="relative bg-white/50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
             >
               <Edit model="student" id={member._id.toString()} />
               <div className="p-6">

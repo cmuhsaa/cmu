@@ -97,59 +97,6 @@ export const registerAdmin = (data) => async (dispatch) => {
   }
 };
 
-export const login = (data) => async (dispatch) => {
-  dispatch({
-    type: LOADING_START,
-  });
-
-  try {
-    const response = await fetch(`/api/admin/login`, {
-      method: "POST",
-
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      dispatch({
-        type: MESSAGE,
-        payload: {
-          message: result.message || "Login Succesfull",
-          status: "success",
-          path: "/",
-        },
-      });
-    } else {
-      dispatch({
-        type: MESSAGE,
-        payload: {
-          message: result.error || "Login failed",
-          status: "error",
-          path: "",
-        },
-      });
-    }
-  } catch (error) {
-    dispatch({
-      type: MESSAGE,
-      payload: {
-        message: error.message || "Something went wrong",
-        status: "error",
-        path: "",
-      },
-    });
-  } finally {
-    dispatch({
-      type: LOADING_END,
-    });
-  }
-};
-
 export const forgotPassword = (data) => async (dispatch) => {
   dispatch({
     type: LOADING_START,

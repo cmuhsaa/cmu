@@ -85,9 +85,9 @@ export default function NoticeUpdate() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
       {loading && <Loading />}
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="max-w-3xl mx-auto bg-white/50 rounded-xl shadow-md overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4">
           <h2 className="text-2xl font-bold text-white">Update Notice</h2>
           <p className="mt-1 text-blue-100">Edit the notice details below</p>

@@ -33,7 +33,7 @@ export default async function NoticePage({ params }) {
       </div>
 
       {notices.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-gray-100">
+        <div className="bg-white/50 rounded-xl shadow-sm p-8 text-center border border-gray-100">
           <AlertCircle className="mx-auto h-12 w-12 text-gray-400 mb-4" />
           <p className="text-gray-600 text-lg">
             No notices available at this time.
@@ -45,7 +45,7 @@ export default async function NoticePage({ params }) {
             {notices.map((notice) => (
               <div
                 key={notice._id}
-                className="relative bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
+                className="relative bg-white/50 rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-200"
               >
                 <Edit model="notice" id={notice._id.toString()} />
                 <div className="p-6">

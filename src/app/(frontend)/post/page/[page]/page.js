@@ -40,7 +40,7 @@ export default async function PostPage({ params }) {
             {posts.map((post) => (
               <div
                 key={post._id}
-                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="relative bg-white/50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
                 <Edit model="post" id={post._id.toString()} />
                 <div className="p-6 h-full">

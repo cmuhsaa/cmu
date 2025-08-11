@@ -3,10 +3,14 @@ import { login } from "@/store/Action";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Loading from "@/components/Loading";
+
 import { useDispatch } from "react-redux";
+import { MESSAGE } from "@/store/constant";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,12 +18,57 @@ export default function LoginForm() {
   } = useForm();
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    dispatch(login(data));
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/admin/login`, {
+        method: "POST",
+
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        dispatch({
+          type: MESSAGE,
+          payload: {
+            message: result.message || "Login Succesfull",
+            status: "success",
+            path: "/",
+          },
+        });
+      } else {
+        dispatch({
+          type: MESSAGE,
+          payload: {
+            message: result.error || "Login failed",
+            status: "error",
+            path: "",
+          },
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: MESSAGE,
+        payload: {
+          message: error.message || "Something went wrong",
+          status: "error",
+          path: "",
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      {loading && <Loading />}
       <div className="max-w-md w-full space-y-8 animate-fade-in">
         <div className="text-center">
           <div className="mx-auto h-16 w-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">

@@ -28,7 +28,7 @@ const Page = async ({ params }) => {
   return (
     <div className="relative p-3 xl:p-0">
       <Edit model="student" id={id} />
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="bg-white/50 rounded-xl shadow-md overflow-hidden">
         {/* Profile Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 md:p-8 text-white flex flex-col md:flex-row items-start md:items-center gap-6">
           {student.avatar && (

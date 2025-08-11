@@ -96,7 +96,7 @@ export default function SidebarDashboard() {
     <div className="lg:col-span-1">
       <div className="sticky top-8">
         {/* Navigation Menu - Collapsible with smooth transition */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+        <div className="bg-white/50 rounded-2xl shadow-xl p-6 mb-6">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}

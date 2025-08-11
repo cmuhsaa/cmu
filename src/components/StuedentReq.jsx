@@ -87,9 +87,9 @@ export default function StudentReq() {
   };
 
   return (
-    <div className="min-h-screen bg-white/40 backdrop-blur-[2px] py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white/40 rounded-xl backdrop-blur-[2px] py-8 px-4 sm:px-6 lg:px-8">
       {loading && <Loading />}
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="max-w-3xl mx-auto rounded-xl overflow-hidden">
         <div className="p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-800">

@@ -66,10 +66,10 @@ export default function GalleryAdd() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen">
       {loading && <Loading />}
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+        <div className="bg-white/50 rounded-xl shadow-xl overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-8 text-center">
             <h2 className="text-3xl font-bold text-white">

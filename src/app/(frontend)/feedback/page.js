@@ -96,7 +96,7 @@ const FeedbackPage = () => {
 
         <div className="grid">
           {/* Feedback Form */}
-          <div className="bg-white/40 backdrop-blur-[2px] rounded-xl shadow-lg overflow-hidden p-6 sm:p-8">
+          <div className="rounded-xl overflow-hidden p-6 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label

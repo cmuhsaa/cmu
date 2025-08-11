@@ -271,7 +271,7 @@ export default function OrganizationForm({ initialData = {} }) {
                       </div>
                     </div>
                   </div>
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 mb-2">
                     <label className="block text-sm font-medium mb-1">
                       Message
                     </label>
@@ -325,7 +325,7 @@ export default function OrganizationForm({ initialData = {} }) {
                       </div>
                     </div>
                   </div>
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 mb-2">
                     <label className="block text-sm font-medium mb-1">
                       Message
                     </label>
@@ -379,7 +379,7 @@ export default function OrganizationForm({ initialData = {} }) {
                       </div>
                     </div>
                   </div>
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 mb-2">
                     <label className="block text-sm font-medium mb-1">
                       Message
                     </label>
