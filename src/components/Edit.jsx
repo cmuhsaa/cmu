@@ -70,6 +70,7 @@ const Edit = ({ model, id }) => {
           },
         });
         setLoading(false);
+        setIsOpen(false);
       }
     } catch (error) {
       console.log(error);
