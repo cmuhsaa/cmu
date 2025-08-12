@@ -1,3 +1,4 @@
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://www.cmu-alumni.com",
   generateRobotsTxt: true,
@@ -5,7 +6,6 @@ module.exports = {
   priority: 0.7,
   sitemapSize: 5000,
 
-  // Exclude specific routes from sitemap
   exclude: [
     "/login",
     "/dashboard/*",
@@ -13,4 +13,25 @@ module.exports = {
     "/forgot-password",
     "/reset-password",
   ],
+
+  transform: async (config, path) => {
+    const entry = {
+      loc: path,
+      changefreq: config.changefreq,
+      priority: config.priority,
+      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+    };
+
+    // Add favicon for home page
+    if (path === "/") {
+      entry.image = [
+        {
+          loc: "https://www.cmu-alumni.com/favicon.ico",
+          title: "Site Favicon",
+        },
+      ];
+    }
+
+    return entry;
+  },
 };

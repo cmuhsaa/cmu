@@ -28,6 +28,7 @@ export default function MemberUpdate() {
       try {
         const res = await fetch(`/api/batch`);
         const data = await res.json();
+        console.log(data);
         setBatches(data.batches || []);
       } catch (err) {
         console.error("Failed to fetch batches", err);

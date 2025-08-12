@@ -65,6 +65,35 @@ export default function RootLayout({ children }) {
           content="IiHLaPPFMPq69YZrzoKYfBvJ20M63oT21KT4pX5df60"
         />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/android-chrome-192x192.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/android-chrome-512x512.png"
+        />
       </head>
       <StoreProvider>
         <body
@@ -77,7 +106,9 @@ export default function RootLayout({ children }) {
           }}
         >
           <Toast />
-          <main className="mx-auto min-h-screen backdrop-blur-[30px]">{children}</main>
+          <main className="mx-auto min-h-screen backdrop-blur-[30px]">
+            {children}
+          </main>
           <Footer />
         </body>
       </StoreProvider>
