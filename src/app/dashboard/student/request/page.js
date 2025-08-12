@@ -98,7 +98,7 @@ export default function StudentPage() {
         },
       });
 
-      revalidatePathStudent();
+      revalidatePathStudent(id);
 
       setStudents((prevStudents) =>
         prevStudents.filter((student) => student._id !== id)

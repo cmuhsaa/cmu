@@ -7,6 +7,12 @@ import { MESSAGE } from "@/store/constant";
 import Loading from "./Loading";
 import DeleteModal from "./DeleteModal";
 import { useDispatch } from "react-redux";
+import { revalidatePathEvent } from "@/app/dashboard/event/actions";
+import { revalidatePathGallery } from "@/app/dashboard/gallery/actions";
+import { revalidatePathNotice } from "@/app/dashboard/notice/actions";
+import { revalidatePathPost } from "@/app/dashboard/post/actions";
+import { revalidatePathStudent } from "@/app/dashboard/student/actions";
+import { revalidatePathTeacher } from "@/app/dashboard/teacher/actions";
 
 const Edit = ({ model, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +43,24 @@ const Edit = ({ model, id }) => {
         credentials: "include",
       });
       if (response.ok) {
+        if (model == "event") {
+          revalidatePathEvent();
+        }
+        if (model == "gallery") {
+          revalidatePathGallery();
+        }
+        if (model == "notice") {
+          revalidatePathNotice();
+        }
+        if (model == "post") {
+          revalidatePathPost();
+        }
+        if (model == "student") {
+          revalidatePathStudent();
+        }
+        if (model == "teacher") {
+          revalidatePathTeacher();
+        }
         dispatch({
           type: MESSAGE,
           payload: {
