@@ -20,13 +20,13 @@ export default function UpdatePassword() {
   const [showPasswords, setShowPasswords] = useState({
     oldPassword: false,
     newPassword: false,
-    confirmPassword: false
+    confirmPassword: false,
   });
 
   const togglePasswordVisibility = (field) => {
-    setShowPasswords(prev => ({
+    setShowPasswords((prev) => ({
       ...prev,
-      [field]: !prev[field]
+      [field]: !prev[field],
     }));
   };
 
@@ -66,11 +66,9 @@ export default function UpdatePassword() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 
@@ -99,7 +97,8 @@ export default function UpdatePassword() {
             Update Password
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            For security, please enter your current password and then your new password
+            For security, please enter your current password and then your new
+            password
           </p>
         </div>
 
@@ -148,7 +147,11 @@ export default function UpdatePassword() {
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     onClick={() => togglePasswordVisibility("oldPassword")}
-                    aria-label={showPasswords.oldPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPasswords.oldPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
                   >
                     <svg
                       className="h-5 w-5 text-gray-400 hover:text-gray-500"
@@ -231,7 +234,11 @@ export default function UpdatePassword() {
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     onClick={() => togglePasswordVisibility("newPassword")}
-                    aria-label={showPasswords.newPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPasswords.newPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
                   >
                     <svg
                       className="h-5 w-5 text-gray-400 hover:text-gray-500"
@@ -295,7 +302,8 @@ export default function UpdatePassword() {
                     {...register("confirmPassword", {
                       required: "Please confirm your new password",
                       validate: (value) =>
-                        value === watch("newPassword") || "Passwords do not match",
+                        value === watch("newPassword") ||
+                        "Passwords do not match",
                     })}
                     className={`pl-10 block w-full px-3 py-3 border ${
                       errors.confirmPassword
@@ -309,7 +317,11 @@ export default function UpdatePassword() {
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     onClick={() => togglePasswordVisibility("confirmPassword")}
-                    aria-label={showPasswords.confirmPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPasswords.confirmPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
                   >
                     <svg
                       className="h-5 w-5 text-gray-400 hover:text-gray-500"
@@ -407,13 +419,16 @@ export default function UpdatePassword() {
           }
         }
         @keyframes shake {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateX(0);
           }
-          20%, 60% {
+          20%,
+          60% {
             transform: translateX(-5px);
           }
-          40%, 80% {
+          40%,
+          80% {
             transform: translateX(5px);
           }
         }

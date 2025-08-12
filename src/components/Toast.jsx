@@ -19,9 +19,7 @@ const Toast = () => {
 
     if (path) {
       dispatch({ type: CLEAR_PATH });
-      setTimeout(() => {
-        router.push(path, { scroll: false });
-      }, 500);
+      router.push(path, { scroll: false });
     }
   }, [message, path]);
 
