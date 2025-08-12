@@ -76,11 +76,12 @@ export default function TeacherUpdate() {
       dispatch({
         type: MESSAGE,
         payload: {
-          message: result.message || "Teacher updated successfully",
+          message: result.message || result.error || "Unable to update",
           status: result.message ? "success" : "error",
           path: `/teacher/${id}`,
         },
       });
+      if (!result.message) setLoading(false);
     } catch (error) {
       dispatch({
         type: MESSAGE,
@@ -89,10 +90,8 @@ export default function TeacherUpdate() {
           status: "error",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

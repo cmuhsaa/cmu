@@ -13,6 +13,7 @@ import { revalidatePathNotice } from "@/app/dashboard/notice/actions";
 import { revalidatePathPost } from "@/app/dashboard/post/actions";
 import { revalidatePathStudent } from "@/app/dashboard/student/actions";
 import { revalidatePathTeacher } from "@/app/dashboard/teacher/actions";
+import { revalidatePathBatches } from "@/app/dashboard/batch/actions";
 
 const Edit = ({ model, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +44,9 @@ const Edit = ({ model, id }) => {
         credentials: "include",
       });
       if (response.ok) {
+        if (model == "batch") {
+          revalidatePathBatches();
+        }
         if (model == "event") {
           revalidatePathEvent();
         }
@@ -66,7 +70,7 @@ const Edit = ({ model, id }) => {
           payload: {
             message: `${model} Deleted!`,
             status: "info",
-            path: `/${model}`,
+            path: `${model == "batch" ? "/dashboard/batch" : `/${model}`}`,
           },
         });
         setLoading(false);

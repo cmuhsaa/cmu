@@ -131,10 +131,8 @@ export default function OrganizationForm({ initialData = {} }) {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

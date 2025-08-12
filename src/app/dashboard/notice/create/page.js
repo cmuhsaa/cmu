@@ -49,9 +49,7 @@ export default function NoticeAdd() {
         path: result.message ? "/notice" : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (

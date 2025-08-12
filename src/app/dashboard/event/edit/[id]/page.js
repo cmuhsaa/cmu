@@ -83,6 +83,7 @@ export default function EventUpdate() {
           path: result.message ? "/event" : "",
         },
       });
+      if (!result.message) setLoading(false);
     } catch (error) {
       dispatch({
         type: MESSAGE,
@@ -92,10 +93,8 @@ export default function EventUpdate() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 
@@ -224,8 +223,7 @@ export default function EventUpdate() {
                 <input
                   type="text"
                   id="location"
-                  {...register("location", {
-                  })}
+                  {...register("location", {})}
                   className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors?.location ? "border-red-500" : "border"
                   }`}

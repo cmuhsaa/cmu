@@ -79,9 +79,7 @@ export default function NoticeUpdate() {
         path: result.message ? `/notice/${id}` : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (

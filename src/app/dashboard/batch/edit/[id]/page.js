@@ -73,10 +73,8 @@ export default function BatchUpdate() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

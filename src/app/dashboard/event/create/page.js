@@ -49,6 +49,7 @@ export default function EventAdd() {
             path: "",
           },
         });
+        setLoading(false);
       }
     } catch (error) {
       dispatch({
@@ -59,10 +60,8 @@ export default function EventAdd() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

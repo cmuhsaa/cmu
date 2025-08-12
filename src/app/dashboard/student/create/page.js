@@ -72,6 +72,7 @@ export default function MemberAdd() {
           path: result.message ? "/student" : "",
         },
       });
+      if (!result.message) setLoading(false);
     } catch (error) {
       dispatch({
         type: MESSAGE,
@@ -81,10 +82,8 @@ export default function MemberAdd() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

@@ -70,6 +70,7 @@ export default function StudentReq() {
           path: result.message ? "/" : "",
         },
       });
+      if (!result.message) setLoading(false);
     } catch (error) {
       dispatch({
         type: MESSAGE,
@@ -79,10 +80,8 @@ export default function StudentReq() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

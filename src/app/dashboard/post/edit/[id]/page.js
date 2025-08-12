@@ -78,9 +78,7 @@ export default function PostUpdate() {
         path: result.message ? `/post/${id}` : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (

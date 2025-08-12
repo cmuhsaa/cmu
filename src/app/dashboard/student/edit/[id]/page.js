@@ -106,6 +106,7 @@ export default function MemberUpdate() {
           path: result.message ? `/student/${id}` : "",
         },
       });
+      if (!result.message) setLoading(false);
     } catch (error) {
       dispatch({
         type: MESSAGE,
@@ -115,10 +116,8 @@ export default function MemberUpdate() {
           path: "",
         },
       });
+      setLoading(false);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 

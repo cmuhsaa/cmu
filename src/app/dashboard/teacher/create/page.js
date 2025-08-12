@@ -48,9 +48,7 @@ export default function TeacherAdd() {
         path: result.message ? "/teacher" : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (

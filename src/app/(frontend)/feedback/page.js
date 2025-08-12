@@ -75,10 +75,8 @@ const FeedbackPage = () => {
           path: ``,
         },
       });
-    }
-    setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (

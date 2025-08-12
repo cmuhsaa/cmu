@@ -44,10 +44,8 @@ export default function BatchAdd() {
           path: "",
         },
       });
-    }
-    setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (

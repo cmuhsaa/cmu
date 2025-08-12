@@ -60,9 +60,7 @@ export default function PostAdd() {
         path: result.message ? "/post" : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (

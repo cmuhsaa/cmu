@@ -65,9 +65,7 @@ export default function GalleryUpdate() {
         path: result.message ? "/gallery" : "",
       },
     });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (!result.message) setLoading(false);
   };
 
   return (
