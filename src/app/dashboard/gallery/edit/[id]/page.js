@@ -62,7 +62,7 @@ export default function GalleryUpdate() {
       payload: {
         message: result.message || result.error || "Unknown error",
         status: result.message ? "success" : "error",
-        path: result.message ? "/gallery" : "",
+        path: result.message ? `/gallery${id}` : "",
       },
     });
     if (!result.message) setLoading(false);

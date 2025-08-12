@@ -80,7 +80,7 @@ export default function EventUpdate() {
         payload: {
           message: result.message || result.error || "Failed to update event",
           status: result.message ? "success" : "error",
-          path: result.message ? "/event" : "",
+          path: result.message ? `/event${id}` : "",
         },
       });
       if (!result.message) setLoading(false);
