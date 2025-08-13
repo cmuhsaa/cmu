@@ -356,7 +356,7 @@ export default function MemberUpdate() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image <span className="text-red-500">*</span>
+                  Profile Image
                 </label>
                 {currentImage && (
                   <div className="mb-4">

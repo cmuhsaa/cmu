@@ -18,10 +18,13 @@ export async function POST(request) {
     const about = data.about;
     const title = data.title;
     const address = data.address;
-    const avatar = data.image;
+    let avatar = data.image;
 
     if (!avatar) {
-      return NextResponse.json({ error: "Image is required" }, { status: 500 });
+      avatar = {
+        public_id: "nothing",
+        url: "https://res.cloudinary.com/dun8zxfyc/image/upload/v1755068615/student/pn7axtqqfcmudt2buv9e.png",
+      };
     }
 
     const newTeacher = new Teacher({

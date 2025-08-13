@@ -319,7 +319,7 @@ export default function MemberAdd() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image <span className="text-red-500">*</span>
+                  Profile Image
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
@@ -346,9 +346,7 @@ export default function MemberAdd() {
                         <input
                           id="image"
                           type="file"
-                          {...register("image", {
-                            required: "Image is required",
-                          })}
+                          {...register("image", {})}
                           accept="image/*"
                           className="sr-only"
                         />

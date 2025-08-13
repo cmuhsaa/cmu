@@ -222,13 +222,13 @@ export default function TeacherAdd() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image <span className="text-red-500">*</span>
+                  Profile Image
                 </label>
                 <div className="mt-1 flex items-center">
                   <input
                     type="file"
                     id="image"
-                    {...register("image", { required: "Image is required" })}
+                    {...register("image", {})}
                     accept="image/*"
                     className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                   />

@@ -19,10 +19,13 @@ export async function POST(request) {
     const address = data.address;
     const type = data.type;
     const isActive = data.isActive;
-    const image = data.image;
+    let image = data.image;
 
     if (!image) {
-      return NextResponse.json({ error: "Image is required" }, { status: 500 });
+      image = {
+        public_id: "nothing",
+        url: "https://res.cloudinary.com/dun8zxfyc/image/upload/v1755068615/student/pn7axtqqfcmudt2buv9e.png",
+      };
     }
 
     const newStudent = new Student({
