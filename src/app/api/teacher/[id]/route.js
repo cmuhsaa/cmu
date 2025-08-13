@@ -44,7 +44,7 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ error: "Phone already in use" });
     }
 
-    if (avatar.public_id) {
+    if (avatar?.public_id) {
       await cloudinary.uploader.destroy(exists.avatar.public_id);
     }
 
@@ -57,7 +57,7 @@ export async function PUT(request, { params }) {
         title: title || exists.title,
         about: about || exists.about,
         address: address || exists.address,
-        avatar: Object.keys(avatar).length ? avatar : exists.avatar,
+        avatar: avatar?.public_id ? avatar : exists.avatar,
         updateDate: localTime(),
       },
       { new: true }
@@ -68,6 +68,7 @@ export async function PUT(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

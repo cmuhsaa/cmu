@@ -158,7 +158,7 @@ export default function MemberAdd() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone <span className="text-red-500">*</span>
+                  Phone
                 </label>
                 <input
                   id="phone"
@@ -169,7 +169,6 @@ export default function MemberAdd() {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
                     },
-                    required: "Phone is required",
                   })}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.phone ? "border-red-300" : "border-gray-300"

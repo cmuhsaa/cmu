@@ -6,8 +6,8 @@ const studentSchema = new Schema({
     type: String,
     required: [true, "Please enter Your name."],
     trim: true,
-    minlength: [3, "Admin Name must be atleast 3 charecter."],
-    maxlength: [50, "Admin Name allowed max 50 charecter."],
+    minlength: [3, "Name must be atleast 3 charecter."],
+    maxlength: [50, "Name allowed max 50 charecter."],
   },
   email: {
     type: String,
@@ -19,7 +19,6 @@ const studentSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    minlength: [11, "Phone number must be atleast 11 charecter."],
   },
   batch: {
     type: Schema.Types.ObjectId,

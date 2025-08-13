@@ -124,7 +124,7 @@ export default function TeacherAdd() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone Number <span className="text-red-500">*</span>
+                  Phone Number
                 </label>
                 <input
                   type="tel"

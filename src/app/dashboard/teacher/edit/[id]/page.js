@@ -176,7 +176,6 @@ export default function TeacherUpdate() {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
                     },
-                    required: "Phone is required",
                   })}
                   className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.phone ? "border-red-500" : "border"
