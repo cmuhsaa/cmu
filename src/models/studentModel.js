@@ -11,9 +11,9 @@ const studentSchema = new Schema({
   },
   email: {
     type: String,
-    trim: true,
-    unique: true,
-    validate: [validator.isEmail, "Please Enter a valid Email"],
+    match: [/^\S+@\S+\.\S+$/, "Please Enter a valid Email"],
+    required: false,
+    default: "",
   },
   phone: {
     type: String,
@@ -55,4 +55,5 @@ const studentSchema = new Schema({
   },
 });
 
-module.exports = mongoose.models.Student || mongoose.model('Student', studentSchema);
+module.exports =
+  mongoose.models.Student || mongoose.model("Student", studentSchema);

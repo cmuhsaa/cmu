@@ -4,7 +4,6 @@ import Student from "@/models/studentModel";
 import { localTime } from "@/config/localTime";
 import connectDB from "@/config/db";
 import { getPaginatedStudents } from "@/lib/getDatas";
-import cloudinary from "@/config/cloudinary";
 
 export async function POST(request) {
   await connectDB();
@@ -50,7 +49,7 @@ export async function POST(request) {
   } catch (error) {
     if (error.code === 11000) {
       return NextResponse.json(
-        { error: "Email or Phone already exists" },
+        { error: "Phone already exists" },
         { status: 500 }
       );
     } else {

@@ -158,16 +158,18 @@ export default function MemberAdd() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone
+                  Phone <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="phone"
                   type="tel"
+                  placeholder="01712345678"
                   {...register("phone", {
                     pattern: {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
                     },
+                    required: "Phone is required",
                   })}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.phone ? "border-red-300" : "border-gray-300"
@@ -358,6 +360,11 @@ export default function MemberAdd() {
                     </p>
                   </div>
                 </div>
+                {errors.image && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.image.message}
+                  </p>
+                )}
               </div>
             </div>
 

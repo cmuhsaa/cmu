@@ -45,7 +45,7 @@ export async function POST(request) {
   } catch (error) {
     if (error.code === 11000) {
       return NextResponse.json(
-        { error: "Email or Phone already exists" },
+        { error: "Phone already exists" },
         { status: 500 }
       );
     } else {

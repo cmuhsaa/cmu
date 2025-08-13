@@ -32,7 +32,7 @@ export async function PUT(request, { params }) {
         _id: { $ne: id },
       }))
     ) {
-      return NextResponse.status(400).json({ message: "Email already in use" });
+      return NextResponse.json({ error: "Email already in use" });
     }
     if (
       phone &&
@@ -41,7 +41,7 @@ export async function PUT(request, { params }) {
         _id: { $ne: id },
       }))
     ) {
-      return NextResponse.status(400).json({ message: "Phone already in use" });
+      return NextResponse.json({ error: "Phone already in use" });
     }
 
     if (avatar.public_id) {

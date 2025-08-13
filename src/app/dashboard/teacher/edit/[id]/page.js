@@ -176,6 +176,7 @@ export default function TeacherUpdate() {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
                     },
+                    required: "Phone is required",
                   })}
                   className={`mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
                     errors.phone ? "border-red-500" : "border"
@@ -269,10 +270,15 @@ export default function TeacherUpdate() {
                   <input
                     type="file"
                     id="image"
-                    {...register("image")}
+                    {...register("image", { required: "Image required" })}
                     accept="image/*"
                     className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                   />
+                  {errors.image && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.about.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
