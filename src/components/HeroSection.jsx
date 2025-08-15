@@ -19,7 +19,7 @@ export default function HeroSection({ schoolName }) {
             {schoolName}
           </h1>
           <h2 className="text-xs font-bold mb-2 leading-tight invisible">
-            Chanchaitara Madla United High School
+            Chachaitara Madla United High School
           </h2>
           <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
             Alumni Association

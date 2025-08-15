@@ -118,7 +118,7 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">আমাদের সাথে যুক্ত হন</h3>
           <p className="text-lg opacity-90 mb-6">
-            চাঁচাইতারা মাদলা ইউনাইটেড হাই স্কুলের গৌরবময় ঐতিহ্যের অংশীদার হয়ে
+            চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় গৌরবময় ঐতিহ্যের অংশীদার হয়ে
             আমাদের সাথে এগিয়ে চলুন
           </p>
           <div className="flex flex-wrap justify-center gap-4">

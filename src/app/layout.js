@@ -22,9 +22,9 @@ const robotoCondensed = Roboto_Condensed({
 
 export const metadata = {
   title:
-    "Govt. Chanchaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন",
+    "Govt. Chachaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন",
   description:
-    "Government Chanchaitara Madla United High School Alumni Association (সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।",
+    "Government Chachaitara Madla United High School Alumni Association ( সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।",
 };
 
 export default function RootLayout({ children }) {
@@ -33,11 +33,11 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           property="og:title"
-          content="Chanchaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
+          content="Chachaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           property="og:description"
-          content="Chanchaitara Madla United High School Alumni Association (চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
+          content="Chachaitara Madla United High School Alumni Association ( চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           property="og:image"
@@ -50,11 +50,11 @@ export default function RootLayout({ children }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Chanchaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
+          content="Chachaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           name="twitter:description"
-          content="Chanchaitara Madla United High School Alumni Association (চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
+          content="Chachaitara Madla United High School Alumni Association ( চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           name="twitter:image"
