@@ -9,8 +9,7 @@ export default function NoticeSection({ notices }) {
             Important Notices
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Stay updated with the latest announcements from Chachaitara Madla
-            United High School
+            Stay updated with the latest announcements from Govt. Chanchaitara Madla United High School
           </p>
         </div>
 

@@ -94,7 +94,7 @@ export default function NewMemberSection({ members }) {
               Join Our Community
             </h3>
             <p className="text-gray-600 mb-6">
-              Are you a graduate of Chachaitara Madla United High School? Join
+              Are you a graduate of Govt. Chanchaitara Madla United High School? Join
               our growing alumni network today!
             </p>
             <Link

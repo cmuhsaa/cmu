@@ -25,7 +25,7 @@ export default async function Home() {
 
   return (
     <main className="shadow-xl bg-white/40 rounded-xl overflow-hidden">
-      <HeroSection schoolName="চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয়" />
+      <HeroSection schoolName="সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয়" />
       <EventsSection events={JSON.parse(JSON.stringify(events))} />
       <NoticeSection notices={JSON.parse(JSON.stringify(notices))} />
       <GallerySection gallery={JSON.parse(JSON.stringify(galleries))} />

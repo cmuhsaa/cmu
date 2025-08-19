@@ -11,7 +11,7 @@ import OrganizationInfo from "@/models/linksandcontent";
 
 export async function getAllBatch() {
   await connectDB();
-  return await Batch.find().sort({ createDate: -1 });
+  return await Batch.find().sort({ name: 1 });
 }
 
 export async function getPaginatedEvents({ page = 1, limit = 10 }) {

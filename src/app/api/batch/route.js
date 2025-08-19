@@ -11,9 +11,9 @@ export async function POST(request) {
   try {
     const { name } = await request.json();
 
-    const exists = await Batch.findOne({name});
+    const exists = await Batch.findOne({ name });
     if (exists) {
-      throw new Error("Batch name already exists")
+      throw new Error("Batch name already exists");
     }
 
     const newBatch = new Batch({

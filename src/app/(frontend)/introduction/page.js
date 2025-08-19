@@ -45,7 +45,7 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-8 border-l-4 border-blue-500">
           <blockquote className="italic text-lg text-gray-700 leading-relaxed">
             <i className="ri-double-quotes-l text-3xl text-blue-500 float-left mr-2 mt-1"></i>
-            &quot;আমাদের প্রিয় চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয়-এর
+            &quot;আমাদের প্রিয় সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয়-এর
             প্রাক্তন শিক্ষার্থীরা শুধু একত্রিত নয়, তারা এই প্রতিষ্ঠানের জীবন্ত
             ইতিহাস ও গৌরবময় ঐতিহ্যের ধারক ও বাহক। যেমন মহান দার্শনিক রুশো
             বলেছিলেন, প্রকৃতির কোলে শিক্ষার্থীরা বেড়ে উঠলে তাদের মন ও মেধা
@@ -133,7 +133,7 @@ export default async function BackgroundPage() {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">আমাদের সাথে যুক্ত হন</h3>
           <p className="text-lg opacity-90 mb-6">
-            চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় গৌরবময় ঐতিহ্যের অংশীদার হয়ে
+            সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় গৌরবময় ঐতিহ্যের অংশীদার হয়ে
             আমাদের সাথে এগিয়ে চলুন
           </p>
           <div className="flex flex-wrap justify-center gap-4">

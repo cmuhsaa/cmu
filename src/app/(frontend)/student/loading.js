@@ -2,13 +2,23 @@ import Link from "next/link";
 
 export default function StudentDirectorySkeleton() {
   return (
-    <div className="mx-auto px-4 py-8 max-w-[1440px]">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Student Directory
-      </h1>
+    <div className="mx-auto max-w-[1440px] rounded-2xl overflow-hidden">
+      <div
+        className="relative h-80 bg-cover bg-center mb-6"
+        style={{
+          backgroundImage: `url('/cover2.png')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-green-900/10"></div>
+        <div className="relative h-full flex flex-col justify-center items-center text-white text-center px-4">
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">
+            Alumni Students
+          </h1>
+        </div>
+      </div>
 
       {/* Search and Filters */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+      <div className="bg-white/40 backdrop-blur-[2px] rounded-lg shadow-md p-4 mb-6">
         <div className="flex flex-wrap gap-4 items-center">
           <div className="w-full md:w-64 h-10 bg-gray-200 rounded-md animate-pulse"></div>
           <div className="w-32 h-10 bg-gray-200 rounded-md animate-pulse"></div>
@@ -20,7 +30,7 @@ export default function StudentDirectorySkeleton() {
       {/* Student Cards */}
       <div className="space-y-4">
         {/* Student Card 1 */}
-        <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
+        <div className="bg-white/40 backdrop-blur-[2px] rounded-lg shadow-md p-6 animate-pulse">
           <div className="flex flex-col md:flex-row gap-6">
             {/* Avatar */}
             <div className="w-24 h-24 rounded-full bg-gray-200"></div>
@@ -51,7 +61,7 @@ export default function StudentDirectorySkeleton() {
           </div>
         </div>
         {/* Student Card 1 */}
-        <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
+        <div className="bg-white/40 backdrop-blur-[2px] rounded-lg shadow-md p-6 animate-pulse">
           <div className="flex flex-col md:flex-row gap-6">
             {/* Avatar */}
             <div className="w-24 h-24 rounded-full bg-gray-200"></div>

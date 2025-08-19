@@ -1,4 +1,5 @@
 import {
+  AUTH_SUCCESS,
   CLEAR_MESSAGE,
   CLEAR_PATH,
   LOADING_END,
@@ -44,6 +45,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         message: {},
+      };
+    case AUTH_SUCCESS:
+      return {
+        ...state,
+        authenticated: true,
       };
     default:
       return state;

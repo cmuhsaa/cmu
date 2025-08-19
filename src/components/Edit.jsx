@@ -6,7 +6,7 @@ import { MdDashboard } from "react-icons/md";
 import { MESSAGE } from "@/store/constant";
 import Loading from "./Loading";
 import DeleteModal from "./DeleteModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { revalidatePathEvent } from "@/app/dashboard/event/actions";
 import { revalidatePathGallery } from "@/app/dashboard/gallery/actions";
 import { revalidatePathNotice } from "@/app/dashboard/notice/actions";
@@ -20,17 +20,9 @@ const Edit = ({ model, id }) => {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   const dispatch = useDispatch();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    const authCheck = async () => {
-      const response = await fetch("/api/admin/verifyAdmin");
-      const result = await response.json();
-      setIsAuthenticated(result.success);
-    };
-    authCheck();
-  }, [pathname]);
+  const authenticated = useSelector((state) => state.authenticated);
 
-  if (!isAuthenticated) return null;
+  if (!authenticated) return null;
 
   const handleCancel = () => {
     setIsOpen(false);

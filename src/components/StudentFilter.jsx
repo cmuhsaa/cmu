@@ -107,7 +107,7 @@ export function StudentFilters() {
           onChange={(e) =>
             setFormValues({ ...formValues, batch: e.target.value })
           }
-          disabled={batches.length === 0}
+          disabled={batches?.length === 0}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
         >
           <option value="">All Batches</option>
@@ -140,8 +140,8 @@ export function StudentFilters() {
           }
           className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
         >
-          <option value="desc">Desc</option>
-          <option value="asc">Asc</option>
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
         </select>
       </div>
 
@@ -149,14 +149,14 @@ export function StudentFilters() {
       <div className="col-span-1 sm:col-span-1 lg:col-span-1 flex gap-2">
         <button
           type="submit"
-          className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm sm:text-base"
+          className="cursor-pointer flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm sm:text-base"
         >
           Apply
         </button>
         <button
           type="button"
           onClick={handleReset}
-          className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-sm sm:text-base"
+          className="cursor-pointer flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-sm sm:text-base"
         >
           Reset
         </button>

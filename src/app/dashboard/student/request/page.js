@@ -221,13 +221,13 @@ export default function StudentPage() {
           <div className="col-span-1 sm:col-span-1 lg:col-span-1 flex gap-2">
             <button
               type="submit"
-              className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+              className="cursor-pointer flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
               Apply Filters
             </button>
             <Link
               href="/dashboard/student/request"
-              className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-center"
+              className="cursor-pointer flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-center"
             >
               Reset
             </Link>

@@ -3,6 +3,7 @@ import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvider";
 import Toast from "@/components/Toast";
 import Footer from "@/components/Footer";
+import AuthCheck from "@/components/AuthCheck";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,9 +23,9 @@ const robotoCondensed = Roboto_Condensed({
 
 export const metadata = {
   title:
-    "Govt. Chachaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন",
+    "Govt. Chanchaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন",
   description:
-    "Government Chachaitara Madla United High School Alumni Association ( সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।",
+    "Government Chanchaitara Madla United High School Alumni Association ( সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।",
 };
 
 export default function RootLayout({ children }) {
@@ -33,11 +34,11 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           property="og:title"
-          content="Chachaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
+          content="Govt. Chanchaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           property="og:description"
-          content="Chachaitara Madla United High School Alumni Association ( চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
+          content="Govt. Chanchaitara Madla United High School Alumni Association ( সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           property="og:image"
@@ -50,11 +51,11 @@ export default function RootLayout({ children }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Chachaitara Madla United High School Alumni Association | চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
+          content="Govt. Chanchaitara Madla United High School Alumni Association | সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় এলামনাই অ্যাসোসিয়েশন"
         />
         <meta
           name="twitter:description"
-          content="Chachaitara Madla United High School Alumni Association ( চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
+          content="Govt. Chanchaitara Madla United High School Alumni Association ( সরকারি চাঁচাইতারা মাদলা যুক্ত উচ্চ বিদ্যালয় প্রাক্তন শিক্ষার্থী সমিতি ) brings together alumni, preserves memories, builds friendships, and supports community growth through events and social initiatives. প্রাক্তন ছাত্রছাত্রীদের মিলন, স্মৃতিচারণ, বন্ধুত্ব ও সমাজ উন্নয়ন একসাথে।"
         />
         <meta
           name="twitter:image"
@@ -106,6 +107,7 @@ export default function RootLayout({ children }) {
           }}
         >
           <Toast />
+          <AuthCheck />
           <main className="mx-auto min-h-screen backdrop-blur-[30px]">
             {children}
           </main>
