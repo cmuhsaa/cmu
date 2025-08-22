@@ -36,14 +36,14 @@ export default function MediaCarousel({ youtubeLink, images }) {
             {item.type === "video" ? (
               <iframe
                 className="w-full h-full"
-                src={`https://www.youtube.com/embed/${getYouTubeID(item.url)}`}
+                src={`https://www.youtube.com/embed/${getYouTubeID(item?.url)}`}
                 title="YouTube video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             ) : (
               <img
-                src={item.url}
+                src={item?.url}
                 alt="Post media"
                 className="w-full h-full object-contain"
               />

@@ -20,7 +20,13 @@ export default async function Home() {
       getPaginatedGalleries({ page: 1, limit: 2 }),
       getPaginatedNotices({ page: 1, limit: 7 }),
       getPaginatedPosts({ page: 1, limit: 2 }),
-      getPaginatedStudents({ page: 1, limit: 2, isActive: true }),
+      getPaginatedStudents({
+        page: 1,
+        limit: 2,
+        isActive: true,
+        sortBy: "createDate",
+        sortOrder: "desc",
+      }),
     ]);
 
   return (

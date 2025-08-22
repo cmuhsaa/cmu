@@ -78,7 +78,6 @@ export async function getPaginatedNotices({ page = 1, limit = 10 }) {
 }
 
 export async function getPaginatedPosts({ page = 1, limit = 10 }) {
-  "use server";
   await connectDB();
 
   const skip = (page - 1) * limit;
