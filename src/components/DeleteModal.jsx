@@ -1,11 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function DeleteModal({ isOpen, onCancel, onDelete }) {
   if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      // Scroll to top
+      window.scrollTo(0, 0);
 
+      // Disable background scroll
+      document.body.style.overflow = "hidden";
+    } else {
+      // Enable scroll again when modal is closed
+      document.body.style.overflow = "auto";
+    }
+
+    // Cleanup (in case component unmounts)
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
   return (
-    <div className="fixed max-h-[100dvh] inset-0 z-50 flex items-center justify-center bg-black/70">
+    <div className="fixed max-h-[100dvh] h-full w-full top-0 left-0 z-50 flex items-center justify-center bg-black/70">
       <div className="w-full h-full flex items-center justify-center">
         <div className=" max-w-lg bg-white w-full h-full sm:w-2/3 sm:h-auto sm:rounded-lg shadow-lg flex flex-col justify-between p-6">
           {/* Modal Header */}
