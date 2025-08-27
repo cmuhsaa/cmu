@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 
 export default function DeleteModal({ isOpen, onCancel, onDelete }) {
-  if (!isOpen) return null;
   useEffect(() => {
     if (isOpen) {
       // Scroll to top
