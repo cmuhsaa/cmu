@@ -5,7 +5,7 @@ export default function DeleteModal({ isOpen, onCancel, onDelete }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+    <div className="fixed max-h-[100dvh] inset-0 z-50 flex items-center justify-center bg-black/70">
       <div className="w-full h-full flex items-center justify-center">
         <div className=" max-w-lg bg-white w-full h-full sm:w-2/3 sm:h-auto sm:rounded-lg shadow-lg flex flex-col justify-between p-6">
           {/* Modal Header */}
@@ -15,7 +15,8 @@ export default function DeleteModal({ isOpen, onCancel, onDelete }) {
 
           {/* Modal Body */}
           <p className="text-gray-600 flex-1">
-            Are you sure you want to delete this item? This action cannot be undone.
+            Are you sure you want to delete this item? This action cannot be
+            undone.
           </p>
 
           {/* Modal Footer */}

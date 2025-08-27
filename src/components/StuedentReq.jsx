@@ -130,13 +130,12 @@ export default function StudentReq() {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email <span className="text-red-500">*</span>
+                  Email
                 </label>
                 <input
                   id="email"
                   type="email"
                   {...register("email", {
-                    required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Invalid email address",
@@ -159,13 +158,12 @@ export default function StudentReq() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone <span className="text-red-500">*</span>
+                  Phone
                 </label>
                 <input
                   id="phone"
                   type="tel"
                   {...register("phone", {
-                    required: "Phone number is required",
                     pattern: {
                       value: /^[0-9]{10,15}$/,
                       message: "Please enter a valid phone number",
@@ -220,14 +218,12 @@ export default function StudentReq() {
                   htmlFor="profession"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profession <span className="text-red-500">*</span>
+                  Profession
                 </label>
                 <input
                   id="profession"
                   type="text"
-                  {...register("profession", {
-                    required: "Profession is required",
-                  })}
+                  {...register("profession", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.profession ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -271,12 +267,12 @@ export default function StudentReq() {
                   htmlFor="address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Address <span className="text-red-500">*</span>
+                  Address
                 </label>
                 <input
                   id="address"
                   type="text"
-                  {...register("address", { required: "Address is required" })}
+                  {...register("address", {})}
                   className={`mt-1 block w-full px-3 py-2 border ${
                     errors.address ? "border-red-300" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
@@ -312,7 +308,7 @@ export default function StudentReq() {
                   htmlFor="image"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Profile Image <span className="text-red-500">*</span>
+                  Profile Image
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
@@ -330,23 +326,20 @@ export default function StudentReq() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <div className="flex text-sm text-gray-600">
+                    <div className="flex justify-center text-sm text-gray-600">
                       <label
                         htmlFor="image"
-                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative px-2 cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
                           id="image"
                           type="file"
-                          {...register("image", {
-                            required: "Image is required",
-                          })}
+                          {...register("image", {})}
                           accept="image/*"
                           className="sr-only"
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs text-gray-500">
                       PNG, JPG, GIF up to 10MB
