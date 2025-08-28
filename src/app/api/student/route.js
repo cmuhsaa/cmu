@@ -50,14 +50,7 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    if (error.code === 11000) {
-      return NextResponse.json(
-        { error: "Phone already exists" },
-        { status: 500 }
-      );
-    } else {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 

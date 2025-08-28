@@ -18,7 +18,8 @@ const studentSchema = new Schema({
   phone: {
     type: String,
     trim: true,
-    unique: true,
+    required: false,
+    default: "",
   },
   batch: {
     type: Schema.Types.ObjectId,
