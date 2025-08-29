@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import StudentDirectorySkeleton from "../loading";
 
 export default function TeacherPage() {
   const searchParams = useSearchParams();
@@ -46,7 +47,7 @@ export default function TeacherPage() {
       .join("&");
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <StudentDirectorySkeleton />;
 
   return (
     <div className="rounded-2xl overflow-hidden">
