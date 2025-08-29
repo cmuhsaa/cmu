@@ -1,38 +1,52 @@
+"use client";
 import Edit from "@/components/Edit";
 import { TeacherFilters } from "@/components/TeacherFilter";
 import { getPaginatedTeachers } from "@/lib/getDatas";
 import Link from "next/link";
 import { Mail, Phone, MapPin, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export async function generateMetadata() {
-  return {
-    title: "CMUHSAA Teachers",
-  };
-}
+export default function TeacherPage() {
+  const searchParams = useSearchParams();
 
-export default async function TeacherPage({ searchParams }) {
-  const params = await searchParams;
-  const page = parseInt(params.page) || 1;
+  const [teachers, setTeachers] = useState([]);
+  const [total, setTotal] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const page = parseInt(searchParams.get("page")) || 1;
   const limit = 10;
-  const search = params.search || "";
-  const sortBy = params.sortBy || "createDate";
-  const sortOrder = params.sortOrder || "desc";
+  const search = searchParams.get("search") || "";
+  const sortBy = searchParams.get("sortBy") || "createDate";
+  const sortOrder = searchParams.get("sortOrder") || "desc";
 
-  const { teachers, total } = await getPaginatedTeachers({
-    page,
-    limit,
-    search,
-    sortBy,
-    sortOrder,
-  });
-  const totalPages = Math.ceil(total / limit);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const { teachers, total } = await getPaginatedTeachers({
+        page,
+        limit,
+        search,
+        sortBy,
+        sortOrder,
+      });
+      setTeachers(teachers);
+      setTotal(total);
+      setLoading(false);
+    };
 
+    fetchData();
+  }, [page, search, sortBy, sortOrder]);
+
+  // Utility to rebuild query string
   const buildQuery = (params) => {
     return Object.entries(params)
       .filter(([_, val]) => val !== "")
       .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
       .join("&");
   };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="rounded-2xl overflow-hidden">
@@ -151,35 +165,38 @@ export default async function TeacherPage({ searchParams }) {
                 Previous
               </Link>
             )}
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              const pageNum =
-                page <= 3
-                  ? i + 1
-                  : page >= totalPages - 2
-                    ? totalPages - 4 + i
-                    : page - 2 + i;
-              return (
-                pageNum <= totalPages && (
-                  <Link
-                    key={pageNum}
-                    href={`/teacher/filter?${buildQuery({
-                      search,
-                      sortBy,
-                      sortOrder,
-                      page: pageNum,
-                    })}`}
-                    className={`px-4 py-2 border rounded-lg transition-colors ${
-                      page === pageNum
-                        ? "bg-blue-600 text-white border-blue-600"
-                        : "bg-white border-gray-300 hover:bg-gray-50"
-                    }`}
-                  >
-                    {pageNum}
-                  </Link>
-                )
-              );
-            })}
-            {page < totalPages && (
+            {Array.from(
+              { length: Math.min(5, Math.ceil(total / limit)) },
+              (_, i) => {
+                const pageNum =
+                  page <= 3
+                    ? i + 1
+                    : page >= Math.ceil(total / limit) - 2
+                      ? Math.ceil(total / limit) - 4 + i
+                      : page - 2 + i;
+                return (
+                  pageNum <= Math.ceil(total / limit) && (
+                    <Link
+                      key={pageNum}
+                      href={`/teacher/filter?${buildQuery({
+                        search,
+                        sortBy,
+                        sortOrder,
+                        page: pageNum,
+                      })}`}
+                      className={`px-4 py-2 border rounded-lg transition-colors ${
+                        page === pageNum
+                          ? "bg-blue-600 text-white border-blue-600"
+                          : "bg-white border-gray-300 hover:bg-gray-50"
+                      }`}
+                    >
+                      {pageNum}
+                    </Link>
+                  )
+                );
+              }
+            )}
+            {page < Math.ceil(total / limit) && (
               <Link
                 href={`/teacher/filter?${buildQuery({
                   search,
