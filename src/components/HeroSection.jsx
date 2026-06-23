@@ -7,12 +7,12 @@ export default function HeroSection({ schoolName }) {
   // Update this array with your actual image paths later
   const backgroundImages = [
     "/cover.png",
-    "/bg/bg1.jpg",
-    "/bg/bg2.jpg",
-    "/bg/bg3.jpg",
-    "/bg/bg4.jpg",
-    "/bg/bg5.jpg",
-    "/bg/bg6.jpg",
+    "/bg/bg-1.jpeg",
+    "/bg/bg-2.jpeg",
+    "/bg/bg-3.jpeg",
+    "/bg/bg-4.jpeg",
+    "/bg/bg-5.jpeg",
+    "/bg/bg-6.jpeg",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
