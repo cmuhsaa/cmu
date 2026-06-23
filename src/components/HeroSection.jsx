@@ -28,7 +28,6 @@ export default function HeroSection({ schoolName }) {
 
   return (
     <section className="relative shadow-xl p-4 py-20 rounded flex items-center justify-center overflow-hidden">
-      
       {/* Background Carousel */}
       {backgroundImages.map((img, index) => (
         <div
